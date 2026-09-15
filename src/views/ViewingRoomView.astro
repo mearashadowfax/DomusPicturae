@@ -155,6 +155,9 @@ const slides = (await getCatalogue())
     padding: 0 calc(400 * var(--unit-fx));
     width: max-content;
     height: 100%;
+    /* The track is dragged by the script; the browser must not pan or select. */
+    touch-action: none;
+    user-select: none;
   }
 
   .room-slide {
@@ -172,6 +175,35 @@ const slides = (await getCatalogue())
 
   .room-slide img.is-contained {
     object-fit: contain;
+  }
+
+  .room-slide img {
+    /* Dragging starts on the slide, not on a native image drag. */
+    pointer-events: none;
+  }
+
+  @media screen and (max-width: 1024px) {
+    .room-track {
+      gap: calc(60 * var(--unit-fx));
+      padding: 0 calc(200 * var(--unit-fx));
+    }
+
+    .room-controls {
+      left: var(--gutter);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    /* The slides take the whole width; the vertical wordmark would sit under them. */
+    .room-sidebar {
+      display: none;
+    }
+
+    .room-track {
+      gap: calc(30 * var(--unit-fx));
+      /* The first slide starts centred on the screen. */
+      padding: 0 calc((100vw - calc(300 * var(--unit-fx))) / 2);
+    }
   }
 </style>
 
@@ -202,12 +234,49 @@ const slides = (await getCatalogue())
     requestAnimationFrame(update);
   }
 
+  const clamp = (value: number) => Math.min(maxScroll, Math.max(0, value));
+
   window.addEventListener(
     "resize",
     () => (maxScroll = track.scrollWidth - window.innerWidth),
   );
   window.addEventListener("wheel", (event) => {
-    target = Math.min(maxScroll, Math.max(0, target + event.deltaY));
+    target = clamp(target + event.deltaY);
   });
+
+  // Touch and mouse drag the track; a drag must not also follow the slide's
+  // link, so a click after any real movement is swallowed.
+  let dragging = false;
+  let lastX = 0;
+  let moved = 0;
+  track.addEventListener("pointerdown", (event) => {
+    dragging = true;
+    lastX = event.clientX;
+    moved = 0;
+    track.setPointerCapture(event.pointerId);
+  });
+  track.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    const delta = event.clientX - lastX;
+    lastX = event.clientX;
+    moved += Math.abs(delta);
+    target = clamp(target - delta * 1.5);
+  });
+  const endDrag = () => (dragging = false);
+  track.addEventListener("pointerup", endDrag);
+  track.addEventListener("pointercancel", endDrag);
+  // Links are natively draggable, which would cancel the pointer drag.
+  track.addEventListener("dragstart", (event) => event.preventDefault());
+  track.addEventListener(
+    "click",
+    (event) => moved > 8 && event.preventDefault(),
+    true,
+  );
+
+  window.addEventListener("keydown", (event) => {
+    if (event.key === "ArrowRight") target = clamp(target + 400);
+    if (event.key === "ArrowLeft") target = clamp(target - 400);
+  });
+
   update();
 </script>

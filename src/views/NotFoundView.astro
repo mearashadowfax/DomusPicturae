@@ -141,19 +141,59 @@ const images = [image1, image2, image3, image4];
     }
   }
 
+  /* Phones: a static page — the title, two of the artworks and the way back. */
   @media screen and (max-width: 600px) {
+    .not-found {
+      display: flex;
+      position: static;
+      flex-wrap: wrap;
+      gap: calc(15 * var(--unit-fx));
+      padding: calc(140 * var(--unit-fx)) var(--gutter) 0;
+      width: 100%;
+      height: auto;
+    }
+
     .not-found h1 {
-      letter-spacing: calc(-10 * var(--unit-fx));
+      margin-bottom: calc(30 * var(--unit-fx));
+      margin-left: 0;
+      font-size: 22vw;
+      letter-spacing: calc(-2 * var(--unit-fx));
+      text-align: left;
+    }
+
+    #not-found-card-1,
+    #not-found-card-2 {
+      position: static;
+      z-index: auto;
+      width: calc(50% - calc(8 * var(--unit-fx)));
+      height: 45vw;
+    }
+
+    #not-found-card-3,
+    #not-found-card-4 {
+      display: none;
+    }
+
+    .not-found-outro {
+      position: static;
+      padding: calc(60 * var(--unit-fx)) var(--gutter)
+        calc(120 * var(--unit-fx));
+      width: 100%;
+      height: auto;
     }
 
     .not-found-outro div {
-      width: 80%;
+      position: static;
+      transform: none;
+      width: 100%;
+      font-size: calc(20 * var(--unit-fx));
+      text-align: left;
     }
   }
 </style>
 
 <script>
-  import { gsap, ScrollTrigger } from "@scripts/motion";
+  import { gsap, onDesktop, ScrollTrigger } from "@scripts/motion";
 
   const cards = [
     { id: "#not-found-card-1", x: -2000, rotate: 45 },
@@ -169,31 +209,42 @@ const images = [image1, image2, image3, image4];
    * page's whole scroll range, so the title finishes its travel just as the
    * outro (at 150vh) arrives. Relative ends only understand px and "%", not
    * "vh".
+   *
+   * Phones get a static page instead (see the stylesheet), so the scene is
+   * only built on desktop and torn down if the viewport crosses over.
    */
-  ScrollTrigger.create({
-    trigger: ".not-found",
-    start: "top top",
-    end: "max",
-    scrub: 1,
-    pin: true,
-    pinSpacing: false,
-    onUpdate: ({ progress }) => {
-      gsap.to(".not-found", {
-        x: `${-350 * progress}vw`,
-        duration: 0.5,
-        ease: "power3.out",
-      });
-      // The artworks drift more slowly than the title they float over.
-      const drift = progress * 0.75;
-      cards.forEach((card) =>
-        gsap.to(card.id, {
-          x: card.x * drift,
-          rotate: card.rotate * drift * 2,
+  onDesktop(() => {
+    const trigger = ScrollTrigger.create({
+      trigger: ".not-found",
+      start: "top top",
+      end: "max",
+      scrub: 1,
+      pin: true,
+      pinSpacing: false,
+      onUpdate: ({ progress }) => {
+        gsap.to(".not-found", {
+          x: `${-350 * progress}vw`,
           duration: 0.5,
           ease: "power3.out",
-        }),
-      );
-    },
+        });
+        // The artworks drift more slowly than the title they float over.
+        const drift = progress * 0.75;
+        cards.forEach((card) =>
+          gsap.to(card.id, {
+            x: card.x * drift,
+            rotate: card.rotate * drift * 2,
+            duration: 0.5,
+            ease: "power3.out",
+          }),
+        );
+      },
+    });
+    return () => {
+      trigger.kill();
+      gsap.set([".not-found", ...cards.map((card) => card.id)], {
+        clearProps: "transform",
+      });
+    };
   });
 
   document

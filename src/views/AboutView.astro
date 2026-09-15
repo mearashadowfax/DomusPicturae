@@ -60,11 +60,11 @@ const description = paragraphs(
   <section class="cards">
     <div class="cards-copy">
       <p class="cards-text">{text(about.animationContent, locale)}</p>
-    </div>
-    <div class="cards-link">
-      <a href={routes.artworks(locale)} class="link-underline"
-        >{text(about.buttonText, locale)}</a
-      >
+      <div class="cards-link">
+        <a href={routes.artworks(locale)} class="link-underline"
+          >{text(about.buttonText, locale)}</a
+        >
+      </div>
     </div>
     {
       rows.map((row) => (
@@ -85,7 +85,7 @@ const description = paragraphs(
 <style>
   .about {
     margin-block: calc(120 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .about-title {
@@ -196,6 +196,8 @@ const description = paragraphs(
     object-fit: cover;
   }
 
+  /* Copy and link are one centred column, so the link always sits below the
+     text however many lines it wraps to. */
   .cards-copy {
     display: flex;
     position: absolute;
@@ -204,25 +206,22 @@ const description = paragraphs(
     flex-direction: column;
     align-items: center;
     transform: translate(-50%, -50%);
+    z-index: 5;
     margin: calc(20 * var(--unit-fx)) 0;
+    width: calc(400 * var(--unit-fx));
+    max-width: calc(100% - 2 * var(--gutter));
   }
 
   .cards-text {
     will-change: transform;
-    width: calc(400 * var(--unit-fx));
+    width: 100%;
     font-size: calc(20 * var(--unit-fx));
     line-height: 1.4;
     text-align: center;
   }
 
   .cards-link {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 5;
     padding-top: calc(25 * var(--unit-fx));
-    width: 100%;
     text-align: center;
   }
 
@@ -230,7 +229,15 @@ const description = paragraphs(
     font-size: calc(18 * var(--unit-fx));
   }
 
-  @media (max-width: 900px) {
+  @media screen and (max-width: 1024px) {
+    .about-figure:nth-child(1) {
+      width: 28vw;
+    }
+
+    .about-figure:nth-child(2) {
+      width: 34vw;
+    }
+
     .card {
       width: 50%;
       height: 240px;
@@ -240,7 +247,6 @@ const description = paragraphs(
   @media screen and (max-width: 600px) {
     .about {
       margin-bottom: 0;
-      padding-inline: 0;
     }
 
     .about-title {
@@ -249,16 +255,18 @@ const description = paragraphs(
       font-size: calc(35 * var(--unit-fx));
     }
 
+    .about-images {
+      justify-content: center;
+      gap: calc(15 * var(--unit-fx));
+    }
+
+    /* A centred pair rather than two thumbnails pinned to the edges. */
+    .about-figure:nth-child(n) {
+      width: 45%;
+    }
+
     .cards {
       height: 100vh;
-    }
-
-    .cards-text {
-      width: 100%;
-    }
-
-    .cards-link a {
-      padding-top: calc(50 * var(--unit-fx));
     }
   }
 </style>

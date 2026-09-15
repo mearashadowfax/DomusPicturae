@@ -60,7 +60,7 @@ const artworks = await presentCatalogue(locale);
 <style>
   .catalogue {
     margin-block: calc(80 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .catalogue-bar {
@@ -127,10 +127,6 @@ const artworks = await presentCatalogue(locale);
   }
 
   @media screen and (max-width: 600px) {
-    .catalogue {
-      padding-inline: 0;
-    }
-
     .catalogue-bar {
       padding-top: calc(16 * var(--unit-fx));
     }

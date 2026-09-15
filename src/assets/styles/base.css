@@ -117,6 +117,24 @@
     transform-origin: left;
   }
 
+  /*
+   * On touch screens, small text links get the 24px hit area WCAG 2.5.8
+   * asks for: an invisible box drawn by a pseudo-element, so nothing moves.
+   * `.link-underline` has it built in; add `.tap-target` to any other small link.
+   */
+  @media (pointer: coarse) {
+    .tap-target {
+      position: relative;
+    }
+
+    .link-underline::after,
+    .tap-target::after {
+      position: absolute;
+      inset: -6px 0;
+      content: "";
+    }
+  }
+
   /* An outlined button that fills with the brand colour on hover. */
   .button-outline {
     display: inline-block;

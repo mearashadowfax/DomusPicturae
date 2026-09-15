@@ -337,6 +337,28 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     transform: rotate(45deg);
   }
 
+  /* Tablets and phones: the open menu fills the viewport. */
+  @media screen and (max-width: 1024px) {
+    .menu {
+      display: flex;
+      flex-direction: column;
+      height: 100dvh;
+      overflow-y: auto;
+    }
+
+    .menu-body {
+      flex: 1;
+    }
+
+    .menu-list {
+      width: auto;
+    }
+
+    .menu-link {
+      font-size: calc(56 * var(--unit-fx));
+    }
+  }
+
   @media screen and (max-width: 600px) {
     .navbar {
       padding: calc(25 * var(--unit-fx));

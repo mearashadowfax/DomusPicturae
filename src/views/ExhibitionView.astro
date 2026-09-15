@@ -109,7 +109,7 @@ const schema = exhibitionSchema(
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: calc(10 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .exhibition-details dt {
@@ -142,7 +142,7 @@ const schema = exhibitionSchema(
     margin-top: calc(50 * var(--unit-fx));
     margin-bottom: calc(120 * var(--unit-fx));
     margin-inline: auto;
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 65ch;
     max-width: 100%;
     font-size: calc(16 * var(--unit-fx));
@@ -163,14 +163,13 @@ const schema = exhibitionSchema(
 
   @media screen and (max-width: 600px) {
     .exhibition-header h1 {
-      padding-inline: calc(20 * var(--unit-fx));
+      padding-inline: var(--gutter);
       font-size: calc(35 * var(--unit-fx));
     }
 
     .exhibition-details {
       grid-template-columns: repeat(2, 1fr);
       row-gap: calc(20 * var(--unit-fx));
-      padding-inline: calc(20 * var(--unit-fx));
     }
 
     .exhibition-hours > span > span {
@@ -179,7 +178,6 @@ const schema = exhibitionSchema(
     }
 
     .exhibition-body {
-      padding-inline: calc(20 * var(--unit-fx));
       width: 100%;
     }
   }

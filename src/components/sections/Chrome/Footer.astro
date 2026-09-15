@@ -41,7 +41,10 @@ const year = new Date().getFullYear();
               {
                 site.data.phone && (
                   <li>
-                    <a href={`tel:${site.data.phone.replace(/\s+/g, "")}`}>
+                    <a
+                      href={`tel:${site.data.phone.replace(/\s+/g, "")}`}
+                      class="tap-target"
+                    >
                       {site.data.phone}
                     </a>
                   </li>
@@ -50,7 +53,9 @@ const year = new Date().getFullYear();
               {
                 site.data.email && (
                   <li>
-                    <a href={`mailto:${site.data.email}`}>{site.data.email}</a>
+                    <a href={`mailto:${site.data.email}`} class="tap-target">
+                      {site.data.email}
+                    </a>
                   </li>
                 )
               }
@@ -76,7 +81,9 @@ const year = new Date().getFullYear();
                 <>
                   <li aria-hidden="true">|</li>
                   <li>
-                    <a href={link.href}>{link.label}</a>
+                    <a href={link.href} class="tap-target">
+                      {link.label}
+                    </a>
                   </li>
                 </>
               ))
@@ -130,7 +137,7 @@ const year = new Date().getFullYear();
     display: flex;
     flex-direction: column;
     margin-inline: auto;
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 90%;
   }
 
@@ -217,13 +224,36 @@ const year = new Date().getFullYear();
     color: var(--color-brand-text);
   }
 
-  @media screen and (max-width: 600px) {
+  /* Tablets: contact and newsletter share the row equally at readable sizes. */
+  @media screen and (max-width: 1024px) {
     .footer {
-      --footer-height: calc(700 * var(--unit-fx));
+      --footer-height: calc(560 * var(--unit-fx));
     }
 
     .footer-content {
-      padding-inline: 0;
+      width: 100%;
+    }
+
+    .footer-main {
+      gap: calc(40 * var(--unit-fx));
+    }
+
+    .footer-contact {
+      font-size: calc(15 * var(--unit-fx));
+    }
+
+    .footer-newsletter {
+      width: 50%;
+    }
+
+    .footer-bottom {
+      font-size: calc(13 * var(--unit-fx));
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .footer {
+      --footer-height: calc(700 * var(--unit-fx));
     }
 
     .footer-main {
@@ -254,6 +284,21 @@ const year = new Date().getFullYear();
       gap: calc(15 * var(--unit-fx));
     }
 
+    /* One item per line: the separators go, nothing wraps mid-phrase. */
+    .footer-legal {
+      flex-direction: column;
+      gap: calc(12 * var(--unit-fx));
+      text-align: center;
+    }
+
+    .footer-legal li {
+      white-space: nowrap;
+    }
+
+    .footer-legal li[aria-hidden] {
+      display: none;
+    }
+
     .footer-credit {
       margin-top: calc(40 * var(--unit-fx));
     }
@@ -261,7 +306,12 @@ const year = new Date().getFullYear();
 </style>
 
 <script>
+  import { fitText } from "@scripts/fitText";
   import { drawRule } from "@scripts/motion";
 
   drawRule(".footer-rule", ".footer", { start: "top 70%", once: false });
+
+  // The name is editor-controlled: shrink it to the footer's width if needed.
+  const wordmark = document.querySelector<HTMLElement>(".footer-wordmark");
+  if (wordmark) fitText(wordmark);
 </script>

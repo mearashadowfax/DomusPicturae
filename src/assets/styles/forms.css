@@ -99,6 +99,23 @@
   font-size: calc(12 * var(--unit-fx));
 }
 
+/* Tablets: the form islands sit in narrower columns, so the type holds at 14–15px. */
+@media screen and (max-width: 1024px) {
+  .newsletter-form__row button {
+    padding-inline: calc(10 * var(--unit-fx));
+    width: auto;
+  }
+
+  .newsletter-form__terms {
+    width: 100%;
+    font-size: calc(13 * var(--unit-fx));
+  }
+
+  .registration-form label {
+    font-size: calc(14 * var(--unit-fx));
+  }
+}
+
 @media screen and (max-width: 600px) {
   .newsletter-form__title {
     margin-bottom: calc(25 * var(--unit-fx));

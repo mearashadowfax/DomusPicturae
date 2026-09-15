@@ -110,7 +110,7 @@ const schema = artistSchema(
 <style>
   .artist {
     margin-block: calc(120 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .artist-hero {
@@ -175,15 +175,39 @@ const schema = artistSchema(
     list-style: none;
   }
 
-  @media screen and (max-width: 600px) {
-    .artist {
-      padding-inline: 0;
-    }
-
+  /* Tablets: a single column at readable sizes; the works grid goes 3-up. */
+  @media screen and (max-width: 1024px) {
     .artist-hero {
       grid-template-columns: 1fr;
     }
 
+    .artist-cv {
+      font-size: calc(14 * var(--unit-fx));
+    }
+
+    .artist-biography p {
+      font-size: calc(16 * var(--unit-fx));
+    }
+
+    .artist-quote {
+      gap: calc(50 * var(--unit-fx));
+    }
+
+    .artist-portrait {
+      height: 30vw;
+    }
+
+    .artist-quote blockquote {
+      font-size: calc(30 * var(--unit-fx));
+    }
+
+    .artist-works-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: calc(30 * var(--unit-fx));
+    }
+  }
+
+  @media screen and (max-width: 600px) {
     .artist-name {
       font-size: calc(40 * var(--unit-fx));
     }

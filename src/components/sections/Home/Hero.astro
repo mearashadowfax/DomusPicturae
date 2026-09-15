@@ -83,3 +83,12 @@ const wordmark = site.data.name.split(" ").pop();
     }
   }
 </style>
+
+<script>
+  import { fitText } from "@scripts/fitText";
+
+  // The name is editor-controlled: shrink it to the hero's width if needed.
+  const title = document.querySelector<HTMLElement>(".hero-title h1");
+  const hero = document.querySelector<HTMLElement>(".hero");
+  if (title && hero) fitText(title, { container: hero, fill: 0.9 });
+</script>

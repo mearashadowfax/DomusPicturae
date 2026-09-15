@@ -44,7 +44,7 @@ const body = await renderBody("pages", entry.id, locale);
     margin-top: calc(120 * var(--unit-fx));
     margin-bottom: calc(50 * var(--unit-fx));
     margin-inline: auto;
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 90%;
   }
 
@@ -61,7 +61,7 @@ const body = await renderBody("pages", entry.id, locale);
   .page-body {
     margin-top: calc(50 * var(--unit-fx));
     margin-inline: auto;
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 65ch;
     max-width: 100%;
     font-size: calc(16 * var(--unit-fx));
@@ -101,7 +101,6 @@ const body = await renderBody("pages", entry.id, locale);
   @media screen and (max-width: 600px) {
     .page {
       margin-bottom: 0;
-      padding-inline: 0;
     }
 
     .page-title {

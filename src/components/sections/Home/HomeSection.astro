@@ -28,13 +28,13 @@ const { name, title, content, size = "default" } = Astro.props;
   .home-section {
     margin-inline: auto;
     margin-block: calc(120 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 100%;
     line-height: 1.4;
   }
 
   .home-section--large {
-    margin-block: calc(250 * var(--unit-fx));
+    margin-block: var(--section-gap);
   }
 
   .home-section-title {
@@ -76,10 +76,11 @@ const { name, title, content, size = "default" } = Astro.props;
     font-family: var(--font-satoshi);
   }
 
+  /* The reveals only run on desktop; phones show the final state. */
   @media screen and (max-width: 600px) {
-    .home-section,
-    .home-section--large {
-      padding-inline: 0;
+    .home-section-title,
+    .home-section-content {
+      opacity: 1;
     }
 
     .home-section-rule {

@@ -74,6 +74,14 @@ const image = picture(workshop.data, locale, text(workshop.data.title, locale));
     opacity: 1;
   }
 
+  /* Tablets: two cards per row instead of three tall slivers. */
+  @media screen and (max-width: 1024px) {
+    .workshop-card {
+      width: calc(50% - calc(18 * var(--unit-fx)));
+      height: calc(420 * var(--unit-fx));
+    }
+  }
+
   @media screen and (max-width: 600px) {
     .workshop-card {
       flex-shrink: 0;

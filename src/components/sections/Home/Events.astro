@@ -72,6 +72,29 @@ const workshops = (await getCollection("workshops")).slice(
     width: 100%;
   }
 
+  /* Tablets and phones: a full-bleed strip. Cards snap to the gutter and the
+     last one can scroll fully into view. */
+  @media screen and (max-width: 1024px) {
+    .events-workshops {
+      justify-content: flex-start;
+      gap: calc(10 * var(--unit-fx));
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+      width: auto;
+      overflow-x: auto;
+      scroll-padding-inline: var(--gutter);
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+  }
+
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    .events-workshops :global(.workshop-card) {
+      flex: 0 0 calc(50% - calc(5 * var(--unit-fx)));
+      scroll-snap-align: start;
+    }
+  }
+
   @media screen and (max-width: 600px) {
     .events-cta p {
       display: none;
@@ -84,14 +107,6 @@ const workshops = (await getCollection("workshops")).slice(
     .events-cta :global(svg) {
       width: calc(15 * var(--unit-fx));
       height: calc(15 * var(--unit-fx));
-    }
-
-    .events-workshops {
-      justify-content: flex-start;
-      gap: calc(10 * var(--unit-fx));
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      scrollbar-width: none;
     }
   }
 </style>

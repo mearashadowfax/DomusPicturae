@@ -44,6 +44,10 @@
     --color-error: oklch(63.7% 0.237 25.331);
     --color-nav-ink: oklch(100% 0 0);
 
+    /* Layout: the page gutter and the gap between homepage sections */
+    --gutter: calc(40 * var(--unit-fx));
+    --section-gap: calc(250 * var(--unit-fx));
+
     /* Shape */
     --radius: calc(4 * var(--unit-fx));
 
@@ -84,6 +88,8 @@
     :root {
       --unit-fx: calc(var(--vw) / 375);
       --unit-fy: calc(var(--vh) / 726);
+      --gutter: calc(20 * var(--unit-fx));
+      --section-gap: calc(100 * var(--unit-fx));
     }
   }
 }

@@ -68,6 +68,12 @@ const title = text(entry.data.title, locale);
     font-size: calc(13 * var(--unit-fx));
   }
 
+  @media screen and (max-width: 1024px) {
+    .news-card-link {
+      font-size: calc(14 * var(--unit-fx));
+    }
+  }
+
   @media screen and (max-width: 600px) {
     .news-card-header {
       grid-template-columns: calc(45 * var(--unit-fx)) 1fr;

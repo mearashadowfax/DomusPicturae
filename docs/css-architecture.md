@@ -30,6 +30,17 @@ All colours, the corner radius and the motion curves are custom properties on `:
 
 Sizes scale with the viewport through `--unit-fx`: `1` equals one pixel on a 1440px-wide design. Write `calc(24 * var(--unit-fx))` where a design specifies 24px. The unit is recalculated for tablets (768px base) and phones (375px base) so proportions hold across screens, and it stops growing at a 1920px viewport so wide monitors get margins rather than 30px body text. Raise or remove that ceiling in `variables.css` if your design wants to keep scaling.
 
+### Layout tokens
+
+Two spacing values change with the breakpoint rather than scaling with the unit, so they are tokens rather than numbers in components:
+
+| Token           | Desktop / tablet | Phone       | Use                                                                                     |
+| --------------- | ---------------- | ----------- | --------------------------------------------------------------------------------------- |
+| `--gutter`      | `40` units       | `20` units  | The page's side padding. Every page-level section uses `padding-inline: var(--gutter)`. |
+| `--section-gap` | `250` units      | `100` units | The vertical gap between homepage sections.                                             |
+
+Full-bleed strips inside a gutter (the workshop carousel) cancel it with `margin-inline: calc(-1 * var(--gutter))` and put it back as `padding-inline`, so the strip runs edge to edge while its cards still snap to the gutter.
+
 ### Dark theme
 
 A page opts in with `<MainLayout theme="dark">`, which sets `data-theme="dark"` on `<body>`. The `[data-theme="dark"]` block in `variables.css` swaps the surface and text tokens and cools the brand accent slightly (the light theme's sand reads orange on the plum surface); no component knows which theme it is rendered in. The private collection pages use it.
@@ -40,22 +51,24 @@ Text tokens name where they are legible: `--color-text-primary` / `secondary` / 
 
 Each `.astro` component styles itself in a `<style>` block. Astro scopes the selectors to that component, so class names are plain and descriptive (`.artwork-card`, `.menu-link`, `.is-active`) rather than BEM. Use `:global()` only for elements a component cannot scope itself, such as rendered Markdown or an `<img>` produced by a child component.
 
-Two conventions:
+Three conventions:
 
 - Modifier and state classes are prefixed `is-` (`.is-active`, `.is-hidden`, `.is-dragging`).
-- Mobile overrides live at the bottom of each `<style>` block under `@media screen and (max-width: 600px)`.
+- Responsive overrides live at the bottom of each `<style>` block, desktop-first: a tablet block under `@media screen and (max-width: 1024px)` where the layout needs to change (it also applies to phones), then the phone block under `@media screen and (max-width: 600px)`, which wins by source order. Most components only need the phone block; the tablet band otherwise inherits the desktop layout on the 768px unit base.
+- Anything sized in units that must not exceed the screen — the wordmarks in the hero and footer, whose text is editor-controlled — is shrunk to fit by `fitText` (below) rather than tuned by hand.
 
 ## Shared patterns
 
 `base.css` provides a handful of classes that recur across pages:
 
-| Class                                | Use                                                          |
-| ------------------------------------ | ------------------------------------------------------------ |
-| `.link-underline`                    | A link whose underline draws in from the left on hover       |
-| `.button-outline`                    | An outlined button that fills with the brand colour on hover |
-| `.section-heading` / `.section-rule` | A small page heading with a brand-coloured rule              |
-| `.hide`                              | Fade helper used by scripted reveals                         |
-| `.visually-hidden`                   | Screen-reader-only text                                      |
+| Class                                | Use                                                                                                              |
+| ------------------------------------ | ---------------------------------------------------------------------------------------------------------------- |
+| `.link-underline`                    | A link whose underline draws in from the left on hover                                                           |
+| `.button-outline`                    | An outlined button that fills with the brand colour on hover                                                     |
+| `.section-heading` / `.section-rule` | A small page heading with a brand-coloured rule                                                                  |
+| `.hide`                              | Fade helper used by scripted reveals                                                                             |
+| `.visually-hidden`                   | Screen-reader-only text                                                                                          |
+| `.tap-target`                        | Gives a small text link a 24px hit area on touch screens without moving it (`.link-underline` has this built in) |
 
 ## Motion
 
@@ -69,5 +82,9 @@ Scroll-driven and reveal animations use GSAP and Lenis smooth scrolling. `src/as
 | `onDesktop(init)`                | Runs `init` once fonts are ready and again when the desktop breakpoint is crossed, cleaning up in between |
 
 Component `<script>` blocks import `gsap`, `ScrollTrigger` and the recipes from there rather than from `gsap` directly, so plugins are registered in one place. Selectors in those scripts refer to the same class names as the styles; rename both together.
+
+`src/assets/scripts/fitText.ts` exports `fitText(element, { container, fill })`: it shrinks a single-line element's `font-size` until the text fits its container (or `fill` of it), re-measuring when the container resizes. The stylesheet's size remains the ceiling and the no-JS fallback. The hero and footer wordmarks use it because the gallery name comes from Keystatic and can be any length.
+
+Scroll scenes that only make sense with room to move — the 404 page — are built inside `onDesktop()`, and phones get a static layout from the same markup. The viewing room's track responds to the wheel, to pointer drag (touch and mouse) and to the arrow keys.
 
 Under `prefers-reduced-motion: reduce`, every recipe applies its final state immediately and creates no tween, the homepage skips its preloader choreography, decorative parallax is not attached, and `smoothScroll.ts` leaves native scrolling alone. Interaction-driven scenes (the viewing room, the private collection) still respond to scrolling, since that is how they are navigated.

@@ -37,7 +37,7 @@ const news = await getNewsSorted();
 <style>
   .news {
     margin-block: calc(120 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .news-grid {
@@ -49,11 +49,13 @@ const news = await getNewsSorted();
     list-style: none;
   }
 
-  @media screen and (max-width: 600px) {
-    .news {
-      padding-inline: 0;
+  @media screen and (max-width: 1024px) {
+    .news-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
+  }
 
+  @media screen and (max-width: 600px) {
     .news-grid {
       grid-template-columns: 1fr;
       gap: calc(40 * var(--unit-fx));

@@ -89,7 +89,7 @@ const description = text(workshop.data.registerInfo, locale);
     align-items: flex-start;
     margin-inline: auto;
     margin-block: calc(40 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .workshop-register-info {
@@ -107,7 +107,7 @@ const description = text(workshop.data.registerInfo, locale);
     margin-top: calc(50 * var(--unit-fx));
     margin-bottom: calc(120 * var(--unit-fx));
     margin-inline: auto;
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
     width: 65ch;
     max-width: 100%;
     font-size: calc(16 * var(--unit-fx));
@@ -125,16 +125,11 @@ const description = text(workshop.data.registerInfo, locale);
     margin-block: calc(25 * var(--unit-fx));
   }
 
-  @media screen and (max-width: 600px) {
-    .workshop-header h1 {
-      padding-inline: calc(20 * var(--unit-fx));
-      font-size: calc(35 * var(--unit-fx));
-    }
-
+  /* Tablets: intro and form stack, each at full width. */
+  @media screen and (max-width: 1024px) {
     .workshop-register {
       flex-direction: column;
-      gap: calc(30 * var(--unit-fx));
-      padding-inline: calc(20 * var(--unit-fx));
+      gap: calc(40 * var(--unit-fx));
     }
 
     .workshop-register-info {
@@ -142,8 +137,19 @@ const description = text(workshop.data.registerInfo, locale);
       max-width: 100%;
     }
 
+    .workshop-register :global(.registration-form) {
+      width: 100%;
+      max-width: calc(600 * var(--unit-fx));
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .workshop-header h1 {
+      padding-inline: var(--gutter);
+      font-size: calc(35 * var(--unit-fx));
+    }
+
     .workshop-body {
-      padding-inline: calc(20 * var(--unit-fx));
       width: 100%;
     }
   }

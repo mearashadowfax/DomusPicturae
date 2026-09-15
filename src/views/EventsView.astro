@@ -102,7 +102,7 @@ const workshops = await getCollection("workshops");
 <style>
   .events {
     margin-block: calc(120 * var(--unit-fx));
-    padding-inline: calc(40 * var(--unit-fx));
+    padding-inline: var(--gutter);
   }
 
   .events-current {
@@ -141,10 +141,6 @@ const workshops = await getCollection("workshops");
   }
 
   @media screen and (max-width: 600px) {
-    .events {
-      padding-inline: 0;
-    }
-
     .events-current {
       display: flex;
       flex-direction: column;
@@ -165,11 +161,17 @@ const workshops = await getCollection("workshops");
       margin-bottom: calc(50 * var(--unit-fx));
     }
 
+    /* A full-bleed strip: cards snap to the gutter and the last one can
+       scroll fully into view. */
     .events-workshops {
       flex-wrap: nowrap;
       justify-content: flex-start;
       gap: calc(10 * var(--unit-fx));
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+      width: auto;
       overflow-x: auto;
+      scroll-padding-inline: var(--gutter);
       scroll-snap-type: x mandatory;
       scrollbar-width: none;
     }
