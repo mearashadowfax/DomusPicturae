@@ -1,6 +1,10 @@
 <div id="trailer"></div>
 
 <script>
+  /** Where the pointer was when the previous page unloaded, so the trailer
+   * starts there instead of flying in from the corner on every page load. */
+  const POSITION_KEY = "cursor-trailer-position";
+
   document.addEventListener("DOMContentLoaded", () => {
     const trailer = document.getElementById("trailer");
 
@@ -9,24 +13,35 @@
       return;
     }
 
-    // Make cursor visible immediately
-    trailer.style.opacity = "1";
+    let last: { x: number; y: number } | null = null;
 
-    const animateTrailer = (e: MouseEvent) => {
-      const x = e.clientX - trailer.offsetWidth / 2;
-      const y = e.clientY - trailer.offsetHeight / 2;
-
-      const keyframes = {
-        transform: `translate(${x}px, ${y}px) scale(1)`,
-      };
-
-      trailer.animate(keyframes, {
-        duration: 1800,
-        fill: "forwards",
-      });
+    const moveTo = (x: number, y: number, duration: number) => {
+      last = { x, y };
+      trailer.animate(
+        {
+          transform: `translate(${x - trailer.offsetWidth / 2}px, ${y - trailer.offsetHeight / 2}px) scale(1)`,
+        },
+        { duration, fill: "forwards" },
+      );
     };
 
-    window.addEventListener("mousemove", animateTrailer);
+    const restored = sessionStorage.getItem(POSITION_KEY);
+    if (restored) {
+      const [x, y] = restored.split(",").map(Number);
+      moveTo(x, y, 0);
+      trailer.style.opacity = "1";
+    }
+
+    window.addEventListener("mousemove", (e: MouseEvent) => {
+      // Snap to the pointer on the first move; only ease once it is visible.
+      const visible = trailer.style.opacity === "1";
+      moveTo(e.clientX, e.clientY, visible ? 1800 : 0);
+      trailer.style.opacity = "1";
+    });
+
+    window.addEventListener("pagehide", () => {
+      if (last) sessionStorage.setItem(POSITION_KEY, `${last.x},${last.y}`);
+    });
   });
 </script>
 <style>
