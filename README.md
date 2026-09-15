@@ -1,6 +1,6 @@
 # Multilingual Astro Template for Art Galleries
 
-Domus Picturae is an **open-source website template** for contemporary art galleries: a catalogue of artists and artworks, an immersive viewing room, a private collection, exhibitions, workshops and news – in as many languages as you need. Built with [Astro](https://astro.build/) and [Keystatic CMS](https://keystatic.com/), styled with plain CSS design tokens, and animated with [GSAP](https://gsap.com/) and [Lenis](https://lenis.darkroom.engineering/), it builds to a fully static site that deploys anywhere.
+Domus Picturae is an **open-source website template** for contemporary art galleries: a catalogue of artists and artworks, an immersive viewing room, a private collection, exhibitions, workshops and news – in as many languages as you need. Built with [Astro](https://astro.build/) and [Keystatic CMS](https://keystatic.com/), styled with plain CSS design tokens, and animated with [GSAP](https://gsap.com/) and [Lenis](https://lenis.dev/), it builds to a fully static site that deploys anywhere.
 
 <p align="left">
     <a href="https://domus-picturae.vercel.app" target="_blank">
