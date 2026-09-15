@@ -1,0 +1,32 @@
+name: Bug report
+description: Something in the template does not work as documented.
+labels: ["bug"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Clone the template and run `pnpm install`
+        2. …
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Environment
+      description: Node and pnpm versions, browser and OS if the bug is in the site rather than the build.
+      placeholder: "Node 22.x, pnpm 10.x, Firefox 140 on macOS"
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant output
+      description: Terminal or browser console output. Rendered as code, no backticks needed.
+      render: shell

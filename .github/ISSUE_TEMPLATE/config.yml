@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions and ideas
+    url: https://github.com/mearashadowfax/DomusPicturae/discussions
+    about: Ask how to do something or discuss an idea before opening an issue.
+  - name: Security vulnerabilities
+    url: https://github.com/mearashadowfax/DomusPicturae/security/advisories/new
+    about: Report a vulnerability privately; see SECURITY.md.

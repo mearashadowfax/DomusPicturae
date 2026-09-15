@@ -41,6 +41,10 @@ const { locale } = Astro.props;
    * Scroll is locked until the preloader finishes; the script below releases
    * it. Locking via overflow rather than `position: fixed` keeps the layout
    * width unchanged, so the release does not register as a layout shift.
+   *
+   * The release must restore `visible`, not `auto`: any other value on <html>
+   * stops <body>'s overflow from propagating to the viewport, which turns
+   * <body> into a scroll container and breaks the footer's sticky reveal.
    */
   html {
     overflow-y: hidden;
@@ -137,7 +141,7 @@ const { locale } = Astro.props;
         },
         "curtain",
       )
-      .set("html", { overflowY: "auto" }, "curtain+=0.6")
+      .set("html", { overflowY: "visible" }, "curtain+=0.6")
       // clearProps hands the transform back to the stylesheet afterwards, so
       // the bar's hide-on-scroll class is not overridden by an inline style.
       .to(
@@ -154,7 +158,7 @@ const { locale } = Astro.props;
 
   function returnVisit() {
     gsap.set(".preloader", { display: "none" });
-    gsap.set("html", { overflowY: "auto" });
+    gsap.set("html", { overflowY: "visible" });
     gsap.to(".navbar", { opacity: 1, duration: 0.6 });
     gsap.to(".hero-image img", {
       clipPath: HERO_REVEAL,
