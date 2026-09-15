@@ -1,0 +1,13 @@
+Nous avons le plaisir d'annoncer que la série complète _« Intimate Portraits »_ de **Sophie Laurent** a été acquise par une importante collection privée européenne. L'acquisition, qui comprend les douze œuvres de la série réalisées entre 2022 et 2024, constitue l'une des acquisitions privées les plus significatives de portrait contemporain de ces dernières années.
+
+La série « Intimate Portraits » représente l'aboutissement de la pratique de Laurent et réunit des années de recherche sur les dimensions psychologiques et émotionnelles du portrait. Chaque œuvre a été créée au cours de séances prolongées avec le modèle, durant lesquelles Laurent a cherché à comprendre non seulement son apparence physique, mais aussi son histoire personnelle, son état émotionnel et les récits qu'il porte.
+
+La série comprend des portraits d'artistes, d'écrivains, de musiciens et d'autres figures culturelles, chacun rendu avec la sensibilité caractéristique de Laurent à la lumière, à l'expression et à la profondeur psychologique. Les œuvres se distinguent par l'intégration d'éléments issus de l'environnement personnel des modèles — fragments de leur intérieur, objets significatifs ou aperçus de leur quotidien — créant des récits stratifiés qui dépassent la simple représentation.
+
+« Ces portraits sont des études psychologiques », explique Laurent. « Ils explorent la relation complexe entre apparence extérieure et expérience intérieure. Chaque visage raconte une histoire, et mon rôle est de la rendre visible. »
+
+L'acquisition a été facilitée par Domus Picturae, qui représente Laurent depuis l'ouverture de la galerie. « Le travail de Sophie incarne tout ce que nous défendons à Domus Picturae », déclare la directrice Elena Marchetti. « Il est techniquement magistral, émotionnellement puissant et profondément engagé avec la condition humaine. Cette acquisition est une reconnaissance méritée de sa contribution à l'art contemporain. »
+
+La collectionneuse, qui souhaite rester anonyme, a exprimé un intérêt particulier pour la capacité de Laurent à saisir ce qu'elle appelle « la vie intérieure » de ses modèles. « Ces portraits vont au-delà de la ressemblance », note-t-elle. « Ils révèlent quelque chose d'essentiel de l'expérience humaine — le poids de la mémoire, la complexité des émotions, les histoires que nous portons sur nos visages. »
+
+La série sera exposée publiquement pour la première fois à Domus Picturae en octobre 2025, avant de rejoindre la collection privée. Laurent poursuit son travail sur de nouveaux portraits, plusieurs commandes étant en cours, et ses œuvres restent disponibles auprès de la galerie.

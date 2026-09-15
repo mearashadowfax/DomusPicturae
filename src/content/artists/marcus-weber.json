@@ -1,0 +1,26 @@
+{
+  "name": "Marcus Weber",
+  "isEstate": true,
+  "image": "/images/artists/marcus-weber/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Marcus Weber",
+    "fr": "Portrait de Marcus Weber",
+    "de": "Porträt von Marcus Weber"
+  },
+  "shortBio": {
+    "en": "I work with found materials and industrial waste, transforming discarded objects into contemplative sculptures and installations. My practice questions our relationship with consumption and waste, while also finding beauty in the overlooked and discarded. Each piece tells a story of transformation and renewal.",
+    "fr": "Je travaille avec des matériaux trouvés et des déchets industriels, transformant des objets jetés en sculptures et installations contemplatives. Ma pratique remet en question notre relation avec la consommation et les déchets, tout en trouvant la beauté dans ce qui est négligé et jeté. Chaque pièce raconte une histoire de transformation et de renouveau.",
+    "de": "Ich arbeite mit gefundenen Materialien und Industrieabfällen und verwandle weggeworfene Objekte in kontemplative Skulpturen und Installationen. Meine Praxis hinterfragt unsere Beziehung zu Konsum und Abfall und findet gleichzeitig Schönheit im Übersehenen und Weggeworfenen. Jedes Stück erzählt eine Geschichte der Transformation und Erneuerung."
+  },
+  "biography": {
+    "en": "Marcus Weber's sculptural practice merges environmental consciousness with aesthetic innovation. Working primarily with metal, plastic, and reclaimed materials, he creates large-scale installations that address themes of sustainability and human impact on the environment. His works often take on organic, almost biological forms, suggesting growth and decay as natural processes that can be both beautiful and unsettling.\n\nThrough his transformative process, Weber challenges viewers to reconsider their relationship with material consumption. Each installation becomes a meditation on time, transformation, and the potential for renewal inherent in what society discards. His practice serves as both critique and celebration, finding aesthetic value in materials that have outlived their original purpose.",
+    "fr": "La pratique sculpturale de Marcus Weber fusionne la conscience environnementale avec l'innovation esthétique. Travaillant principalement avec du métal, du plastique et des matériaux récupérés, il crée des installations à grande échelle qui abordent les thèmes de la durabilité et de l'impact humain sur l'environnement. Ses œuvres prennent souvent des formes organiques, presque biologiques, suggérant la croissance et la décomposition comme des processus naturels qui peuvent être à la fois beaux et dérangeants.\n\nÀ travers son processus transformateur, Weber défie les spectateurs à reconsidérer leur relation avec la consommation matérielle. Chaque installation devient une méditation sur le temps, la transformation et le potentiel de renouveau inhérent à ce que la société jette. Sa pratique sert à la fois de critique et de célébration, trouvant une valeur esthétique dans les matériaux qui ont survécu à leur objectif original.",
+    "de": "Marcus Webers skulpturale Praxis verbindet Umweltbewusstsein mit ästhetischer Innovation. Er arbeitet hauptsächlich mit Metall, Kunststoff und wiedergewonnenen Materialien und schafft großformatige Installationen, die Themen der Nachhaltigkeit und der menschlichen Auswirkungen auf die Umwelt behandeln. Seine Werke nehmen oft organische, fast biologische Formen an und deuten auf Wachstum und Verfall als natürliche Prozesse hin, die sowohl schön als auch beunruhigend sein können.\n\nDurch seinen transformativen Prozess fordert Weber die Betrachter heraus, ihre Beziehung zum materiellen Konsum zu überdenken. Jede Installation wird zu einer Meditation über Zeit, Transformation und das Potenzial für Erneuerung, das in dem liegt, was die Gesellschaft wegwirft. Seine Praxis dient sowohl als Kritik als auch als Feier und findet ästhetischen Wert in Materialien, die ihren ursprünglichen Zweck überlebt haben."
+  },
+  "quote": {
+    "en": "Nothing is truly waste until we decide it has no value. I find poetry in the discarded, beauty in the broken, and meaning in what others have left behind.",
+    "fr": "Rien n'est vraiment un déchet jusqu'à ce que nous décidions qu'il n'a pas de valeur. Je trouve de la poésie dans le jeté, de la beauté dans le cassé, et du sens dans ce que d'autres ont laissé derrière.",
+    "de": "Nichts ist wirklich Abfall, bis wir entscheiden, dass es keinen Wert hat. Ich finde Poesie im Weggeworfenen, Schönheit im Zerbrochenen und Bedeutung in dem, was andere zurückgelassen haben."
+  },
+  "hasCv": false
+}

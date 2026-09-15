@@ -1,0 +1,29 @@
+---
+/** Inline SVG icon from `icons.ts`. Decorative: hidden from assistive tech. */
+import { Icons, type IconDefinition, type IconName } from "./icons";
+
+interface Props {
+  name: IconName;
+}
+
+const { name } = Astro.props;
+const icon: IconDefinition = Icons[name];
+---
+
+<svg
+  class={icon.class}
+  height={icon.height}
+  width={icon.width}
+  viewBox={icon.viewBox}
+  fill={icon.fill}
+  clip-rule={icon.clipRule}
+  fill-rule={icon.fillRule}
+  stroke={icon.stroke}
+  stroke-width={icon.strokeWidth}
+  stroke-linecap={icon.strokeLinecap}
+  stroke-linejoin={icon.strokeLinejoin}
+  aria-hidden="true"
+  focusable="false"
+>
+  {icon.paths.map((path) => <path d={path.d} class={path.class} />)}
+</svg>

@@ -1,0 +1,13 @@
+We are thrilled to announce the grand opening of **Domus Picturae**, a new contemporary art gallery in the heart of Rome. Located at Via dei Pittori 7, the gallery opens its doors with a mission to showcase exceptional contemporary artworks and support emerging and established artists from around the world.
+
+The inaugural exhibition, _"Thresholds of Perception"_, brings together works by eight distinguished artists: Emma Thompson, Isabella Rodriguez, James Park, Luca Moretti, Marcus Weber, Sarah Chen, Sophie Laurent and Yuki Tanaka. Each artist contributes a unique perspective to the exhibition's central theme — exploring the boundaries between the visible and the invisible, the material and the immaterial, the conscious and the subconscious.
+
+The gallery's name, Domus Picturae — Latin for "House of Pictures" — reflects our commitment to creating a space where art is not merely displayed but truly lives. The 450-square-metre space has been carefully designed to facilitate intimate encounters with artworks, with natural light filtering through large windows and flexible exhibition walls that adapt to each show's specific needs.
+
+Director and founder Elena Marchetti explains the gallery's philosophy: "We believe that art has the power to transform how we see the world and ourselves. Domus Picturae is conceived as a place where this transformation can occur — where visitors can slow down, engage deeply with works, and leave with new perspectives."
+
+The opening exhibition runs through May 15, 2025, and includes paintings, sculptures and mixed-media installations that challenge conventional modes of perception. Emma Thompson's large-scale abstract canvases create immersive colour fields that invite contemplation, while Sophie Laurent's intimate portraits explore the psychological depth of human expression. James Park's sculptural works investigate the relationship between form and space, and Yuki Tanaka's installations incorporate digital and traditional media to question our relationship with technology.
+
+In addition to exhibitions, Domus Picturae will host a series of public programmes including artist talks, curator-led tours and educational workshops. The gallery also maintains a private viewing room for collectors and a research library focused on contemporary art practices.
+
+Domus Picturae represents a new vision for contemporary art presentation — one that prioritises dialogue, discovery and the transformative power of visual expression. Visit us at Via dei Pittori 7, Rome, and become part of a community dedicated to supporting artists and celebrating the vital role of art in our cultural landscape.

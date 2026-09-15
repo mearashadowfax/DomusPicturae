@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Lighthouse of Quiet Tides",
+    "fr": "Phare des marées silencieuses",
+    "de": "Leuchtturm der stillen Gezeiten"
+  },
+  "year": 2015,
+  "artist": "marcus-weber",
+  "image": "/images/artworks/lighthouse-of-quiet-tides/image.png",
+  "imageAlt": {
+    "en": "Digital rendering of a lighthouse surrounded by soft glowing tides",
+    "fr": "Rendu numérique d'un phare entouré de marées doucement lumineuses",
+    "de": "Digitale Darstellung eines Leuchtturms, umgeben von sanft leuchtenden Gezeiten"
+  },
+  "medium": {
+    "en": "Digital light print",
+    "fr": "Impression lumineuse numérique",
+    "de": "Digitaler Lichtdruck"
+  },
+  "dimensions": {
+    "width": 120,
+    "height": 90,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Lighthouse of Quiet Tides” casts a serene beacon across a digitally sculpted coastline. Gentle waves rise in luminous contours, guiding the viewer toward a solitary tower rendered in subtle gradients. The work captures the hush of distant water and the stillness between signals.",
+    "fr": "« Phare des marées silencieuses » projette un phare serein sur un littoral sculpté numériquement. Des vagues douces s'élèvent en contours lumineux, guidant le regard vers une tour solitaire rendue en dégradés subtils. L'œuvre capture le murmure des eaux lointaines et le silence entre deux signaux.",
+    "de": "„Leuchtturm der stillen Gezeiten“ wirft ein ruhiges Leuchtfeuer über eine digital modellierte Küste. Sanfte Wellen steigen in leuchtenden Konturen auf und führen den Blick zu einem einsamen Turm in feinen Verläufen. Das Werk fängt das Raunen fernen Wassers und die Stille zwischen den Signalen ein."
+  },
+  "availability": "available"
+}

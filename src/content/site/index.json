@@ -1,0 +1,23 @@
+{
+  "name": "Domus Picturae",
+  "tagline": {
+    "en": "Experience art, live the vision",
+    "fr": "Découvrez l'art, vivez la vision",
+    "de": "Erleben Sie Kunst, leben Sie die Vision"
+  },
+  "description": {
+    "en": "Domus Picturae is a contemporary art gallery in Rome showcasing exceptional artworks and supporting emerging and established artists.",
+    "fr": "Domus Picturae est une galerie d'art contemporain à Rome qui présente des œuvres d'exception et soutient des artistes émergents et confirmés.",
+    "de": "Domus Picturae ist eine Galerie für zeitgenössische Kunst in Rom, die herausragende Werke zeigt und aufstrebende wie etablierte Künstler fördert."
+  },
+  "address": "Via dei Pittori 7\n00186 Rome\nItaly",
+  "phone": "+39 06 0000 0000",
+  "email": "hello@domus-picturae.com",
+  "social": {
+    "x": "https://x.com",
+    "instagram": "https://www.instagram.com"
+  },
+  "showreelLink": "https://youtu.be/WBwNw4WjV7g?si=TE0XlY9wS957XKxC",
+  "creditName": "gulamoff",
+  "creditUrl": "https://www.gulamoff.dev/"
+}

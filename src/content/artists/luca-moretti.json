@@ -1,0 +1,26 @@
+{
+  "name": "Luca Moretti",
+  "isEstate": false,
+  "image": "/images/artists/luca-moretti/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Luca Moretti",
+    "fr": "Portrait de Luca Moretti",
+    "de": "Porträt von Luca Moretti"
+  },
+  "shortBio": {
+    "en": "My work bridges traditional calligraphy and contemporary abstraction, exploring how written language can become pure visual form. I am fascinated by the rhythm and flow of script, whether Arabic, Cyrillic, or Latin, and how these marks can convey meaning beyond their literal content. My paintings are meditations on communication, silence, and the spaces between words.",
+    "fr": "Mon travail fait le pont entre la calligraphie traditionnelle et l'abstraction contemporaine, explorant comment la langue écrite peut devenir une forme visuelle pure. Je suis fasciné par le rythme et le flux de l'écriture, qu'elle soit arabe, cyrillique ou latine, et comment ces marques peuvent transmettre un sens au-delà de leur contenu littéral. Mes peintures sont des méditations sur la communication, le silence et les espaces entre les mots.",
+    "de": "Meine Arbeit verbindet traditionelle Kalligraphie und zeitgenössische Abstraktion und erkundet, wie geschriebene Sprache zu reiner visueller Form werden kann. Ich bin fasziniert vom Rhythmus und Fluss der Schrift, ob arabisch, kyrillisch oder lateinisch, und wie diese Zeichen Bedeutung jenseits ihres wörtlichen Inhalts vermitteln können. Meine Gemälde sind Meditationen über Kommunikation, Stille und die Räume zwischen den Worten."
+  },
+  "biography": {
+    "en": "Luca Moretti's practice merges the ancient art of calligraphy with contemporary painting techniques. His large-scale canvases feature flowing, gestural marks that reference various writing systems while remaining abstract. The works explore themes of translation, both linguistic and cultural, and question how meaning is constructed and transmitted. Moretti's paintings function as visual poetry, where the act of mark-making becomes a form of meditation and expression.\n\nHis recent series investigates the intersection of digital communication and traditional mark-making, creating works that bridge the gap between handwritten script and digital typography. Moretti's process involves layering multiple languages and scripts, creating visual harmonies that speak to our increasingly interconnected world while honoring the distinct beauty of each writing system.",
+    "fr": "La pratique de Luca Moretti fusionne l'art ancien de la calligraphie avec les techniques de peinture contemporaines. Ses toiles à grande échelle présentent des marques fluides et gestuelles qui font référence à divers systèmes d'écriture tout en restant abstraites. Les œuvres explorent les thèmes de la traduction, à la fois linguistique et culturelle, et remettent en question la façon dont le sens est construit et transmis. Les peintures de Moretti fonctionnent comme de la poésie visuelle, où l'acte de création de marques devient une forme de méditation et d'expression.\n\nSa série récente examine l'intersection de la communication numérique et de la création de marques traditionnelles, créant des œuvres qui comblent le fossé entre l'écriture manuscrite et la typographie numérique. Le processus de Moretti implique la superposition de plusieurs langues et scripts, créant des harmonies visuelles qui parlent à notre monde de plus en plus interconnecté tout en honorant la beauté distincte de chaque système d'écriture.",
+    "de": "Luca Morettis Praxis verbindet die alte Kunst der Kalligraphie mit zeitgenössischen Maltechniken. Seine großformatigen Leinwände zeigen fließende, gestische Markierungen, die auf verschiedene Schriftsysteme verweisen und gleichzeitig abstrakt bleiben. Die Werke erkunden Themen der Übersetzung, sowohl sprachlich als auch kulturell, und hinterfragen, wie Bedeutung konstruiert und übertragen wird. Morettis Gemälde fungieren als visuelle Poesie, bei der der Akt der Markierung zu einer Form der Meditation und des Ausdrucks wird.\n\nSeine aktuelle Serie untersucht die Schnittstelle zwischen digitaler Kommunikation und traditioneller Markierung und schafft Werke, die die Lücke zwischen handgeschriebenem Skript und digitaler Typografie überbrücken. Morettis Prozess umfasst das Überlagern mehrerer Sprachen und Schriften und schafft visuelle Harmonien, die zu unserer zunehmend vernetzten Welt sprechen und gleichzeitig die besondere Schönheit jedes Schriftsystems ehren."
+  },
+  "quote": {
+    "en": "Words are vessels, but the spaces between them hold the true meaning. In my work, I paint these silences, these breaths where understanding lives.",
+    "fr": "Les mots sont des vaisseaux, mais les espaces entre eux contiennent le vrai sens. Dans mon travail, je peins ces silences, ces respirations où la compréhension vit.",
+    "de": "Worte sind Gefäße, aber die Räume zwischen ihnen enthalten die wahre Bedeutung. In meiner Arbeit male ich diese Stille, diese Atemzüge, wo das Verständnis lebt."
+  },
+  "hasCv": false
+}

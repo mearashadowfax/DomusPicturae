@@ -1,0 +1,26 @@
+{
+  "name": "Sarah Chen",
+  "isEstate": false,
+  "image": "/images/artists/sarah-chen/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Sarah Chen",
+    "fr": "Portrait de Sarah Chen",
+    "de": "Porträt von Sarah Chen"
+  },
+  "shortBio": {
+    "en": "Through my work, I explore the intersection of memory and place, creating visual narratives that bridge personal history with collective experience. My paintings often feature fragmented landscapes and architectural elements that speak to displacement and belonging. I work primarily with acrylics and mixed media, layering textures and colors to build complex emotional landscapes.",
+    "fr": "À travers mon travail, j'explore l'intersection de la mémoire et du lieu, créant des récits visuels qui relient l'histoire personnelle à l'expérience collective. Mes peintures présentent souvent des paysages fragmentés et des éléments architecturaux qui parlent de déplacement et d'appartenance. Je travaille principalement avec des acryliques et des médias mixtes, superposant des textures et des couleurs pour construire des paysages émotionnels complexes.",
+    "de": "In meiner Arbeit erkunde ich die Schnittstelle zwischen Erinnerung und Ort und schaffe visuelle Erzählungen, die persönliche Geschichte mit kollektiver Erfahrung verbinden. Meine Gemälde zeigen oft fragmentierte Landschaften und architektonische Elemente, die von Vertreibung und Zugehörigkeit sprechen. Ich arbeite hauptsächlich mit Acrylfarben und Mixed Media, überlagere Texturen und Farben, um komplexe emotionale Landschaften zu schaffen."
+  },
+  "biography": {
+    "en": "Sarah Chen's artistic practice centers on the exploration of identity through the lens of migration and cultural hybridity. Born in San Francisco and later moving to various European cities, her work reflects the complexity of maintaining cultural roots while adapting to new environments. Her paintings often incorporate traditional patterns and motifs from Asian textiles, recontextualized within contemporary urban settings.",
+    "fr": "La pratique artistique de Sarah Chen se concentre sur l'exploration de l'identité à travers le prisme de la migration et de l'hybridité culturelle. Née à San Francisco et ayant ensuite déménagé dans diverses villes européennes, son travail reflète la complexité du maintien des racines culturelles tout en s'adaptant à de nouveaux environnements. Ses peintures incorporent souvent des motifs traditionnels des textiles asiatiques, recontextualisés dans des environnements urbains contemporains.",
+    "de": "Sarah Chens künstlerische Praxis konzentriert sich auf die Erforschung der Identität durch die Linse der Migration und kulturellen Hybridität. Geboren in San Francisco und später in verschiedene europäische Städte gezogen, spiegelt ihre Arbeit die Komplexität wider, kulturelle Wurzeln zu bewahren und sich gleichzeitig an neue Umgebungen anzupassen. Ihre Gemälde integrieren oft traditionelle Muster und Motive aus asiatischen Textilien, rekontextualisiert in zeitgenössischen urbanen Umgebungen."
+  },
+  "quote": {
+    "en": "Every place I've lived has left its mark on my canvas. I paint not just what I see, but what I remember and what I imagine could be.",
+    "fr": "Chaque endroit où j'ai vécu a laissé sa marque sur ma toile. Je peins non seulement ce que je vois, mais ce dont je me souviens et ce que j'imagine pourrait être.",
+    "de": "Jeder Ort, an dem ich gelebt habe, hat seine Spuren auf meiner Leinwand hinterlassen. Ich male nicht nur das, was ich sehe, sondern das, woran ich mich erinnere und was ich mir vorstellen könnte."
+  },
+  "hasCv": true
+}

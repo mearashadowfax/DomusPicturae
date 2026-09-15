@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "The Silent Horizon",
+    "fr": "L'horizon silencieux",
+    "de": "Der stille Horizont"
+  },
+  "year": 2024,
+  "artist": "emma-thompson",
+  "image": "/images/artworks/the-silent-horizon/image.jpg",
+  "imageAlt": {
+    "en": "Abstract landscape with golden horizon",
+    "fr": "Paysage abstrait à l'horizon doré",
+    "de": "Abstrakte Landschaft mit goldenem Horizont"
+  },
+  "medium": {
+    "en": "Oil on canvas",
+    "fr": "Huile sur toile",
+    "de": "Öl auf Leinwand"
+  },
+  "dimensions": {
+    "width": 90,
+    "height": 120,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“The Silent Horizon” embodies the delicate balance between distance and stillness. Subtle layers of gold and muted blue unfold like a slow dawn, inviting the viewer to rest in its weightless calm. The absence of figures amplifies the intimacy of light itself—an eternal boundary between what is seen and what is felt. The work speaks to silence as a living presence, a space where time dissolves and perception deepens.",
+    "fr": "« L'horizon silencieux » incarne l'équilibre délicat entre distance et immobilité. De subtiles couches d'or et de bleu feutré se déploient comme une aube lente, invitant le spectateur à se reposer dans son calme sans poids. L'absence de figures amplifie l'intimité de la lumière elle-même — une frontière éternelle entre ce qui est vu et ce qui est ressenti. L'œuvre parle du silence comme d'une présence vivante, un espace où le temps se dissout et où la perception s'approfondit.",
+    "de": "„Der stille Horizont“ verkörpert das feine Gleichgewicht zwischen Ferne und Stille. Zarte Schichten aus Gold und gedämpftem Blau entfalten sich wie eine langsame Dämmerung und laden ein, in ihrer schwerelosen Ruhe zu verweilen. Das Fehlen von Figuren verstärkt die Intimität des Lichts selbst – eine ewige Grenze zwischen Gesehenem und Gefühltem. Das Werk spricht von Stille als lebendiger Gegenwart, einem Raum, in dem Zeit sich auflöst und Wahrnehmung sich vertieft."
+  },
+  "availability": "not-for-sale"
+}

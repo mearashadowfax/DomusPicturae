@@ -1,0 +1,99 @@
+---
+/** The latest news posts. */
+import NewsCard from "@sections/News/NewsCard.astro";
+import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
+import { useUI, type Locale } from "@/i18n";
+import { getNewsSorted } from "@utils/content";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
+---
+
+<section class="news">
+  <div class="news-header">
+    <h2 class="news-title">{t.home.latestNews}</h2>
+    <a href={routes.news(locale)} class="link-underline">
+      <span>{t.home.readAllNews}</span>
+    </a>
+  </div>
+  <hr class="news-rule" />
+  <ul class="news-grid">
+    {news.map((entry) => <NewsCard entry={entry} locale={locale} />)}
+  </ul>
+</section>
+
+<style>
+  .news {
+    margin-inline: auto;
+    margin-block: calc(250 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+    width: 100%;
+    line-height: 1.4;
+  }
+
+  .news-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .news-title {
+    opacity: 0;
+    will-change: transform;
+    font-weight: 300;
+    font-size: calc(25 * var(--unit-fx));
+    line-height: 1.2;
+  }
+
+  .news-header a {
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .news-header a span {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
+  }
+
+  .news-header :global(svg) {
+    width: calc(25 * var(--unit-fx));
+    height: calc(25 * var(--unit-fx));
+  }
+
+  .news-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    margin-top: calc(10 * var(--unit-fx));
+    border: none;
+    background-color: var(--color-divider);
+    height: calc(0.5 * var(--unit-fx));
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: calc(25 * var(--unit-fx));
+    margin-top: calc(50 * var(--unit-fx));
+    list-style: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .news {
+      padding-inline: 0;
+    }
+
+    .news-rule {
+      transform: scaleX(1);
+    }
+
+    .news-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

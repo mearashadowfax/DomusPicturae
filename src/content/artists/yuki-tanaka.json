@@ -1,0 +1,26 @@
+{
+  "name": "Yuki Tanaka",
+  "isEstate": false,
+  "image": "/images/artists/yuki-tanaka/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Yuki Tanaka",
+    "fr": "Portrait de Yuki Tanaka",
+    "de": "Porträt von Yuki Tanaka"
+  },
+  "shortBio": {
+    "en": "My paintings explore the intimate spaces of domestic life, focusing on quiet moments and everyday rituals. I am drawn to the way light transforms ordinary objects and spaces, creating moments of transcendence in the mundane. My work celebrates the beauty found in routine and the sacred nature of daily life.",
+    "fr": "Mes peintures explorent les espaces intimes de la vie domestique, se concentrant sur les moments calmes et les rituels quotidiens. Je suis attirée par la façon dont la lumière transforme les objets et les espaces ordinaires, créant des moments de transcendance dans le banal. Mon travail célèbre la beauté trouvée dans la routine et la nature sacrée de la vie quotidienne.",
+    "de": "Meine Gemälde erkunden die intimen Räume des häuslichen Lebens und konzentrieren sich auf ruhige Momente und alltägliche Rituale. Ich bin fasziniert davon, wie Licht gewöhnliche Objekte und Räume verwandelt und Momente der Transzendenz im Alltäglichen schafft. Meine Arbeit feiert die Schönheit, die in der Routine gefunden wird, und die heilige Natur des täglichen Lebens."
+  },
+  "biography": {
+    "en": "Yuki Tanaka's still-life paintings and interior scenes capture the poetry of everyday existence. Working with oil paints, she renders domestic spaces with meticulous attention to detail, emphasizing the interplay of light and shadow. Her compositions often feature windows, doorways, and transitional spaces that suggest both containment and possibility.\n\nTanaka's work invites viewers to slow down and appreciate the quiet dignity of ordinary moments.",
+    "fr": "Les natures mortes et les scènes intérieures de Yuki Tanaka capturent la poésie de l'existence quotidienne. Travaillant avec des peintures à l'huile, elle représente les espaces domestiques avec une attention méticuleuse aux détails, mettant l'accent sur l'interaction de la lumière et de l'ombre. Ses compositions présentent souvent des fenêtres, des portes et des espaces transitionnels qui suggèrent à la fois le confinement et la possibilité.\n\nLe travail de Tanaka invite les spectateurs à ralentir et à apprécier la dignité silencieuse des moments ordinaires.",
+    "de": "Yuki Tanakas Stillleben und Innenszenen erfassen die Poesie des alltäglichen Daseins. Sie arbeitet mit Ölfarben und stellt häusliche Räume mit sorgfältiger Aufmerksamkeit für Details dar und betont das Zusammenspiel von Licht und Schatten. Ihre Kompositionen zeigen oft Fenster, Türen und Übergangsräume, die sowohl Einschluss als auch Möglichkeit suggerieren.\n\nTanakas Arbeit lädt die Betrachter ein, langsamer zu werden und die stille Würde gewöhnlicher Momente zu schätzen."
+  },
+  "quote": {
+    "en": "The most profound moments happen in the quiet spaces between events. I paint these pauses, these breaths, where life reveals its true nature.",
+    "fr": "Les moments les plus profonds se produisent dans les espaces calmes entre les événements. Je peins ces pauses, ces respirations, où la vie révèle sa vraie nature.",
+    "de": "Die tiefgreifendsten Momente geschehen in den ruhigen Räumen zwischen den Ereignissen. Ich male diese Pausen, diese Atemzüge, wo das Leben seine wahre Natur offenbart."
+  },
+  "hasCv": false
+}

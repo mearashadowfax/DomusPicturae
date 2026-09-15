@@ -1,0 +1,26 @@
+{
+  "name": "Emma Thompson",
+  "isEstate": false,
+  "image": "/images/artists/emma-thompson/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Emma Thompson",
+    "fr": "Portrait de Emma Thompson",
+    "de": "Porträt von Emma Thompson"
+  },
+  "shortBio": {
+    "en": "My work investigates the relationship between the human form and abstract space, using bold color fields and gestural marks to create tension and harmony. I am particularly interested in how the body occupies and defines space, both physically and metaphorically. My recent series explores themes of isolation and connection in the digital age.",
+    "fr": "Mon travail examine la relation entre la forme humaine et l'espace abstrait, utilisant des champs de couleurs audacieux et des marques gestuelles pour créer tension et harmonie. Je suis particulièrement intéressée par la façon dont le corps occupe et définit l'espace, à la fois physiquement et métaphoriquement. Ma série récente explore les thèmes de l'isolement et de la connexion à l'ère numérique.",
+    "de": "Meine Arbeit untersucht die Beziehung zwischen der menschlichen Form und dem abstrakten Raum und verwendet kühne Farbfelder und gestische Markierungen, um Spannung und Harmonie zu schaffen. Ich interessiere mich besonders dafür, wie der Körper den Raum sowohl physisch als auch metaphorisch besetzt und definiert. Meine aktuelle Serie erkundet Themen der Isolation und Verbindung im digitalen Zeitalter."
+  },
+  "biography": {
+    "en": "Emma Thompson’s abstract compositions challenge traditional notions of figuration and abstraction. Her large-scale canvases feature dynamic brushwork and vibrant color palettes that evoke emotional states and psychological landscapes. Drawing from both Eastern and Western artistic traditions, Thompson creates works that feel simultaneously familiar and foreign, inviting viewers to project their own experiences onto the canvas.\n\nRooted in a fascination with the tension between chaos and harmony, her practice unfolds through a deeply intuitive process—beginning with spontaneous gestures that evolve through layers of revision and erasure. This dialogue between control and release mirrors the emotional complexity of her subjects, where color becomes language and movement becomes memory. Her paintings resist definitive interpretation, offering instead a contemplative space where abstraction transforms into a mirror of the inner self.",
+    "fr": "Les compositions abstraites d’Emma Thompson remettent en question les notions traditionnelles de figuration et d’abstraction. Ses toiles de grand format se distinguent par un geste pictural énergique et des palettes de couleurs vibrantes qui évoquent des états émotionnels et des paysages psychologiques. S’inspirant des traditions artistiques orientales et occidentales, Thompson crée des œuvres à la fois familières et étrangères, invitant le spectateur à y projeter sa propre expérience.\n\nAnimée par une fascination pour la tension entre le chaos et l’harmonie, sa pratique se déploie à travers un processus profondément intuitif — débutant par des gestes spontanés qui évoluent au fil des couches de révision et d’effacement. Ce dialogue entre le contrôle et le lâcher-prise reflète la complexité émotionnelle de ses sujets, où la couleur devient langage et le mouvement devient mémoire. Ses peintures refusent toute interprétation définitive, offrant plutôt un espace de contemplation où l’abstraction se transforme en miroir du monde intérieur.",
+    "de": "Emma Thompsons abstrakte Kompositionen stellen traditionelle Vorstellungen von Figuration und Abstraktion infrage. Ihre großformatigen Leinwände zeichnen sich durch dynamische Pinselstriche und lebendige Farbpaletten aus, die emotionale Zustände und psychologische Landschaften hervorrufen. Inspiriert von östlichen und westlichen Kunsttraditionen schafft Thompson Werke, die zugleich vertraut und fremd wirken und den Betrachter einladen, eigene Erfahrungen auf die Leinwand zu projizieren.\n\nAus einer Faszination für die Spannung zwischen Chaos und Harmonie heraus entwickelt sich ihre Praxis in einem zutiefst intuitiven Prozess – beginnend mit spontanen Gesten, die sich durch Schichten von Überarbeitung und Auslöschung weiterentwickeln. Dieser Dialog zwischen Kontrolle und Loslassen spiegelt die emotionale Komplexität ihrer Themen wider, in denen Farbe zur Sprache und Bewegung zur Erinnerung wird. Ihre Gemälde entziehen sich einer eindeutigen Deutung und eröffnen stattdessen einen kontemplativen Raum, in dem Abstraktion zum Spiegel der inneren Welt wird."
+  },
+  "quote": {
+    "en": "Color is my language. Through it, I communicate what words cannot express—the spaces between thoughts, the weight of silence, the rhythm of breath.",
+    "fr": "La couleur est mon langage. À travers elle, je communique ce que les mots ne peuvent exprimer—les espaces entre les pensées, le poids du silence, le rythme de la respiration.",
+    "de": "Farbe ist meine Sprache. Durch sie kommuniziere ich, was Worte nicht ausdrücken können—die Räume zwischen Gedanken, das Gewicht der Stille, den Rhythmus des Atems."
+  },
+  "hasCv": true
+}

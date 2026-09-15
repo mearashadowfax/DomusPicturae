@@ -1,0 +1,140 @@
+---
+/** Featured artworks chosen in the `homepage` singleton, revealed as the page scrolls. */
+import { Image } from "astro:assets";
+import { getCollection, getEntry } from "astro:content";
+import type { Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getHomepage, isCatalogueWork, presentArtwork } from "@utils/content";
+import { picture } from "@utils/images";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const homepage = await getHomepage();
+const artists = await getCollection("artists");
+
+const slides = (
+  await Promise.all(
+    homepage.data.collection.map(async (item) => {
+      const artwork = await getEntry(item.artwork);
+      if (!artwork || !isCatalogueWork(artwork)) return null;
+      const { artist, href } = presentArtwork(artwork, artists, locale);
+      const image = picture(
+        artwork.data,
+        locale,
+        text(artwork.data.title, locale),
+      );
+      if (!image) return null;
+      return {
+        image,
+        href,
+        artist: artist.data.name,
+        caption: text(item.caption, locale) || text(artwork.data.title, locale),
+      };
+    }),
+  )
+).filter((slide) => slide !== null);
+---
+
+<section class="collection">
+  {
+    slides.map((slide) => (
+      <div class="collection-item">
+        <a href={slide.href}>
+          <div class="collection-image">
+            <Image
+              src={slide.image.src}
+              alt={slide.image.alt}
+              format="webp"
+              width={900}
+              loading="lazy"
+            />
+          </div>
+          <p class="collection-caption">
+            {slide.artist}
+            <br />
+            <em>{slide.caption}</em>
+          </p>
+        </a>
+      </div>
+    ))
+  }
+</section>
+
+<style>
+  .collection {
+    width: 100%;
+  }
+
+  .collection-item {
+    position: relative;
+    margin-bottom: calc(100 * var(--unit-fx));
+    width: 40%;
+  }
+
+  .collection-item:nth-child(4n + 1) {
+    left: 5%;
+  }
+  .collection-item:nth-child(4n + 2) {
+    left: 50%;
+  }
+  .collection-item:nth-child(4n + 3) {
+    left: 20%;
+  }
+  .collection-item:nth-child(4n + 4) {
+    left: 50%;
+  }
+
+  .collection-image {
+    position: relative;
+    visibility: hidden;
+    margin-inline: auto;
+    border-radius: var(--radius);
+    width: calc(390 * var(--unit-fx));
+    max-width: calc(400 * var(--unit-fx));
+    height: calc(540 * var(--unit-fx));
+    overflow: hidden;
+  }
+
+  .collection-image img {
+    transform-origin: left;
+    will-change: transform;
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .collection-caption {
+    margin-inline: auto;
+    margin-top: calc(8 * var(--unit-fx));
+    width: calc(390 * var(--unit-fx));
+    max-width: calc(400 * var(--unit-fx));
+    color: var(--color-text-primary);
+  }
+
+  @media screen and (max-width: 600px) {
+    .collection {
+      padding: 0 calc(20 * var(--unit-fx));
+    }
+
+    .collection-item,
+    .collection-item:nth-child(n) {
+      left: 0;
+      margin-bottom: 4em;
+      width: 100%;
+    }
+
+    .collection-image {
+      width: calc(250 * var(--unit-fx));
+      height: calc(350 * var(--unit-fx));
+    }
+
+    .collection-caption {
+      width: 75%;
+      font-size: calc(16 * var(--unit-fx));
+    }
+  }
+</style>

@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Alpine Echo Field",
+    "fr": "Champ d'écho alpin",
+    "de": "Alpines Echofeld"
+  },
+  "year": 2021,
+  "artist": "marcus-weber",
+  "image": "/images/artworks/alpine-echo-field/image.png",
+  "imageAlt": {
+    "en": "Abstract digital mountains dissolving into mist",
+    "fr": "Montagnes numériques abstraites se dissolvant dans la brume",
+    "de": "Abstrakte digitale Berge, die sich in Nebel auflösen"
+  },
+  "medium": {
+    "en": "Digital light print",
+    "fr": "Impression lumineuse numérique",
+    "de": "Digitaler Lichtdruck"
+  },
+  "dimensions": {
+    "width": 150,
+    "height": 100,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Alpine Echo Field” reimagines mountain ranges as layered frequencies of light and vapor. Peaks emerge in spectral gradients, dissolving into drifting digital mist—echoes of landscapes both remembered and imagined. The composition balances sharp elevation with atmospheric quiet.",
+    "fr": "« Champ d'écho alpin » réinvente les chaînes de montagnes comme des fréquences superposées de lumière et de vapeur. Les sommets émergent en dégradés spectraux et se dissolvent dans une brume numérique dérivante — échos de paysages à la fois remémorés et imaginés. La composition équilibre l'élévation nette et le calme atmosphérique.",
+    "de": "„Alpines Echofeld“ deutet Gebirgsketten als geschichtete Frequenzen aus Licht und Dunst neu. Gipfel treten in spektralen Verläufen hervor und lösen sich in treibendem digitalem Nebel auf – Echos von Landschaften, erinnert und erdacht zugleich. Die Komposition balanciert scharfe Erhebung mit atmosphärischer Ruhe."
+  },
+  "availability": "sold"
+}

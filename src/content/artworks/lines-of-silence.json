@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Lines of Silence",
+    "fr": "Lignes de silence",
+    "de": "Linien der Stille"
+  },
+  "year": 2014,
+  "artist": "isabella-rodriguez",
+  "image": "/images/artworks/lines-of-silence/image.jpg",
+  "imageAlt": {
+    "en": "Minimal horizontal lines in shades of grey",
+    "fr": "Lignes horizontales minimales en nuances de gris",
+    "de": "Minimale horizontale Linien in Grautönen"
+  },
+  "medium": {
+    "en": "Acrylic on wood panel",
+    "fr": "Acrylique sur panneau de bois",
+    "de": "Acryl auf Holztafel"
+  },
+  "dimensions": {
+    "width": 80,
+    "height": 120,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "A masterclass in restraint, “Lines of Silence” reduces form to near nothingness. The horizontal bands, each slightly varied in tone, create an experience of quiet balance. Like breath, they expand and contract across the surface, transforming repetition into meditation.",
+    "fr": "Leçon de retenue, « Lignes de silence » réduit la forme à presque rien. Les bandes horizontales, chacune légèrement différente de ton, créent une expérience d'équilibre tranquille. Comme une respiration, elles se dilatent et se contractent sur la surface, transformant la répétition en méditation.",
+    "de": "Als Meisterstück der Zurückhaltung reduziert „Linien der Stille“ die Form auf beinahe nichts. Die horizontalen Bänder, jedes im Ton leicht variiert, schaffen ein Erlebnis stiller Balance. Wie Atem dehnen sie sich über die Fläche aus und ziehen sich zusammen und verwandeln Wiederholung in Meditation."
+  },
+  "availability": "available"
+}

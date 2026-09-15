@@ -1,0 +1,224 @@
+---
+/** Cinematic scroll through the works that are not for sale, on the dark theme. */
+import { Image } from "astro:assets";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import PrivateCollectionPreloader from "@sections/Catalogue/PrivateCollectionPreloader.astro";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getPrivateCollection } from "@utils/content";
+import { picture } from "@utils/images";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+/** The scene positions eleven slides on a depth axis; more are not shown. */
+const MAX_SLIDES = 11;
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const slides = (await getPrivateCollection())
+  .map((artwork) => {
+    const title = text(artwork.data.title, locale);
+    return {
+      id: artwork.id,
+      title,
+      year: artwork.data.year,
+      image: picture(artwork.data, locale, title),
+      href: routes.artwork(locale, artwork),
+    };
+  })
+  .filter((slide) => slide.image !== null)
+  .slice(0, MAX_SLIDES);
+const depthStep = 2500;
+---
+
+<MainLayout
+  locale={locale}
+  title={t.privateCollection.title}
+  description={t.privateCollection.description}
+  theme="dark"
+>
+  <Navbar locale={locale} />
+  <PrivateCollectionPreloader locale={locale} />
+
+  <section class="scene" style={`--slides: ${slides.length}`}>
+    <div class="scene-backdrop">
+      {
+        slides.map((slide) => (
+          <Image
+            src={slide.image!.src}
+            alt=""
+            format="webp"
+            width={1200}
+            height={1600}
+            loading="lazy"
+          />
+        ))
+      }
+    </div>
+
+    <div class="scene-stage">
+      {
+        slides.map((slide, i) => (
+          <a
+            href={slide.href}
+            class="scene-slide"
+            style={`--z: ${-(slides.length - 1 - i) * depthStep}px; --side: ${i % 2 === 0 ? "30%" : "70%"}`}
+          >
+            <p class="scene-caption">
+              {slide.title}
+              {slide.year && <span>{slide.year}</span>}
+            </p>
+            <Image
+              src={slide.image!.src}
+              alt={slide.image!.alt}
+              format="webp"
+              width={400}
+              height={500}
+              loading="lazy"
+            />
+          </a>
+        ))
+      }
+    </div>
+  </section>
+</MainLayout>
+
+<style is:global>
+  html,
+  body {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+  }
+</style>
+
+<style>
+  .scene {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: calc(200vh * var(--slides));
+  }
+
+  .scene-backdrop {
+    position: fixed;
+    opacity: 0.35;
+    z-index: -1;
+    inset: 0;
+    background-color: var(--color-bg-primary);
+    overflow: hidden;
+  }
+
+  .scene-backdrop img {
+    position: absolute;
+    transform: scale(1.125);
+    opacity: 0;
+    filter: blur(50px);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .scene-stage {
+    position: fixed;
+    top: 0;
+    transform-style: preserve-3d;
+    perspective: 750px;
+    opacity: 0;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .scene-slide {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: var(--side);
+    transform: translate(-50%, -50%) translateZ(var(--z));
+    opacity: 0;
+    border-radius: var(--radius);
+    width: 400px;
+    height: 500px;
+  }
+
+  .scene-slide img {
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .scene-caption {
+    margin-bottom: calc(12 * var(--unit-fx));
+    color: var(--color-text-primary);
+    font-size: calc(18 * var(--unit-fx));
+    line-height: 1.4;
+    font-family: var(--font-baskervville);
+    text-align: center;
+  }
+
+  .scene-caption span {
+    display: block;
+    color: var(--color-text-on-dark-muted);
+    font-size: calc(12 * var(--unit-fx));
+    font-family: var(--font-satoshi);
+  }
+</style>
+
+<script>
+  import { gsap, ScrollTrigger } from "@scripts/motion";
+
+  const DEPTH_STEP = 2500;
+  const scene = document.querySelector<HTMLElement>(".scene")!;
+  const slides = Array.from(
+    document.querySelectorAll<HTMLElement>(".scene-slide"),
+  );
+  const backdrops = Array.from(
+    document.querySelectorAll<HTMLImageElement>(".scene-backdrop img"),
+  );
+  const travel = (slides.length - 1) * DEPTH_STEP;
+
+  const mapRange = (
+    v: number,
+    inMin: number,
+    inMax: number,
+    outMin: number,
+    outMax: number,
+  ) => ((v - inMin) * (outMax - outMin)) / (inMax - inMin) + outMin;
+
+  window.addEventListener("load", () => {
+    const tl = gsap.timeline();
+    tl.to("body, html", { position: "unset", width: "auto", height: "auto" });
+    tl.from(scene, { duration: 2, delay: 2, opacity: 0, ease: "power4.inOut" });
+    tl.to(".scene-stage", { opacity: 1, ease: "power4.inOut" }, "<");
+
+    slides.forEach((slide, index) => {
+      const initialZ = -(slides.length - 1 - index) * DEPTH_STEP;
+      ScrollTrigger.create({
+        trigger: scene,
+        start: "top top",
+        end: "bottom bottom",
+        scrub: true,
+        onUpdate: ({ progress }) => {
+          const z = initialZ + progress * travel;
+          const opacity =
+            z >= -DEPTH_STEP
+              ? mapRange(z, -DEPTH_STEP, 0, 0.5, 1)
+              : mapRange(z, -2 * DEPTH_STEP, -DEPTH_STEP, 0, 0.5);
+          slide.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+          slide.style.transform = `translate(-50%, -50%) translateZ(${z}px)`;
+          gsap.to(backdrops[index], {
+            duration: 1.5,
+            opacity: z < 100 ? 1 : 0,
+            ease: "power3.out",
+          });
+        },
+      });
+    });
+  });
+</script>

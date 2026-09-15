@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Reverie in Red",
+    "fr": "Rêverie en rouge",
+    "de": "Träumerei in Rot"
+  },
+  "year": 2021,
+  "artist": "james-park",
+  "image": "/images/artworks/reverie-in-red/image.jpg",
+  "imageAlt": {
+    "en": "Vibrant red abstract composition",
+    "fr": "Composition abstraite d'un rouge vibrant",
+    "de": "Leuchtend rote abstrakte Komposition"
+  },
+  "medium": {
+    "en": "Oil on linen",
+    "fr": "Huile sur lin",
+    "de": "Öl auf Leinen"
+  },
+  "dimensions": {
+    "width": 90,
+    "height": 135,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Reverie in Red” immerses the viewer in a field of vibrating color, where intensity and stillness coexist. Each brushstroke pulses with emotion—part fire, part silence. The work embodies passion stripped of narrative, transforming raw sensation into a contemplative experience. Red becomes both subject and atmosphere, representing the interior space of the heart.",
+    "fr": "« Rêverie en rouge » plonge le spectateur dans un champ de couleur vibrante où intensité et immobilité coexistent. Chaque coup de pinceau bat d'émotion — mi-feu, mi-silence. L'œuvre incarne la passion dépouillée de tout récit, transformant la sensation brute en expérience contemplative. Le rouge devient à la fois sujet et atmosphère, représentant l'espace intérieur du cœur.",
+    "de": "„Träumerei in Rot“ taucht den Betrachter in ein Feld vibrierender Farbe, in dem Intensität und Stille nebeneinander bestehen. Jeder Pinselstrich pulsiert vor Gefühl – halb Feuer, halb Schweigen. Das Werk verkörpert Leidenschaft ohne Erzählung und verwandelt rohe Empfindung in kontemplative Erfahrung. Rot wird zugleich Motiv und Atmosphäre – der Innenraum des Herzens."
+  },
+  "availability": "not-for-sale"
+}

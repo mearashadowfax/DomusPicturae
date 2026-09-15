@@ -1,0 +1,10 @@
+---
+import ExhibitionView from "@/views/ExhibitionView.astro";
+import { exhibitionPaths } from "@/routes";
+
+export const getStaticPaths = exhibitionPaths;
+
+const { exhibition } = Astro.props;
+---
+
+<ExhibitionView locale="en" exhibition={exhibition} />

@@ -1,0 +1,53 @@
+{
+  "title": {
+    "en": "Thresholds of Perception",
+    "fr": "Seuils de perception",
+    "de": "Schwellen der Wahrnehmung"
+  },
+  "description": {
+    "en": "The gallery's inaugural exhibition: eight artists explore the boundaries between the visible and the invisible, the material and the immaterial.",
+    "fr": "L'exposition inaugurale de la galerie : huit artistes explorent les frontières entre le visible et l'invisible, le matériel et l'immatériel.",
+    "de": "Die Eröffnungsausstellung der Galerie: Acht Künstler erkunden die Grenzen zwischen Sichtbarem und Unsichtbarem, Materiellem und Immateriellem."
+  },
+  "startDate": "2025-03-15",
+  "endDate": "2025-05-15",
+  "timeline": {
+    "en": "March 15 – May 15, 2025",
+    "fr": "15 mars – 15 mai 2025",
+    "de": "15. März – 15. Mai 2025"
+  },
+  "image": "/images/exhibitions/thresholds-of-perception/image.jpg",
+  "imageAlt": {
+    "en": "Geometric abstraction of urban structures",
+    "fr": "Abstraction géométrique de structures urbaines",
+    "de": "Geometrische Abstraktion urbaner Strukturen"
+  },
+  "location": {
+    "en": "Domus Picturae, Via dei Pittori 7, Rome",
+    "fr": "Domus Picturae, Via dei Pittori 7, Rome",
+    "de": "Domus Picturae, Via dei Pittori 7, Rom"
+  },
+  "admission": {
+    "en": "Free",
+    "fr": "Gratuit",
+    "de": "Frei"
+  },
+  "openingHours": [
+    {
+      "day": {
+        "en": "Tuesday – Friday",
+        "fr": "Mardi – vendredi",
+        "de": "Dienstag – Freitag"
+      },
+      "hours": "11:00 – 19:00"
+    },
+    {
+      "day": {
+        "en": "Saturday",
+        "fr": "Samedi",
+        "de": "Samstag"
+      },
+      "hours": "11:00 – 18:00"
+    }
+  ]
+}

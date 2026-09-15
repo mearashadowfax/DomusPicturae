@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Contemporary Painting Techniques: A Masterclass",
+    "fr": "Techniques de peinture contemporaine : une masterclass",
+    "de": "Zeitgenössische Maltechniken: Eine Masterclass"
+  },
+  "image": "/images/workshops/contemporary-painting-techniques/image.jpg",
+  "imageAlt": {
+    "en": "A minimalist interior with a white wall and floor, featuring art and furniture",
+    "fr": "Un intérieur minimaliste aux murs et sol blancs, avec des œuvres et du mobilier",
+    "de": "Ein minimalistischer Innenraum mit weißer Wand und weißem Boden, mit Kunst und Möbeln"
+  },
+  "video": "/images/videos/video1.mp4",
+  "registerTitle": {
+    "en": "Join our masterclass",
+    "fr": "Rejoignez notre masterclass",
+    "de": "Nehmen Sie an unserer Masterclass teil"
+  },
+  "registerInfo": {
+    "en": "Discover advanced painting techniques used by contemporary artists. This masterclass covers innovative approaches to colour, texture and composition. Register to secure your spot and receive a detailed materials list and schedule.",
+    "fr": "Découvrez les techniques de peinture avancées utilisées par les artistes contemporains. Cette masterclass aborde des approches innovantes de la couleur, de la texture et de la composition. Inscrivez-vous pour réserver votre place et recevoir la liste du matériel et le programme.",
+    "de": "Entdecken Sie fortgeschrittene Maltechniken zeitgenössischer Künstler. Diese Masterclass behandelt innovative Ansätze zu Farbe, Textur und Komposition. Melden Sie sich an, um Ihren Platz zu sichern und eine Materialliste sowie den Zeitplan zu erhalten."
+  }
+}

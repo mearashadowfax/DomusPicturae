@@ -1,0 +1,7 @@
+_Échos du silence_ réunit cinq artistes dont le travail aborde le silence non comme une absence, mais comme une matière. À travers la peinture, le dessin et l'impression numérique, l'exposition montre comment la retenue — une seule ligne d'horizon, un champ de gris presque identiques, une surface pâle à peine troublée par la texture — peut porter autant de présence que le geste le plus exubérant.
+
+_L'horizon silencieux_ d'Emma Thompson ancre la première salle : de subtiles couches d'or et de bleu feutré qui se déploient comme une aube lente. En face, _Lignes de silence_ d'Isabella Rodriguez réduit le tableau à une suite de bandes horizontales, chacune légèrement différente de ton, si bien que l'œil lit la peinture comme le corps lit la respiration.
+
+La deuxième salle se tourne vers les œuvres sur papier et le numérique. _Entre les échos_ de Sophie Laurent traduit un son qui s'estompe en fines oscillations de graphite, tandis que les impressions lumineuses de Marcus Weber — _Pouls de l'horizon_ et _Phare des marées silencieuses_ — retrouvent le même murmure dans des surfaces lumineuses et codées. _Mémoire de l'eau_ de Yuki Tanaka clôt l'exposition avec un flux rythmique qui oscille entre turbulence et sérénité.
+
+Une soirée de lectures et une conversation entre les artistes auront lieu le 24 septembre. L'entrée est gratuite ; les visites de groupe peuvent être organisées auprès de la galerie.

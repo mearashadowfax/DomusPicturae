@@ -1,0 +1,238 @@
+---
+/**
+ * An exhibition in a listing. The variant follows its status:
+ * `current` — large card with image and summary, spanning the grid;
+ * `upcoming` — image and title, centred;
+ * `past` — a title row that reveals the image on hover.
+ */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import type { Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { routes } from "@/routes";
+import { picture } from "@utils/images";
+import { getYear } from "@utils/utils";
+
+interface Props {
+  exhibition: CollectionEntry<"exhibitions">;
+  locale: Locale;
+  variant: "current" | "upcoming" | "past";
+}
+
+const { exhibition, locale, variant } = Astro.props;
+const title = text(exhibition.data.title, locale);
+const image = picture(exhibition.data, locale, title);
+const href = routes.exhibition(locale, exhibition);
+const dateline =
+  variant === "past"
+    ? getYear(exhibition.data.startDate)
+    : text(exhibition.data.timeline, locale);
+const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
+---
+
+<li class:list={["exhibition-card", `is-${variant}`]}>
+  <a href={href} class="exhibition-card-link">
+    <div class="exhibition-card-image">
+      {
+        image && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            format="webp"
+            width={imageWidth}
+          />
+        )
+      }
+    </div>
+    <h3 class="exhibition-card-title">
+      <span class="exhibition-card-name">{title}</span>
+      <span class="exhibition-card-dateline">{dateline}</span>
+    </h3>
+  </a>
+  {
+    variant === "current" && (
+      <p class="exhibition-card-summary">
+        {text(exhibition.data.description, locale)}
+      </p>
+    )
+  }
+</li>
+
+<style>
+  .exhibition-card {
+    position: relative;
+  }
+
+  .exhibition-card-image {
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+
+  .exhibition-card-image img {
+    transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .exhibition-card:hover .exhibition-card-image img {
+    transform: scale(1.1);
+  }
+
+  .exhibition-card-title {
+    font-weight: 500;
+    font-size: calc(25 * var(--unit-fx));
+  }
+
+  .exhibition-card-dateline {
+    display: block;
+    font-style: italic;
+  }
+
+  /* current: large card spanning the grid, with a summary */
+  .is-current {
+    padding: 1rem;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .is-current:nth-child(odd) {
+    grid-column: 1 / 3;
+  }
+
+  .is-current:nth-child(even) {
+    grid-column: 2 / 4;
+  }
+
+  .is-current .exhibition-card-image {
+    aspect-ratio: 2 / 1;
+    width: 80%;
+  }
+
+  .is-current .exhibition-card-title {
+    margin-block: calc(25 * var(--unit-fx));
+    max-width: 30ch;
+  }
+
+  .is-current .exhibition-card-name {
+    display: inline-block;
+    transition: color var(--transition-base);
+    padding-top: 0.5rem;
+  }
+
+  .is-current:hover .exhibition-card-name {
+    color: var(--color-brand);
+  }
+
+  .exhibition-card-summary {
+    display: -webkit-box;
+    max-width: 70ch;
+    font-size: calc(16 * var(--unit-fx));
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+  }
+
+  /* upcoming: image and centred title */
+  .is-upcoming .exhibition-card-image {
+    aspect-ratio: 3 / 2;
+    width: 100%;
+  }
+
+  .is-upcoming .exhibition-card-title {
+    margin-block: calc(15 * var(--unit-fx));
+    padding-inline: calc(25 * var(--unit-fx));
+    text-align: center;
+  }
+
+  .is-upcoming .exhibition-card-dateline {
+    margin-top: calc(10 * var(--unit-fx));
+  }
+
+  /* past: a row; the image appears beside it on hover */
+  .is-past {
+    margin-bottom: calc(5 * var(--unit-fx));
+  }
+
+  .is-past .exhibition-card-link {
+    display: block;
+  }
+
+  .is-past .exhibition-card-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+    width: 60%;
+    font-weight: 400;
+  }
+
+  .is-past:hover .exhibition-card-title {
+    opacity: 1;
+  }
+
+  .is-past .exhibition-card-name {
+    margin-right: 1rem;
+  }
+
+  .is-past .exhibition-card-dateline {
+    opacity: 0.7;
+    font-style: normal;
+    font-size: calc(30 * var(--unit-fx));
+    white-space: nowrap;
+  }
+
+  .is-past .exhibition-card-image {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    width: 25rem;
+    pointer-events: none;
+  }
+
+  .is-past:hover .exhibition-card-image {
+    opacity: 1;
+  }
+
+  .is-past .exhibition-card-image img {
+    aspect-ratio: 16 / 9;
+    height: auto;
+  }
+
+  @media screen and (max-width: 600px) {
+    .exhibition-card-dateline {
+      font-size: calc(16 * var(--unit-fx));
+      line-height: 1.4;
+    }
+
+    .is-current,
+    .is-current:nth-child(n) {
+      grid-column: auto;
+      padding: 0;
+    }
+
+    .is-current .exhibition-card-image {
+      width: 100%;
+    }
+
+    .is-upcoming .exhibition-card-title {
+      padding-inline: 0;
+    }
+
+    .is-past .exhibition-card-title {
+      width: 100%;
+      font-size: calc(20 * var(--unit-fx));
+    }
+
+    .is-past .exhibition-card-dateline {
+      font-size: calc(20 * var(--unit-fx));
+    }
+
+    .is-past .exhibition-card-image {
+      display: none;
+    }
+  }
+</style>

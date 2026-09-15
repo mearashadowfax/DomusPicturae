@@ -1,0 +1,481 @@
+---
+/**
+ * Fixed top bar plus the full-screen menu overlay. Themed entirely through
+ * tokens, so the same component serves light and dark pages.
+ */
+import Icon from "@ui/icons/Icon.astro";
+import LanguageSwitcher from "@ui/LanguageSwitcher.astro";
+import { stripLocale, useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getSite } from "@utils/content";
+import { getMainNavigation, routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const site = await getSite();
+const links = getMainNavigation(locale);
+const homeUrl = routes.home(locale);
+const currentPath = stripLocale(Astro.url.pathname);
+const isActive = (href: string) => stripLocale(href) === currentPath;
+---
+
+<nav class="navbar">
+  <div class="navbar-logo"><a href={homeUrl}>{site.data.name}</a></div>
+  <button
+    class="navbar-open"
+    aria-controls="menu-overlay"
+    aria-expanded="false"
+  >
+    {t.menu.open}
+  </button>
+</nav>
+
+<div class="menu" id="menu-overlay">
+  <div class="menu-bar">
+    <div class="menu-logo"><a href={homeUrl}>{site.data.name}</a></div>
+    <button
+      class="menu-close"
+      aria-controls="menu-overlay"
+      aria-expanded="true"
+    >
+      {t.menu.close}
+    </button>
+  </div>
+
+  <div class="menu-body">
+    <div class="menu-showreel">
+      <div class="menu-showreel-preview">
+        <!-- No autoplay/preload: `autoplay` makes browsers fetch the whole file on
+          every page load; the script starts it when the menu opens. -->
+        <video playsinline loop muted preload="none">
+          <source src="/showreel.webm" type="video/webm" />
+          <source src="/showreel.mp4" type="video/mp4" />
+        </video>
+      </div>
+      {
+        site.data.showreelLink && (
+          <div class="menu-showreel-details">
+            <a
+              href={site.data.showreelLink}
+              target="_blank"
+              rel="noopener"
+              class="link-underline"
+            >
+              <Icon name="play" />
+              {t.menu.showreel}
+            </a>
+          </div>
+        )
+      }
+    </div>
+
+    <ul class="menu-list">
+      {
+        links.map((link) => (
+          <li class="menu-item">
+            <a
+              href={link.href}
+              class:list={["menu-link", { "is-active": isActive(link.href) }]}
+            >
+              {link.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+
+  <div class="menu-footer">
+    <div class="menu-rule"></div>
+    <div class="menu-footer-row">
+      <div class="menu-tagline">
+        <p>{text(site.data.tagline, locale)}</p>
+        <span aria-hidden="true">|</span>
+        <LanguageSwitcher locale={locale} />
+      </div>
+      <div class="menu-socials">
+        {
+          site.data.social.x && (
+            <a
+              href={site.data.social.x}
+              target="_blank"
+              rel="noopener"
+              class="link-underline"
+            >
+              X <span class="visually-hidden">{t.menu.opensInNewTab}</span>
+            </a>
+          )
+        }
+        {
+          site.data.social.instagram && (
+            <a
+              href={site.data.social.instagram}
+              target="_blank"
+              rel="noopener"
+              class="link-underline"
+            >
+              Instagram{" "}
+              <span class="visually-hidden">{t.menu.opensInNewTab}</span>
+            </a>
+          )
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .navbar {
+    display: flex;
+    position: fixed;
+    top: 0;
+    justify-content: space-between;
+    align-items: flex-start;
+    z-index: 2;
+    mix-blend-mode: difference;
+    transition: transform var(--transition-slow);
+    padding: calc(40 * var(--unit-fx));
+    width: 100%;
+    color: var(--color-nav-ink);
+    font-size: calc(17 * var(--unit-fx));
+    user-select: none;
+    text-transform: uppercase;
+  }
+
+  .navbar.is-hidden {
+    transform: translate3d(0, -100%, 0);
+  }
+
+  /*
+   * Hit areas of at least 24px (WCAG 2.5.8) without moving anything: the
+   * vertical padding is cancelled by an equal negative margin.
+   */
+  .navbar-logo a,
+  .menu-logo a,
+  .navbar-open,
+  .menu-close {
+    --hit-pad: 4px;
+    display: inline-block;
+    margin-block: calc(-1 * var(--hit-pad));
+    padding-block: var(--hit-pad);
+  }
+
+  .navbar-open,
+  .menu-close {
+    position: relative;
+    text-transform: uppercase;
+  }
+
+  .navbar-open::before,
+  .menu-close::before {
+    position: absolute;
+    bottom: var(--hit-pad);
+    left: 0;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform var(--transition-base);
+    background-color: currentColor;
+    width: 100%;
+    height: calc(0.5 * var(--unit-fx));
+    content: "";
+  }
+
+  .navbar-open:hover::before,
+  .menu-close:hover::before {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .menu {
+    position: fixed;
+    top: 0;
+    z-index: 10;
+    clip-path: polygon(0 0, 100% 0, 100% 0, 0 0);
+    background-color: var(--color-bg-primary);
+    padding: calc(40 * var(--unit-fx)) calc(40 * var(--unit-fx))
+      calc(15 * var(--unit-fx));
+    width: 100%;
+    pointer-events: none;
+    color: var(--color-text-primary);
+  }
+
+  .menu-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: calc(10 * var(--unit-fx));
+    font-size: calc(17 * var(--unit-fx));
+    text-transform: uppercase;
+  }
+
+  .menu-body {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .menu-showreel {
+    padding: calc(10 * var(--unit-fx)) 0;
+    width: 40%;
+  }
+
+  .menu-showreel-preview {
+    height: 0;
+  }
+
+  .menu-showreel-preview video {
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .menu-showreel-details {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5em 0;
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .menu-showreel-details a {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-showreel-details :global(svg) {
+    margin-right: calc(5 * var(--unit-fx));
+    width: calc(17 * var(--unit-fx));
+    height: calc(17 * var(--unit-fx));
+  }
+
+  .menu-list {
+    padding: calc(10 * var(--unit-fx)) 0;
+    width: calc(550 * var(--unit-fx));
+    line-height: 1.2;
+    list-style: none;
+  }
+
+  .menu-link {
+    display: inline-block;
+    position: relative;
+    transition:
+      background-color var(--transition-base),
+      color var(--transition-base);
+    border-radius: var(--radius);
+    padding-inline: 0.1em;
+    font-size: calc(45 * var(--unit-fx));
+  }
+
+  .menu-link:hover {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-primary);
+  }
+
+  .menu-link::after {
+    position: absolute;
+    bottom: 8%;
+    left: 5%;
+    transform: scaleX(0);
+    border-radius: var(--radius);
+    background-color: currentColor;
+    width: 90%;
+    height: calc(2 * var(--unit-fx));
+    content: "";
+  }
+
+  .menu-link.is-active::after {
+    transform: scaleX(1);
+  }
+
+  .menu-footer {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .menu-rule {
+    margin-bottom: 1em;
+    background-color: var(--color-divider);
+    width: 0;
+    height: calc(0.5 * var(--unit-fx));
+  }
+
+  .menu-footer-row {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .menu-tagline {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .menu-socials {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .menu-socials a {
+    display: flex;
+    align-items: center;
+  }
+
+  .menu-socials :global(svg) {
+    transition: transform var(--transition-base);
+    margin-left: calc(5 * var(--unit-fx));
+    width: calc(15 * var(--unit-fx));
+    height: calc(15 * var(--unit-fx));
+  }
+
+  .menu-socials a:hover :global(svg) {
+    transform: rotate(45deg);
+  }
+
+  @media screen and (max-width: 600px) {
+    .navbar {
+      padding: calc(25 * var(--unit-fx));
+      font-size: calc(18 * var(--unit-fx));
+    }
+
+    .menu {
+      padding: calc(25 * var(--unit-fx)) calc(25 * var(--unit-fx))
+        calc(15 * var(--unit-fx));
+    }
+
+    .menu-bar {
+      font-size: calc(18 * var(--unit-fx));
+    }
+
+    .menu-showreel {
+      display: none;
+    }
+
+    .menu-list {
+      padding: calc(20 * var(--unit-fx)) 0;
+    }
+
+    .menu-item {
+      margin-block: calc(10 * var(--unit-fx));
+    }
+
+    .menu-link {
+      font-size: calc(35 * var(--unit-fx));
+    }
+
+    .menu-footer-row {
+      flex-direction: column;
+    }
+
+    .menu-tagline p,
+    .menu-tagline > span {
+      display: none;
+    }
+
+    .menu-tagline {
+      margin-block: calc(20 * var(--unit-fx));
+    }
+
+    .menu-socials {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: calc(20 * var(--unit-fx));
+      margin-top: calc(20 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-fx));
+    }
+  }
+</style>
+
+<script>
+  import { EASE, gsap } from "@scripts/motion";
+
+  const mobile = window.matchMedia("(max-width: 600px)");
+  const previewHeight = () => (mobile.matches ? "20vh" : "15vw");
+
+  const tl = gsap.timeline({ paused: true });
+  tl.to(".menu", {
+    duration: 1,
+    clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
+    ease: EASE,
+  });
+  tl.from(
+    ".menu-item",
+    { opacity: 0, y: 60, stagger: 0.05, duration: 0.75, ease: "power1.inOut" },
+    "<",
+  );
+  tl.from(
+    ".menu-tagline > *",
+    { opacity: 0, x: 300, stagger: 0.05, duration: 1, ease: EASE },
+    "<",
+  );
+  tl.from(
+    ".menu-socials a",
+    { opacity: 0, x: 300, duration: 1, ease: EASE, stagger: 0.3 },
+    "<",
+  );
+  tl.to(
+    ".menu-showreel-preview",
+    { duration: 1, height: previewHeight(), ease: "power2.out" },
+    "<",
+  );
+  tl.to(".menu-rule", { duration: 1.75, width: "100%", ease: "circ.out" }, "<");
+  tl.reverse();
+
+  const menu = document.querySelector<HTMLElement>(".menu")!;
+  const openButton = document.querySelector<HTMLButtonElement>(".navbar-open")!;
+  const closeButton = document.querySelector<HTMLButtonElement>(".menu-close")!;
+  let isOpen = false;
+
+  const showreel = menu.querySelector<HTMLVideoElement>(
+    ".menu-showreel-preview video",
+  );
+
+  function openMenu() {
+    isOpen = true;
+    menu.style.pointerEvents = "all";
+    openButton.setAttribute("aria-expanded", "true");
+    document.body.classList.add("menu-open");
+    tl.play();
+    // The video has preload="none", so this is what fetches it (only once the menu is opened).
+    showreel?.play().catch(() => {});
+  }
+
+  function closeMenu() {
+    if (!isOpen) return;
+    isOpen = false;
+    menu.style.pointerEvents = "none";
+    openButton.setAttribute("aria-expanded", "false");
+    document.body.classList.remove("menu-open");
+    tl.reverse(0.8);
+    showreel?.pause();
+  }
+
+  openButton.addEventListener("click", openMenu);
+  closeButton.addEventListener("click", closeMenu);
+  window.addEventListener("wheel", (event) => event.deltaY > 0 && closeMenu(), {
+    passive: true,
+  });
+  window.addEventListener(
+    "keydown",
+    (event) => event.key === "Escape" && closeMenu(),
+  );
+  mobile.addEventListener("change", () =>
+    gsap.set(".menu-showreel-preview", {
+      height: isOpen ? previewHeight() : 0,
+    }),
+  );
+
+  // Hide the bar while scrolling down, reveal it while scrolling up.
+  const bar = document.querySelector<HTMLElement>(".navbar")!;
+  let lastScroll = 0;
+  window.addEventListener("scroll", () => {
+    const current = window.scrollY;
+    bar.classList.toggle("is-hidden", current > 0 && current > lastScroll);
+    lastScroll = current;
+  });
+</script>

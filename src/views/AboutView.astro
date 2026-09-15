@@ -1,0 +1,331 @@
+---
+/** About page: editorial text from the `about` singleton with scroll-driven image animations. */
+import { Image } from "astro:assets";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getAboutPage, paragraphs } from "@utils/content";
+import { pictures } from "@utils/images";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const about = (await getAboutPage()).data;
+
+const images = pictures(about.images, locale);
+const animated = pictures(about.animatedImages, locale);
+const rows = animated.reduce<(typeof animated)[]>((acc, item, i) => {
+  if (i % 2 === 0) acc.push([item]);
+  else acc[acc.length - 1].push(item);
+  return acc;
+}, []);
+
+const description = paragraphs(
+  text(about.intro, locale).replace(/<[^>]+>/g, ""),
+)[0];
+---
+
+<MainLayout locale={locale} title={t.about.title} description={description}>
+  <Navbar locale={locale} />
+
+  <section class="about">
+    <h1 class="about-title">{text(about.title, locale)}</h1>
+    <p class="about-intro"><Fragment set:html={text(about.intro, locale)} /></p>
+
+    <div class="about-images">
+      {
+        images.map((item) => (
+          <figure class="about-figure">
+            <div class="about-figure-image">
+              <Image src={item.src} alt={item.alt} format="webp" width={800} />
+            </div>
+            <figcaption>{text(item.source.caption, locale)}</figcaption>
+          </figure>
+        ))
+      }
+    </div>
+
+    <p class="about-right">{text(about.contentRight, locale)}</p>
+    <p class="about-last">
+      <Fragment set:html={text(about.contentLast, locale)} />
+    </p>
+  </section>
+
+  <section class="cards">
+    <div class="cards-copy">
+      <p class="cards-text">{text(about.animationContent, locale)}</p>
+    </div>
+    <div class="cards-link">
+      <a href={routes.artworks(locale)} class="link-underline"
+        >{text(about.buttonText, locale)}</a
+      >
+    </div>
+    {
+      rows.map((row) => (
+        <div class="cards-row">
+          {row.map((item, i) => (
+            <div class:list={["card", i === 0 ? "card-left" : "card-right"]}>
+              <Image src={item.src} alt={item.alt} format="webp" width={1000} />
+            </div>
+          ))}
+        </div>
+      ))
+    }
+  </section>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .about {
+    margin-block: calc(120 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .about-title {
+    margin: auto;
+    max-width: 20ch;
+    font-weight: 300;
+    font-size: calc(75 * var(--unit-fx));
+    line-height: 1.2;
+    font-family: var(--font-baskervville);
+    text-align: center;
+  }
+
+  .about-intro,
+  .about-right,
+  .about-last {
+    max-width: 65ch;
+    font-weight: 500;
+    font-size: calc(25 * var(--unit-fx));
+    font-family: var(--font-baskervville);
+  }
+
+  .about-intro {
+    margin-top: calc(100 * var(--unit-fx));
+  }
+
+  .about-intro :global(span),
+  .about-last :global(span) {
+    margin-left: 2em;
+    font-family: var(--font-satoshi);
+  }
+
+  .about-images {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: calc(150 * var(--unit-fx));
+  }
+
+  .about-figure:nth-child(1) {
+    width: 15vw;
+  }
+
+  .about-figure:nth-child(2) {
+    width: 20vw;
+  }
+
+  .about-figure-image {
+    position: relative;
+    visibility: hidden;
+    overflow: hidden;
+  }
+
+  .about-figure-image img {
+    transform-origin: left;
+    will-change: transform;
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .about-figure figcaption {
+    margin-top: calc(10 * var(--unit-fx));
+    padding: calc(2 * var(--unit-fx)) 0;
+    font-size: calc(15 * var(--unit-fx));
+  }
+
+  .about-right {
+    margin-top: calc(250 * var(--unit-fx));
+    margin-left: auto;
+  }
+
+  .about-last {
+    margin-top: calc(250 * var(--unit-fx));
+    margin-inline: auto;
+  }
+
+  .cards {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+  }
+
+  .cards-row {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    gap: 2em;
+    margin: 1em 0;
+    width: 100%;
+  }
+
+  .card {
+    position: relative;
+    will-change: transform;
+    border-radius: 0.75em;
+    width: 40%;
+    height: 360px;
+    overflow: hidden;
+  }
+
+  .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .cards-copy {
+    display: flex;
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(-50%, -50%);
+    margin: calc(20 * var(--unit-fx)) 0;
+  }
+
+  .cards-text {
+    will-change: transform;
+    width: calc(400 * var(--unit-fx));
+    font-size: calc(20 * var(--unit-fx));
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .cards-link {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    padding-top: calc(25 * var(--unit-fx));
+    width: 100%;
+    text-align: center;
+  }
+
+  .cards-link a {
+    font-size: calc(18 * var(--unit-fx));
+  }
+
+  @media (max-width: 900px) {
+    .card {
+      width: 50%;
+      height: 240px;
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .about {
+      margin-bottom: 0;
+      padding-inline: 0;
+    }
+
+    .about-title {
+      max-width: 100%;
+      font-weight: 200;
+      font-size: calc(35 * var(--unit-fx));
+    }
+
+    .cards {
+      height: 100vh;
+    }
+
+    .cards-text {
+      width: 100%;
+    }
+
+    .cards-link a {
+      padding-top: calc(50 * var(--unit-fx));
+    }
+  }
+</style>
+
+<script>
+  import {
+    EASE,
+    gsap,
+    reducedMotion,
+    revealLines,
+    ScrollTrigger,
+    slideIn,
+  } from "@scripts/motion";
+
+  // Closing text rises line by line, followed by the link.
+  revealLines(".cards-text", ".cards", {
+    start: "clamp(top center)",
+    once: false,
+  });
+  if (reducedMotion) {
+    gsap.set(".cards-link", { autoAlpha: 1 });
+  } else {
+    gsap.fromTo(
+      ".cards-link",
+      { yPercent: 120, autoAlpha: 0 },
+      {
+        duration: 1,
+        delay: 0.5,
+        autoAlpha: 1,
+        yPercent: 0,
+        ease: EASE,
+        scrollTrigger: {
+          trigger: ".cards-text",
+          toggleActions: "restart pause resume reverse",
+          start: "clamp(top 60%)",
+        },
+      },
+    );
+  }
+
+  // Image cards fly outwards as the section scrolls.
+  if (!reducedMotion) {
+    const leftX = [-800, -900, -400];
+    const rightX = [800, 900, 400];
+    const leftRotate = [-30, -20, -35];
+    const rightRotate = [30, 20, 35];
+    const y = [100, -150, -400];
+
+    document
+      .querySelectorAll<HTMLElement>(".cards-row")
+      .forEach((row, index) => {
+        const left = row.querySelector<HTMLElement>(".card-left");
+        const right = row.querySelector<HTMLElement>(".card-right");
+        if (!left || !right) return;
+        ScrollTrigger.create({
+          trigger: ".cards",
+          start: "top center",
+          end: "150% bottom",
+          scrub: true,
+          onUpdate: ({ progress }) => {
+            left.style.transform = `translate(${progress * leftX[index]}px, ${progress * y[index]}px) rotate(${progress * leftRotate[index]}deg)`;
+            right.style.transform = `translate(${progress * rightX[index]}px, ${progress * y[index]}px) rotate(${progress * rightRotate[index]}deg)`;
+          },
+        });
+      });
+  }
+
+  // Figures slide in from the left.
+  slideIn(".about-figure-image");
+</script>

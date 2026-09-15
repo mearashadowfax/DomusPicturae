@@ -1,0 +1,13 @@
+Domus Picturae is excited to launch a new **Masterclass Series** that brings gallery artists directly into dialogue with students, emerging artists and art enthusiasts. The programme begins in March 2025 with sessions led by **Emma Thompson** and **Sophie Laurent**, offering participants rare insight into the techniques and processes behind their acclaimed work.
+
+The series reflects the gallery's commitment to education and its belief that understanding artistic process deepens appreciation for contemporary art. "We want to demystify the creative process," explains gallery director Elena Marchetti. "These masterclasses provide a unique opportunity to learn directly from practising artists, to understand not just what they create, but how and why."
+
+**Emma Thompson's** masterclass, _"Colour as Language: Building Abstract Compositions"_, takes place over two days (March 8–9, 2025) and focuses on her approach to colour, gesture and composition. Participants will explore the relationship between spontaneous mark-making and deliberate revision, learning how Thompson builds her paintings through layers of paint and erasure. The session includes both theoretical discussion and hands-on practice, with Thompson providing individual feedback on participants' work.
+
+"Teaching forces me to articulate processes that are often intuitive," Thompson notes. "I'm looking forward to sharing techniques I've developed over years of practice and learning from the participants' perspectives."
+
+**Sophie Laurent's** masterclass, _"The Psychology of Portraiture: Capturing Inner Life"_, scheduled for March 15–16, 2025, focuses on her approach to portraiture. Participants will learn about Laurent's extended-session process, her techniques for building depth through layers of oil paint, and her methods for incorporating contextual elements that add narrative layers to portraits. The masterclass includes a live portrait demonstration and opportunities for participants to practise their own techniques.
+
+Both masterclasses take place in the gallery's flexible exhibition space, temporarily reconfigured to accommodate studio work. The intimate setting, with a maximum of twelve participants per session, ensures personalised attention and meaningful interaction with the artists.
+
+Future sessions will feature other gallery artists, including James Park on sculptural techniques and Yuki Tanaka on integrating digital and traditional media. Registration for the March sessions is now open, with limited places available. The gallery also offers private group sessions for art schools and institutions.

@@ -1,0 +1,93 @@
+---
+/**
+ * Shared frame for the text-led homepage sections (Intro, Events): a small
+ * heading, a rule that draws in, and a large serif paragraph. Both HTML
+ * strings come from the `homepage` singleton and may contain <br> and <span>.
+ */
+interface Props {
+  /** Class hook used by the homepage animation script, e.g. "intro". */
+  name: string;
+  title: string;
+  content: string;
+  size?: "default" | "large";
+}
+
+const { name, title, content, size = "default" } = Astro.props;
+---
+
+<section class:list={["home-section", `home-section--${size}`, name]}>
+  <h2 class="home-section-title"><Fragment set:html={title} /></h2>
+  <hr class="home-section-rule" />
+  <div class="home-section-body">
+    <p class="home-section-content"><Fragment set:html={content} /></p>
+  </div>
+  <slot />
+</section>
+
+<style>
+  .home-section {
+    margin-inline: auto;
+    margin-block: calc(120 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+    width: 100%;
+    line-height: 1.4;
+  }
+
+  .home-section--large {
+    margin-block: calc(250 * var(--unit-fx));
+  }
+
+  .home-section-title {
+    opacity: 0;
+    will-change: transform;
+    max-width: 17ch;
+    font-weight: 300;
+    font-size: calc(25 * var(--unit-fx));
+    line-height: 1.2;
+  }
+
+  .home-section-rule {
+    transform: scaleX(0);
+    transform-origin: left;
+    margin-top: calc(10 * var(--unit-fx));
+    border: none;
+    background-color: var(--color-divider);
+    height: calc(0.5 * var(--unit-fx));
+  }
+
+  .home-section-body {
+    margin-block: calc(50 * var(--unit-fx));
+    width: 100%;
+  }
+
+  .home-section-content {
+    opacity: 0;
+    will-change: transform;
+    margin-inline: auto;
+    width: 100%;
+    font-size: calc(45 * var(--unit-fx));
+    line-height: 1.3;
+    font-family: var(--font-baskervville);
+  }
+
+  .home-section-content :global(span) {
+    margin-left: 2em;
+    font-weight: 500;
+    font-family: var(--font-satoshi);
+  }
+
+  @media screen and (max-width: 600px) {
+    .home-section,
+    .home-section--large {
+      padding-inline: 0;
+    }
+
+    .home-section-rule {
+      transform: scaleX(1);
+    }
+
+    .home-section-content {
+      font-size: calc(20 * var(--unit-fx));
+    }
+  }
+</style>

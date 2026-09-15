@@ -1,0 +1,60 @@
+{
+  "title": {
+    "en": "Domus Picturae to Participate in Art New York 2025",
+    "fr": "Domus Picturae participera à Art New York 2025",
+    "de": "Domus Picturae nimmt an der Art New York 2025 teil"
+  },
+  "pubDate": "2025-04-10",
+  "description": {
+    "en": "The gallery will present a curated selection of works at Art New York 2025, featuring artists from its programme including Sophie Laurent, James Park and Yuki Tanaka.",
+    "fr": "La galerie présentera une sélection d'œuvres à Art New York 2025, avec des artistes de son programme dont Sophie Laurent, James Park et Yuki Tanaka.",
+    "de": "Die Galerie zeigt auf der Art New York 2025 eine kuratierte Auswahl von Werken, darunter Arbeiten von Sophie Laurent, James Park und Yuki Tanaka."
+  },
+  "featuredImage": "/images/news/art-new-york-2025-participation/featuredImage.jpg",
+  "featuredImageAlt": {
+    "en": "Art New York 2025 fair preview",
+    "fr": "Aperçu de la foire Art New York 2025",
+    "de": "Vorschau auf die Messe Art New York 2025"
+  },
+  "slides": [
+    {
+      "image": "/images/news/art-new-york-2025-participation/slides/0/image.jpg",
+      "imageAlt": {
+        "en": "A group of people in a museum looking at paintings",
+        "fr": "Un groupe de personnes dans un musée regardant des tableaux",
+        "de": "Eine Gruppe von Menschen in einem Museum betrachtet Gemälde"
+      },
+      "caption": {
+        "en": "Art New York 2025 fair preview",
+        "fr": "Aperçu de la foire Art New York 2025",
+        "de": "Vorschau auf die Art New York 2025"
+      }
+    },
+    {
+      "image": "/images/news/art-new-york-2025-participation/slides/1/image.jpg",
+      "imageAlt": {
+        "en": "Woman in a white and grey plaid blazer",
+        "fr": "Femme en blazer à carreaux blanc et gris",
+        "de": "Frau in weiß-grau kariertem Blazer"
+      },
+      "caption": {
+        "en": "Sophie Laurent portrait series",
+        "fr": "Série de portraits de Sophie Laurent",
+        "de": "Porträtserie von Sophie Laurent"
+      }
+    },
+    {
+      "image": "/images/news/art-new-york-2025-participation/slides/2/image.jpg",
+      "imageAlt": {
+        "en": "A black and white photo of a museum building",
+        "fr": "Photo en noir et blanc d'un bâtiment de musée",
+        "de": "Schwarz-Weiß-Foto eines Museumsgebäudes"
+      },
+      "caption": {
+        "en": "Guggenheim Museum, New York",
+        "fr": "Musée Guggenheim, New York",
+        "de": "Guggenheim Museum, New York"
+      }
+    }
+  ]
+}

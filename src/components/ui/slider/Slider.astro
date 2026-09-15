@@ -1,0 +1,172 @@
+---
+/**
+ * Draggable image slideshow used on news and exhibition pages. Each slide is
+ * exactly the width of the slider; the caption of the active slide is shown
+ * below it.
+ */
+import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
+
+export interface SlideItem {
+  image: ImageMetadata;
+  alt: string;
+  caption: string;
+}
+
+interface Props {
+  slides: SlideItem[];
+}
+
+const { slides } = Astro.props;
+const total = slides.length;
+---
+
+<div class="slider" style={`--slides: ${total};`}>
+  <div class="slider-track">
+    {
+      slides.map((slide, index) => (
+        <div class="slide">
+          <Image
+            class="slide-image"
+            src={slide.image}
+            alt={slide.alt}
+            format="webp"
+            width={1400}
+          />
+          <p class="slide-caption">
+            <span class="slide-index">
+              [{index + 1}/{total}]
+            </span>{" "}
+            <span>{slide.caption}</span>
+          </p>
+        </div>
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .slider {
+    --gap: calc(20 * var(--unit-fx));
+
+    position: relative;
+    padding-bottom: calc(30 * var(--unit-fx));
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .slider-track {
+    display: flex;
+    gap: var(--gap);
+    transition: transform 300ms var(--ease);
+    width: calc(100% * var(--slides) + var(--gap) * (var(--slides) - 1));
+  }
+
+  .slider-track.is-dragging {
+    transition: none;
+  }
+
+  .slide {
+    flex: 0 0 calc((100% - var(--gap) * (var(--slides) - 1)) / var(--slides));
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .slide-image {
+    display: block;
+    cursor: grab;
+    border-radius: var(--radius);
+    aspect-ratio: 1 / 1;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    user-select: none;
+  }
+
+  .is-dragging .slide-image {
+    cursor: grabbing;
+  }
+
+  .slide-caption {
+    display: none;
+    margin-top: calc(10 * var(--unit-fx));
+    font-size: calc(12 * var(--unit-fx));
+    line-height: 1.2;
+  }
+
+  .slide.is-active .slide-caption {
+    display: block;
+  }
+
+  .slide-index {
+    margin-right: calc(5 * var(--unit-fx));
+    font-weight: 600;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".slider").forEach((slider) => {
+    const track = slider.querySelector<HTMLElement>(".slider-track")!;
+    const slides = Array.from(track.querySelectorAll<HTMLElement>(".slide"));
+    if (slides.length === 0) return;
+
+    let index = 0;
+    let dragging = false;
+    let startX = 0;
+    let offset = 0;
+    let settled = 0;
+
+    const gap = () => parseFloat(getComputedStyle(track).gap) || 0;
+    const slideWidth = () => slides[0].offsetWidth + gap();
+    const pointerX = (event: MouseEvent | TouchEvent) =>
+      "touches" in event ? event.touches[0].clientX : event.pageX;
+
+    function render() {
+      track.style.transform = `translateX(${offset}px)`;
+    }
+
+    function settle() {
+      offset = -index * slideWidth();
+      settled = offset;
+      slides.forEach((slide, i) =>
+        slide.classList.toggle("is-active", i === index),
+      );
+      render();
+    }
+
+    function onStart(event: MouseEvent | TouchEvent) {
+      dragging = true;
+      startX = pointerX(event);
+      track.classList.add("is-dragging");
+    }
+
+    function onMove(event: MouseEvent | TouchEvent) {
+      if (!dragging) return;
+      offset = settled + pointerX(event) - startX;
+      render();
+    }
+
+    function onEnd() {
+      if (!dragging) return;
+      dragging = false;
+      track.classList.remove("is-dragging");
+      const moved = offset - settled;
+      if (moved < -slideWidth() / 4 && index < slides.length - 1) index += 1;
+      if (moved > slideWidth() / 4 && index > 0) index -= 1;
+      settle();
+    }
+
+    slides.forEach((slide) => {
+      slide.addEventListener("dragstart", (event) => event.preventDefault());
+      slide.addEventListener("mousedown", onStart);
+      slide.addEventListener("touchstart", onStart, { passive: true });
+    });
+    window.addEventListener("mousemove", onMove);
+    window.addEventListener("touchmove", onMove, { passive: true });
+    window.addEventListener("mouseup", onEnd);
+    window.addEventListener("touchend", onEnd);
+    window.addEventListener("resize", settle);
+
+    settle();
+  });
+</script>

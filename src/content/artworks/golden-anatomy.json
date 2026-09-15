@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Golden Anatomy",
+    "fr": "Anatomie dorée",
+    "de": "Goldene Anatomie"
+  },
+  "year": 2017,
+  "artist": "luca-moretti",
+  "image": "/images/artworks/golden-anatomy/image.jpg",
+  "imageAlt": {
+    "en": "Abstract human figure outlined in gold",
+    "fr": "Figure humaine abstraite soulignée d'or",
+    "de": "Abstrakte menschliche Figur mit goldenen Umrissen"
+  },
+  "medium": {
+    "en": "Gold leaf and charcoal on canvas",
+    "fr": "Feuille d'or et fusain sur toile",
+    "de": "Blattgold und Kohle auf Leinwand"
+  },
+  "dimensions": {
+    "width": 60,
+    "height": 110,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Golden Anatomy” reimagines the human form as a constellation of luminous fragments. Gold leaf traces the outline of flesh, while charcoal shadows reveal the impermanence of the body. The contrast evokes both divinity and decay, suggesting that within vulnerability lies an unbreakable brilliance.",
+    "fr": "« Anatomie dorée » réinvente la forme humaine comme une constellation de fragments lumineux. La feuille d'or trace les contours de la chair, tandis que les ombres de fusain révèlent l'impermanence du corps. Le contraste évoque à la fois le divin et le déclin, suggérant qu'au cœur de la vulnérabilité réside un éclat inaltérable.",
+    "de": "„Goldene Anatomie“ deutet die menschliche Gestalt als Konstellation leuchtender Fragmente neu. Blattgold zeichnet die Umrisse des Fleisches nach, während Kohleschatten die Vergänglichkeit des Körpers offenbaren. Der Kontrast beschwört Göttliches wie Verfall und legt nahe, dass in der Verletzlichkeit ein unzerbrechlicher Glanz liegt."
+  },
+  "availability": "not-for-sale"
+}

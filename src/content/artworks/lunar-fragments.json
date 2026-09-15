@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Lunar Fragments",
+    "fr": "Fragments lunaires",
+    "de": "Mondfragmente"
+  },
+  "year": 2022,
+  "artist": "luca-moretti",
+  "image": "/images/artworks/lunar-fragments/image.jpg",
+  "imageAlt": {
+    "en": "Abstract forms resembling lunar surfaces",
+    "fr": "Formes abstraites évoquant des surfaces lunaires",
+    "de": "Abstrakte Formen, die an Mondoberflächen erinnern"
+  },
+  "medium": {
+    "en": "Mixed media",
+    "fr": "Techniques mixtes",
+    "de": "Mischtechnik"
+  },
+  "dimensions": {
+    "width": 200,
+    "height": 120,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "Inspired by celestial textures, “Lunar Fragments” explores the poetic tension between desolation and wonder. The artist layers plaster and metallic pigment to evoke craters and dust illuminated by distant light. The result is tactile and haunting—a surface that feels both ancient and eternal.",
+    "fr": "Inspiré par les textures célestes, « Fragments lunaires » explore la tension poétique entre désolation et émerveillement. L'artiste superpose plâtre et pigment métallique pour évoquer cratères et poussière éclairés par une lumière lointaine. Le résultat est tactile et envoûtant — une surface qui semble à la fois ancienne et éternelle.",
+    "de": "Von himmlischen Texturen inspiriert, erkundet „Mondfragmente“ die poetische Spannung zwischen Verlassenheit und Staunen. Der Künstler schichtet Gips und metallisches Pigment, um Krater und Staub im Licht ferner Sterne heraufzubeschwören. Das Ergebnis ist haptisch und eindringlich – eine Oberfläche, die zugleich uralt und ewig wirkt."
+  },
+  "availability": "available"
+}

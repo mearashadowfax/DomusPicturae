@@ -1,0 +1,86 @@
+{
+  "title": {
+    "en": "Emma Thompson: 'Chromatic Fields' — Solo Exhibition Opens June 2025",
+    "fr": "Emma Thompson : « Chromatic Fields » — exposition personnelle en juin 2025",
+    "de": "Emma Thompson: „Chromatic Fields“ – Einzelausstellung ab Juni 2025"
+  },
+  "pubDate": "2025-05-20",
+  "description": {
+    "en": "Domus Picturae presents the first major solo exhibition of Emma Thompson's recent abstract works, exploring colour as language and movement as memory.",
+    "fr": "Domus Picturae présente la première grande exposition personnelle des œuvres abstraites récentes d'Emma Thompson, explorant la couleur comme langage et le mouvement comme mémoire.",
+    "de": "Domus Picturae zeigt die erste große Einzelausstellung der jüngsten abstrakten Arbeiten von Emma Thompson – Farbe als Sprache, Bewegung als Erinnerung."
+  },
+  "featuredImage": "/images/news/emma-thompson-solo-exhibition/featuredImage.jpg",
+  "featuredImageAlt": {
+    "en": "Emma Thompson's abstract painting from the Chromatic Fields series",
+    "fr": "Peinture abstraite d'Emma Thompson de la série Chromatic Fields",
+    "de": "Abstraktes Gemälde von Emma Thompson aus der Serie Chromatic Fields"
+  },
+  "slides": [
+    {
+      "image": "/images/news/emma-thompson-solo-exhibition/slides/0/image.jpg",
+      "imageAlt": {
+        "en": "A blurry image of a black background with multicoloured lines",
+        "fr": "Image floue d'un fond noir aux lignes multicolores",
+        "de": "Unscharfes Bild eines schwarzen Hintergrunds mit bunten Linien"
+      },
+      "caption": {
+        "en": "Multicoloured lines",
+        "fr": "Lignes multicolores",
+        "de": "Bunte Linien"
+      }
+    },
+    {
+      "image": "/images/news/emma-thompson-solo-exhibition/slides/1/image.jpg",
+      "imageAlt": {
+        "en": "Abstract colourful blobs with dark speckles",
+        "fr": "Taches abstraites colorées avec des mouchetures sombres",
+        "de": "Abstrakte bunte Flecken mit dunklen Sprenkeln"
+      },
+      "caption": {
+        "en": "Glyph",
+        "fr": "Glyphe",
+        "de": "Glyphe"
+      }
+    },
+    {
+      "image": "/images/news/emma-thompson-solo-exhibition/slides/2/image.jpg",
+      "imageAlt": {
+        "en": "Abstract pink and white wavy pattern with colourful dots",
+        "fr": "Motif ondulé abstrait rose et blanc avec des points colorés",
+        "de": "Abstraktes rosa-weißes Wellenmuster mit bunten Punkten"
+      },
+      "caption": {
+        "en": "Perspective",
+        "fr": "Perspective",
+        "de": "Perspektive"
+      }
+    },
+    {
+      "image": "/images/news/emma-thompson-solo-exhibition/slides/3/image.jpg",
+      "imageAlt": {
+        "en": "Abstract pattern with organic shapes and textures",
+        "fr": "Motif abstrait aux formes et textures organiques",
+        "de": "Abstraktes Muster mit organischen Formen und Texturen"
+      },
+      "caption": {
+        "en": "Magic",
+        "fr": "Magie",
+        "de": "Magie"
+      }
+    },
+    {
+      "image": "/images/news/emma-thompson-solo-exhibition/slides/4/image.jpg",
+      "imageAlt": {
+        "en": "A purple and white swirl",
+        "fr": "Un tourbillon violet et blanc",
+        "de": "Ein violett-weißer Wirbel"
+      },
+      "caption": {
+        "en": "Ghost",
+        "fr": "Fantôme",
+        "de": "Geist"
+      }
+    }
+  ]
+}

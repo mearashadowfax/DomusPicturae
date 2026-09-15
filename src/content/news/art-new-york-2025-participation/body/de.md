@@ -1,0 +1,13 @@
+Domus Picturae freut sich, die Teilnahme an der **Art New York 2025** bekanntzugeben, einer der führenden Messen für moderne und zeitgenössische Kunst in den Vereinigten Staaten. Die Galerie präsentiert an einem eigenen Stand eine kuratierte Auswahl von Werken, darunter Arbeiten von Sophie Laurent, James Park, Yuki Tanaka und weiteren Künstlern ihres Programms.
+
+Der Auftritt auf der Art New York ist ein wichtiger Meilenstein im ersten Jahr der Galerie. „Die Teilnahme an der Art New York erlaubt uns, die Arbeiten unserer Künstler einem internationalen Publikum aus Sammlern und Kuratoren zu zeigen“, sagt Galeriedirektorin Elena Marchetti. „Wir haben sorgfältig Werke ausgewählt, die die Vielfalt und Qualität unseres Programms abbilden – von intimen Porträts bis zu großformatigen Installationen.“
+
+Das Standdesign, entwickelt in Zusammenarbeit mit der Architektin Sarah Mitchell, bietet ein flexibles Layout, das Besuchern erlaubt, die Werke in unterschiedlichen Zusammenhängen zu erleben. Sophie Laurents jüngste Porträts werden in einem eigenen Bereich gezeigt, der die intime Betrachtungssituation der Galerie nachempfindet, während die skulpturalen Arbeiten von James Park in einer offeneren Anordnung präsentiert werden, die ihren Bezug zum Raum betont.
+
+Yuki Tanakas Mixed-Media-Installationen, die digitale und traditionelle Elemente verbinden, erhalten einen prominenten Platz und unterstreichen das Engagement der Galerie für Künstler an der Schnittstelle von Technologie und traditionellem Handwerk. „Tanakas Arbeit ist im heutigen Kontext besonders relevant“, so Marchetti. „Sie befragt unser Verhältnis zur digitalen Technologie und bewahrt zugleich einen tiefen Respekt vor Materialität und Handarbeit.“
+
+Neben Werken etablierter Künstler zeigt der Stand Arbeiten von Isabella Rodriguez und Luca Moretti, die beide Anfang 2025 in das Programm der Galerie aufgenommen wurden. Rodriguez' abstrakte Gemälde erkunden Themen wie Migration und Vertreibung, während Morettis Arbeiten das Verhältnis von Architektur und Erinnerung untersuchen.
+
+Teil der Präsentation ist außerdem ein Sonderprojekt: eine ortsspezifische Installation von Marcus Weber, eigens für die Art New York geschaffen. Das Werk mit dem Titel _„Temporal Layers“_ wird im Zentrum des Standes installiert und nimmt Elemente der Messeumgebung auf – ein Dialog zwischen dem Werk und seinem temporären Kontext.
+
+Die Art New York 2025 findet vom 18. bis 22. September am Pier 94 in New York statt. Domus Picturae ist in Halle 1, Stand A12, zu finden. Zusätzlich nimmt Elena Marchetti am 20. September an einer Podiumsdiskussion zum Thema „Die Zukunft des Sammelns zeitgenössischer Kunst“ teil. Wir freuen uns darauf, Sammler, Kuratoren und Kunstinteressierte an unserem Stand zu begrüßen.

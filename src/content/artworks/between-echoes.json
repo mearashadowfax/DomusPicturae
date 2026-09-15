@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Between Echoes",
+    "fr": "Entre les échos",
+    "de": "Zwischen Echos"
+  },
+  "year": 2013,
+  "artist": "sophie-laurent",
+  "image": "/images/artworks/between-echoes/image.jpg",
+  "imageAlt": {
+    "en": "Minimalist soundwave-inspired drawing",
+    "fr": "Dessin minimaliste inspiré des ondes sonores",
+    "de": "Minimalistische, von Schallwellen inspirierte Zeichnung"
+  },
+  "medium": {
+    "en": "Ink and graphite on paper",
+    "fr": "Encre et graphite sur papier",
+    "de": "Tusche und Graphit auf Papier"
+  },
+  "dimensions": {
+    "width": 45,
+    "height": 60,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "A meditation on rhythm and stillness, “Between Echoes” translates invisible sound into visual form. Fine graphite lines oscillate across the surface like fading vibrations, capturing the moment just before silence returns. The restrained minimalism invites viewers to experience absence as beauty—a visual whisper suspended in space.",
+    "fr": "Méditation sur le rythme et l'immobilité, « Entre les échos » traduit le son invisible en forme visuelle. De fines lignes de graphite oscillent sur la surface comme des vibrations qui s'estompent, saisissant l'instant juste avant le retour du silence. Ce minimalisme retenu invite à vivre l'absence comme une beauté — un murmure visuel suspendu dans l'espace.",
+    "de": "Als Meditation über Rhythmus und Stille übersetzt „Zwischen Echos“ unsichtbaren Klang in sichtbare Form. Feine Graphitlinien schwingen über die Fläche wie verklingende Vibrationen und halten den Moment fest, bevor die Stille zurückkehrt. Der zurückhaltende Minimalismus lädt ein, Abwesenheit als Schönheit zu erfahren – ein visuelles Flüstern im Raum."
+  },
+  "availability": "not-for-sale"
+}

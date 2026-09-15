@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Digital Art and Traditional Media: Bridging the Gap",
+    "fr": "Art numérique et médias traditionnels : combler le fossé",
+    "de": "Digitale Kunst und traditionelle Medien: Brücken bauen"
+  },
+  "image": "/images/workshops/digital-art-and-traditional-media/image.jpg",
+  "imageAlt": {
+    "en": "A figure in a neon-lit city at night",
+    "fr": "Une silhouette dans une ville éclairée au néon, la nuit",
+    "de": "Eine Gestalt in einer neonbeleuchteten Stadt bei Nacht"
+  },
+  "video": "/images/videos/video2.mp4",
+  "registerTitle": {
+    "en": "Reserve your place",
+    "fr": "Réservez votre place",
+    "de": "Reservieren Sie Ihren Platz"
+  },
+  "registerInfo": {
+    "en": "Explore the intersection of digital and traditional art forms. Learn how contemporary artists combine digital tools with traditional techniques to create innovative works. Limited spaces available — register early to avoid disappointment.",
+    "fr": "Explorez la rencontre entre les formes d'art numériques et traditionnelles. Découvrez comment les artistes contemporains associent outils numériques et techniques traditionnelles pour créer des œuvres innovantes. Places limitées — inscrivez-vous tôt.",
+    "de": "Erkunden Sie die Schnittstelle digitaler und traditioneller Kunstformen. Erfahren Sie, wie zeitgenössische Künstler digitale Werkzeuge mit traditionellen Techniken verbinden. Begrenzte Plätze – melden Sie sich frühzeitig an."
+  }
+}

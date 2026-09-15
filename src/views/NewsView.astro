@@ -1,0 +1,62 @@
+---
+/** News index, newest first. */
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import NewsCard from "@sections/News/NewsCard.astro";
+import { useUI, type Locale } from "@/i18n";
+import { getNewsSorted } from "@utils/content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const news = await getNewsSorted();
+---
+
+<MainLayout
+  locale={locale}
+  title={t.news.title}
+  description={t.news.description}
+>
+  <Navbar locale={locale} />
+
+  <section class="news">
+    <h1 class="section-heading">{t.news.title}</h1>
+    <hr class="section-rule" />
+    <ul class="news-grid">
+      {news.map((entry) => <NewsCard entry={entry} locale={locale} />)}
+    </ul>
+  </section>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .news {
+    margin-block: calc(120 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .news-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-gap: calc(30 * var(--unit-fx));
+    row-gap: calc(50 * var(--unit-fx));
+    margin-top: calc(50 * var(--unit-fx));
+    list-style: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .news {
+      padding-inline: 0;
+    }
+
+    .news-grid {
+      grid-template-columns: 1fr;
+      gap: calc(40 * var(--unit-fx));
+    }
+  }
+</style>

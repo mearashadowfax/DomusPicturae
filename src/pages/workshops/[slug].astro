@@ -1,0 +1,10 @@
+---
+import WorkshopView from "@/views/WorkshopView.astro";
+import { workshopPaths } from "@/routes";
+
+export const getStaticPaths = workshopPaths;
+
+const { workshop } = Astro.props;
+---
+
+<WorkshopView locale="en" workshop={workshop} />

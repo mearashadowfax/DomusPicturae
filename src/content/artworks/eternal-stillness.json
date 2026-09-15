@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Eternal Stillness",
+    "fr": "Immobilité éternelle",
+    "de": "Ewige Stille"
+  },
+  "year": 2023,
+  "artist": "emma-thompson",
+  "image": "/images/artworks/eternal-stillness/image.jpg",
+  "imageAlt": {
+    "en": "Minimalist composition with soft white tones",
+    "fr": "Composition minimaliste aux tons blancs doux",
+    "de": "Minimalistische Komposition in weichen Weißtönen"
+  },
+  "medium": {
+    "en": "Digital painting",
+    "fr": "Peinture numérique",
+    "de": "Digitale Malerei"
+  },
+  "dimensions": {
+    "width": 22,
+    "height": 36,
+    "unit": "in"
+  },
+  "description": {
+    "en": "“Eternal Stillness” is an ode to absence, to the sacred space that emerges when all movement ceases. The pale surface reveals whispers of texture beneath its calm exterior. It invites the viewer to slow down—to feel the quiet as something tangible and whole.",
+    "fr": "« Immobilité éternelle » est une ode à l'absence, à l'espace sacré qui naît lorsque tout mouvement cesse. La surface pâle laisse deviner des murmures de texture sous son calme apparent. Elle invite à ralentir — à ressentir le silence comme quelque chose de tangible et d'entier.",
+    "de": "„Ewige Stille“ ist eine Ode an die Abwesenheit, an den geweihten Raum, der entsteht, wenn jede Bewegung endet. Die blasse Oberfläche offenbart unter ihrer ruhigen Außenseite ein Flüstern von Textur. Sie lädt ein, langsamer zu werden – die Stille als etwas Greifbares und Ganzes zu spüren."
+  },
+  "availability": "available"
+}

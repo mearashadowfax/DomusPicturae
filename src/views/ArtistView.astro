@@ -1,0 +1,217 @@
+---
+/** Artist detail: biography, quote and every work of theirs the gallery holds. */
+import { Image } from "astro:assets";
+import { getCollection } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import {
+  artworksByArtist,
+  paragraphs,
+  presentArtworks,
+  type Artist,
+} from "@utils/content";
+import { picture } from "@utils/images";
+import { routes } from "@/routes";
+import { artistSchema } from "@utils/seo";
+
+interface Props {
+  locale: Locale;
+  artist: Artist;
+}
+
+const { locale, artist } = Astro.props;
+const t = useUI(locale);
+const portrait = picture(artist.data, locale, artist.data.name);
+const biography = paragraphs(text(artist.data.biography, locale));
+const quote = text(artist.data.quote, locale);
+const works = presentArtworks(
+  artworksByArtist(await getCollection("artworks"), artist),
+  [artist],
+  locale,
+);
+const description = biography[0] || text(artist.data.shortBio, locale);
+
+const schema = artistSchema(
+  { url: Astro.url, site: Astro.site!, locale },
+  artist,
+  description,
+);
+---
+
+<MainLayout
+  locale={locale}
+  title={artist.data.name}
+  description={description}
+  schema={schema}
+>
+  <Navbar locale={locale} />
+
+  <div class="artist">
+    <section class="artist-hero">
+      <div>
+        <h1 class="artist-name">{artist.data.name}</h1>
+        {
+          artist.data.hasCv && (
+            <a
+              href={routes.cv(artist)}
+              target="_blank"
+              rel="noopener"
+              class="button-outline artist-cv"
+            >
+              <span>{t.artists.viewCv}</span>
+            </a>
+          )
+        }
+      </div>
+      <div class="artist-biography">
+        {biography.map((para) => <p>{para}</p>)}
+      </div>
+    </section>
+
+    <hr class="artist-rule" />
+
+    <section class="artist-quote">
+      {
+        portrait && (
+          <Image
+            src={portrait.src}
+            alt={portrait.alt}
+            format="webp"
+            width={600}
+            class="artist-portrait"
+          />
+        )
+      }
+      {quote && <blockquote>“{quote}”</blockquote>}
+    </section>
+
+    {
+      works.length > 0 && (
+        <section class="artist-works">
+          <h2 class="section-heading">{t.artists.featuredWorks}</h2>
+          <hr class="section-rule" />
+          <ul class="artist-works-grid">
+            {works.map((presentation) => (
+              <ArtworkCard presentation={presentation} />
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .artist {
+    margin-block: calc(120 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .artist-hero {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+    gap: calc(40 * var(--unit-fx));
+  }
+
+  .artist-name {
+    margin-bottom: calc(30 * var(--unit-fx));
+    font-weight: 300;
+    font-size: calc(75 * var(--unit-fx));
+    font-family: var(--font-baskervville);
+  }
+
+  .artist-cv {
+    font-size: calc(12 * var(--unit-fx));
+  }
+
+  .artist-biography p {
+    margin-block: calc(15 * var(--unit-fx));
+    font-size: calc(14 * var(--unit-fx));
+  }
+
+  .artist-rule {
+    margin-block: calc(100 * var(--unit-fx));
+    border: none;
+    background-color: var(--color-divider);
+    height: calc(0.5 * var(--unit-fx));
+  }
+
+  .artist-quote {
+    display: flex;
+    justify-content: space-between;
+    gap: calc(100 * var(--unit-fx));
+  }
+
+  .artist-portrait {
+    flex-shrink: 0;
+    border-radius: var(--radius);
+    width: calc(200 * var(--unit-fx));
+    height: 20vw;
+    object-fit: cover;
+  }
+
+  .artist-quote blockquote {
+    font-size: calc(40 * var(--unit-fx));
+    font-family: var(--font-baskervville);
+  }
+
+  .artist-works {
+    margin-block: calc(120 * var(--unit-fx));
+  }
+
+  .artist-works-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: calc(50 * var(--unit-fx));
+    row-gap: calc(50 * var(--unit-fx));
+    padding-block: calc(50 * var(--unit-fx));
+    list-style: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .artist {
+      padding-inline: 0;
+    }
+
+    .artist-hero {
+      grid-template-columns: 1fr;
+    }
+
+    .artist-name {
+      font-size: calc(40 * var(--unit-fx));
+    }
+
+    .artist-rule {
+      margin-block: calc(50 * var(--unit-fx));
+    }
+
+    .artist-quote {
+      flex-direction: column-reverse;
+      gap: calc(50 * var(--unit-fx));
+    }
+
+    .artist-portrait {
+      height: 75vw;
+    }
+
+    .artist-quote blockquote {
+      font-size: calc(20 * var(--unit-fx));
+    }
+
+    .artist-works {
+      margin-block: calc(60 * var(--unit-fx));
+    }
+
+    .artist-works-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: calc(20 * var(--unit-fx));
+    }
+  }
+</style>

@@ -1,0 +1,10 @@
+---
+import ArtworkView from "@/views/ArtworkView.astro";
+import { artworkPaths } from "@/routes";
+
+export const getStaticPaths = artworkPaths;
+
+const { artwork } = Astro.props;
+---
+
+<ArtworkView locale="fr" artwork={artwork} />

@@ -1,0 +1,122 @@
+---
+/** Grid tile for a presented artwork: image, artist, title and year, with a badge when sold or not for sale. */
+import { Image } from "astro:assets";
+import { useUI } from "@/i18n";
+import { text } from "@/i18n/localized";
+import type { ArtworkPresentation } from "@utils/content";
+import { picture } from "@utils/images";
+
+interface Props {
+  presentation: ArtworkPresentation;
+}
+
+const { presentation } = Astro.props;
+const { artwork, artist, locale, href, badge } = presentation;
+const t = useUI(locale);
+const title = text(artwork.data.title, locale);
+const image = picture(artwork.data, locale, title);
+const isSquare =
+  artwork.data.dimensions.width === artwork.data.dimensions.height;
+---
+
+<li class="artwork-card">
+  <a href={href}>
+    <div class="artwork-card-image">
+      {
+        image && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            class:list={{ "is-contained": isSquare }}
+            format="webp"
+            width={800}
+          />
+        )
+      }
+      {
+        badge && (
+          <div class="artwork-card-badge">
+            <span>{t.artworks[badge]}</span>
+          </div>
+        )
+      }
+    </div>
+    <p class="artwork-card-caption">
+      {artist.data.name}
+      <br />
+      <em>
+        {title}
+        {artwork.data.year && `, ${artwork.data.year}`}
+      </em>
+    </p>
+  </a>
+</li>
+
+<style>
+  .artwork-card {
+    display: flex;
+    position: relative;
+    flex-direction: column;
+    border-radius: var(--radius);
+    overflow: clip;
+  }
+
+  .artwork-card-image {
+    position: relative;
+    border-radius: var(--radius);
+    height: calc(400 * var(--unit-fx));
+    overflow: clip;
+  }
+
+  .artwork-card-image img {
+    display: block;
+    transform: scale(1);
+    transition: transform 2s cubic-bezier(0.645, 0.045, 0.355, 1);
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .artwork-card-image img.is-contained {
+    object-fit: contain;
+  }
+
+  .artwork-card:hover .artwork-card-image img {
+    transform: scale(2.5);
+  }
+
+  .artwork-card-badge {
+    display: flex;
+    position: absolute;
+    justify-content: center;
+    align-items: center;
+    inset: 0;
+    background-color: rgb(0 0 0 / 0.5);
+    color: white;
+    font-weight: 600;
+    font-size: calc(16 * var(--unit-fx));
+    letter-spacing: calc(2 * var(--unit-fx));
+    text-transform: uppercase;
+  }
+
+  .artwork-card-caption {
+    margin-top: calc(10 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .artwork-card-image {
+      height: calc(220 * var(--unit-fx));
+    }
+
+    .artwork-card:hover .artwork-card-image img {
+      transform: scale(1);
+    }
+
+    .artwork-card-badge {
+      font-size: calc(14 * var(--unit-fx));
+      letter-spacing: calc(1 * var(--unit-fx));
+    }
+  }
+</style>

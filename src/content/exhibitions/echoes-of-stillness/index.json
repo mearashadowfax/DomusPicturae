@@ -1,0 +1,53 @@
+{
+  "title": {
+    "en": "Echoes of Stillness",
+    "fr": "Échos du silence",
+    "de": "Echos der Stille"
+  },
+  "description": {
+    "en": "A group exhibition of paintings and works on paper that treat silence as a living presence — from Emma Thompson's colour fields to Isabella Rodriguez's near-empty surfaces.",
+    "fr": "Une exposition collective de peintures et d'œuvres sur papier qui traitent le silence comme une présence vivante — des champs de couleur d'Emma Thompson aux surfaces presque vides d'Isabella Rodriguez.",
+    "de": "Eine Gruppenausstellung mit Gemälden und Arbeiten auf Papier, die Stille als lebendige Gegenwart behandeln – von Emma Thompsons Farbfeldern bis zu Isabella Rodriguez' beinahe leeren Flächen."
+  },
+  "startDate": "2026-09-03",
+  "endDate": "2026-10-31",
+  "timeline": {
+    "en": "September 3 – October 31, 2026",
+    "fr": "3 septembre – 31 octobre 2026",
+    "de": "3. September – 31. Oktober 2026"
+  },
+  "image": "/images/exhibitions/echoes-of-stillness/image.jpg",
+  "imageAlt": {
+    "en": "Abstract landscape with a golden horizon",
+    "fr": "Paysage abstrait à l'horizon doré",
+    "de": "Abstrakte Landschaft mit goldenem Horizont"
+  },
+  "location": {
+    "en": "Domus Picturae, Via dei Pittori 7, Rome",
+    "fr": "Domus Picturae, Via dei Pittori 7, Rome",
+    "de": "Domus Picturae, Via dei Pittori 7, Rom"
+  },
+  "admission": {
+    "en": "Free",
+    "fr": "Gratuit",
+    "de": "Frei"
+  },
+  "openingHours": [
+    {
+      "day": {
+        "en": "Tuesday – Friday",
+        "fr": "Mardi – vendredi",
+        "de": "Dienstag – Freitag"
+      },
+      "hours": "11:00 – 19:00"
+    },
+    {
+      "day": {
+        "en": "Saturday",
+        "fr": "Samedi",
+        "de": "Samstag"
+      },
+      "hours": "11:00 – 18:00"
+    }
+  ]
+}

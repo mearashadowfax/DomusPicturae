@@ -1,0 +1,60 @@
+{
+  "title": {
+    "en": "James Park's 'Spatial Dialogues' Installation Opens at Domus Picturae",
+    "fr": "L'installation « Spatial Dialogues » de James Park ouvre à Domus Picturae",
+    "de": "James Parks Installation „Spatial Dialogues“ eröffnet bei Domus Picturae"
+  },
+  "pubDate": "2025-03-25",
+  "description": {
+    "en": "A major new site-specific installation by James Park explores the relationship between form, space and perception in the gallery's main exhibition space.",
+    "fr": "Une nouvelle installation in situ de James Park explore la relation entre forme, espace et perception dans l'espace d'exposition principal de la galerie.",
+    "de": "Eine neue ortsspezifische Installation von James Park erkundet das Verhältnis von Form, Raum und Wahrnehmung im Hauptausstellungsraum der Galerie."
+  },
+  "featuredImage": "/images/news/james-park-sculptural-installation/featuredImage.jpg",
+  "featuredImageAlt": {
+    "en": "James Park's Spatial Dialogues installation at Domus Picturae",
+    "fr": "L'installation Spatial Dialogues de James Park à Domus Picturae",
+    "de": "James Parks Installation Spatial Dialogues bei Domus Picturae"
+  },
+  "slides": [
+    {
+      "image": "/images/news/james-park-sculptural-installation/slides/0/image.jpg",
+      "imageAlt": {
+        "en": "A woman looks at a large abstract art installation",
+        "fr": "Une femme regarde une grande installation abstraite",
+        "de": "Eine Frau betrachtet eine große abstrakte Installation"
+      },
+      "caption": {
+        "en": "Installation view",
+        "fr": "Vue de l'installation",
+        "de": "Installationsansicht"
+      }
+    },
+    {
+      "image": "/images/news/james-park-sculptural-installation/slides/1/image.jpg",
+      "imageAlt": {
+        "en": "A large sculptural work",
+        "fr": "Une grande œuvre sculpturale",
+        "de": "Ein großes skulpturales Werk"
+      },
+      "caption": {
+        "en": "Sculptural element",
+        "fr": "Élément sculptural",
+        "de": "Skulpturales Element"
+      }
+    },
+    {
+      "image": "/images/news/james-park-sculptural-installation/slides/2/image.jpg",
+      "imageAlt": {
+        "en": "Museum building",
+        "fr": "Bâtiment de musée",
+        "de": "Museumsgebäude"
+      },
+      "caption": {
+        "en": "Exterior view",
+        "fr": "Vue extérieure",
+        "de": "Außenansicht"
+      }
+    }
+  ]
+}

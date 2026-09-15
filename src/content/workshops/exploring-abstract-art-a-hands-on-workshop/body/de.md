@@ -1,0 +1,5 @@
+Abstrakte Kunst ist seit Langem ein tiefgründiger Ausdruck von Kreativität: Künstler lösen sich von der traditionellen Darstellung und erkunden die Grenzen von Farbe, Form und Gefühl. Im Mittelpunkt steht nicht die Abbildung der Wirklichkeit, sondern die Vermittlung von Ideen und Emotionen mit gegenstandslosen Mitteln.
+
+Von den kühnen Strichen Wassily Kandinskys bis zur geometrischen Präzision Piet Mondrians hat sich die abstrakte Kunst über Jahrzehnte entwickelt und unzählige Künstler und Bewegungen beeinflusst. Sie lädt Betrachter ein, das Werk durch die eigene Wahrnehmung und das eigene Empfinden zu deuten – eine zutiefst persönliche Erfahrung.
+
+In diesem Workshop vertiefen wir uns in die Geschichte und Entwicklung der abstrakten Kunst und beleuchten zentrale Künstler und ihren Beitrag zu dieser revolutionären Gattung. Wir untersuchen außerdem, wie zeitgenössische Künstler die Grenzen der Abstraktion mit innovativen Techniken und Materialien weiter verschieben und Werke schaffen, die unser Verständnis von Kunst selbst herausfordern.

@@ -1,0 +1,85 @@
+---
+/**
+ * Full-viewport hero. Shows the last word of the gallery name as a wordmark;
+ * the footer shows the first, so a two-word name reads across the page.
+ */
+import { Image } from "astro:assets";
+import hero from "@images/hero.webp";
+import { getSite } from "@utils/content";
+
+const site = await getSite();
+const wordmark = site.data.name.split(" ").pop();
+---
+
+<section class="hero">
+  <div class="hero-image">
+    <Image
+      src={hero}
+      alt=""
+      format="webp"
+      quality={85}
+      width={2560}
+      loading="eager"
+    />
+  </div>
+  <div class="hero-title">
+    <h1>{wordmark}</h1>
+  </div>
+</section>
+
+<style>
+  .hero {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  .hero-image {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+  }
+
+  .hero-image img {
+    position: absolute;
+    clip-path: polygon(100% 0%, 100% 0%, 100% 100%, 100% 100%);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .hero-title {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+  }
+
+  .hero-title h1 {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+    color: var(--color-text-secondary);
+    font-weight: 400;
+    font-size: 18.5vw;
+    text-transform: uppercase;
+    /* The letters become inline-blocks on the first visit; never break between them. */
+    white-space: nowrap;
+  }
+
+  /* Letters start below the h1's clip and are slid up by the home script.
+     A transform, not `top`: moving a positioned box counts as layout shift. */
+  .hero-title :global(h1 span) {
+    display: inline-block;
+    transform: translateY(400px);
+  }
+
+  @media screen and (max-width: 600px) {
+    .hero-title h1 {
+      font-size: 25vw;
+    }
+  }
+</style>

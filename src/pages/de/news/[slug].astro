@@ -1,0 +1,10 @@
+---
+import NewsArticleView from "@/views/NewsArticleView.astro";
+import { newsPaths } from "@/routes";
+
+export const getStaticPaths = newsPaths;
+
+const { article } = Astro.props;
+---
+
+<NewsArticleView locale="de" article={article} />

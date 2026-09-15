@@ -1,0 +1,109 @@
+---
+/** Poster-style card for a workshop; plays its preview video on hover. */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import { type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { picture } from "@utils/images";
+import { routes } from "@/routes";
+
+interface Props {
+  workshop: CollectionEntry<"workshops">;
+  locale: Locale;
+}
+
+const { workshop, locale } = Astro.props;
+const image = picture(workshop.data, locale, text(workshop.data.title, locale));
+---
+
+<a
+  href={routes.workshop(locale, workshop)}
+  class="workshop-card"
+  aria-label={text(workshop.data.title, locale)}
+>
+  {
+    image && (
+      <Image
+        src={image.src}
+        alt={image.alt}
+        format="webp"
+        width={800}
+        class="workshop-card-image"
+      />
+    )
+  }
+  {
+    workshop.data.video && (
+      <video class="workshop-card-video" muted loop playsinline preload="none">
+        <source src={workshop.data.video} type="video/mp4" />
+      </video>
+    )
+  }
+</a>
+
+<style>
+  .workshop-card {
+    display: block;
+    position: relative;
+    border-radius: var(--radius);
+    width: calc(32% - calc(10 * var(--unit-fx)));
+    height: calc(540 * var(--unit-fx));
+    overflow: hidden;
+  }
+
+  .workshop-card-image,
+  .workshop-card-video {
+    position: absolute;
+    transition: opacity var(--transition-base);
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .workshop-card-video {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .workshop-card:hover .workshop-card-image {
+    opacity: 0;
+  }
+
+  .workshop-card:hover .workshop-card-video {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    .workshop-card {
+      flex-shrink: 0;
+      width: calc(250 * var(--unit-fx));
+      height: calc(350 * var(--unit-fx));
+      scroll-snap-align: start;
+    }
+
+    .workshop-card-video {
+      display: none;
+    }
+
+    .workshop-card:hover .workshop-card-image {
+      opacity: 1;
+    }
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>(".workshop-card").forEach((card) => {
+    const video = card.querySelector<HTMLVideoElement>(".workshop-card-video");
+    if (!video) return;
+    card.addEventListener("mouseenter", () => {
+      video.play().catch(() => {
+        /* play() is interrupted when the pointer leaves quickly; ignore */
+      });
+    });
+    card.addEventListener("mouseleave", () => {
+      video.pause();
+      video.currentTime = 0;
+    });
+  });
+</script>

@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Digital Bloom",
+    "fr": "Floraison numérique",
+    "de": "Digitale Blüte"
+  },
+  "year": 2024,
+  "artist": "yuki-tanaka",
+  "image": "/images/artworks/digital-bloom/image.jpg",
+  "imageAlt": {
+    "en": "Abstract floral form in digital neon tones",
+    "fr": "Forme florale abstraite aux tons néon numériques",
+    "de": "Abstrakte Blütenform in digitalen Neontönen"
+  },
+  "medium": {
+    "en": "Digital print on aluminium",
+    "fr": "Impression numérique sur aluminium",
+    "de": "Digitaldruck auf Aluminium"
+  },
+  "dimensions": {
+    "width": 80,
+    "height": 150,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Digital Bloom” fuses organic elegance with synthetic precision. The artist reinterprets botanical life through coded geometry and fluorescent gradients, creating a luminous garden that exists between nature and technology. It celebrates growth in the digital age—artificial yet undeniably alive.",
+    "fr": "« Floraison numérique » fusionne l'élégance organique et la précision synthétique. L'artiste réinterprète la vie botanique par une géométrie codée et des dégradés fluorescents, créant un jardin lumineux qui existe entre nature et technologie. L'œuvre célèbre la croissance à l'ère numérique — artificielle, et pourtant indéniablement vivante.",
+    "de": "„Digitale Blüte“ verschmilzt organische Eleganz mit synthetischer Präzision. Die Künstlerin deutet botanisches Leben durch codierte Geometrie und fluoreszierende Verläufe neu und schafft einen leuchtenden Garten zwischen Natur und Technologie. Das Werk feiert Wachstum im digitalen Zeitalter – künstlich und doch unbestreitbar lebendig."
+  },
+  "availability": "available"
+}

@@ -1,0 +1,10 @@
+---
+import ArtistView from "@/views/ArtistView.astro";
+import { artistPaths } from "@/routes";
+
+export const getStaticPaths = artistPaths;
+
+const { artist } = Astro.props;
+---
+
+<ArtistView locale="en" artist={artist} />

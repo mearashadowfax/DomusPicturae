@@ -1,0 +1,5 @@
+L'art abstrait est depuis longtemps une expression profonde de la créativité, où les artistes s'affranchissent de la représentation traditionnelle pour explorer les limites de la couleur, de la forme et de l'émotion. L'enjeu n'est pas de représenter la réalité, mais de transmettre des idées et des émotions par des moyens non figuratifs.
+
+Des traits audacieux de Vassily Kandinsky à la précision géométrique de Piet Mondrian, l'art abstrait a évolué au fil des décennies, influençant d'innombrables artistes et mouvements. Il invite le spectateur à interpréter l'œuvre selon ses propres perceptions et sensations, ce qui en fait une expérience profondément personnelle.
+
+Dans cet atelier, nous explorons l'histoire et l'évolution de l'art abstrait, en mettant en lumière les artistes clés et leurs contributions à ce genre révolutionnaire. Nous verrons également comment les artistes contemporains continuent de repousser les limites de l'abstraction, avec des techniques et des matériaux innovants qui remettent en question notre conception même de l'art.

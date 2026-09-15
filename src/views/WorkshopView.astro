@@ -1,0 +1,150 @@
+---
+/** Workshop detail with the interest-registration form. */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import WorkshopRegistrationForm from "@components/forms/WorkshopRegistrationForm";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { renderBody } from "@utils/content";
+import { picture } from "@utils/images";
+
+interface Props {
+  locale: Locale;
+  workshop: CollectionEntry<"workshops">;
+}
+
+const { locale, workshop } = Astro.props;
+const t = useUI(locale);
+const title = text(workshop.data.title, locale);
+const image = picture(workshop.data, locale, title);
+const body = await renderBody("workshops", workshop.id, locale);
+const description = text(workshop.data.registerInfo, locale);
+---
+
+<MainLayout locale={locale} title={title} description={description}>
+  <Navbar locale={locale} />
+
+  <article class="workshop">
+    <header class="workshop-header">
+      <h1>{title}</h1>
+    </header>
+
+    <div class="workshop-register">
+      <div class="workshop-register-info">
+        <h2>{text(workshop.data.registerTitle, locale)}</h2>
+        <p>{description}</p>
+      </div>
+      <WorkshopRegistrationForm
+        workshop={title}
+        locale={locale}
+        endpoint={import.meta.env.PUBLIC_FORM_WORKSHOP}
+        labels={t.workshop}
+        client:visible
+      />
+    </div>
+
+    <div class="workshop-body">
+      {
+        image && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            class="workshop-image"
+            format="webp"
+            width={1400}
+            loading="eager"
+          />
+        )
+      }
+      <div class="prose"><Fragment set:html={body} /></div>
+    </div>
+  </article>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .workshop-header {
+    display: flex;
+    align-items: center;
+    padding-top: calc(120 * var(--unit-fx));
+    padding-bottom: calc(40 * var(--unit-fx));
+  }
+
+  .workshop-header h1 {
+    margin: auto;
+    font-weight: 300;
+    font-size: calc(45 * var(--unit-fx));
+    line-height: 1.2;
+    font-family: var(--font-baskervville);
+    text-align: center;
+  }
+
+  .workshop-register {
+    display: flex;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-inline: auto;
+    margin-block: calc(40 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .workshop-register-info {
+    width: 50%;
+    max-width: 35vw;
+  }
+
+  .workshop-register-info p {
+    margin-top: calc(25 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-fx));
+    line-height: 1.3;
+  }
+
+  .workshop-body {
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(120 * var(--unit-fx));
+    margin-inline: auto;
+    padding-inline: calc(40 * var(--unit-fx));
+    width: 65ch;
+    max-width: 100%;
+    font-size: calc(16 * var(--unit-fx));
+    line-height: 1.4;
+  }
+
+  .workshop-image {
+    margin-bottom: calc(40 * var(--unit-fx));
+    border-radius: var(--radius);
+    width: 100%;
+    height: auto;
+  }
+
+  .prose :global(p) {
+    margin-block: calc(25 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .workshop-header h1 {
+      padding-inline: calc(20 * var(--unit-fx));
+      font-size: calc(35 * var(--unit-fx));
+    }
+
+    .workshop-register {
+      flex-direction: column;
+      gap: calc(30 * var(--unit-fx));
+      padding-inline: calc(20 * var(--unit-fx));
+    }
+
+    .workshop-register-info {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .workshop-body {
+      padding-inline: calc(20 * var(--unit-fx));
+      width: 100%;
+    }
+  }
+</style>

@@ -1,0 +1,89 @@
+/**
+ * Design tokens.
+ *
+ * Every colour, font and timing the site uses is defined here as a custom
+ * property. Components never hard-code colours; they reference these tokens,
+ * which is what makes the dark theme (`[data-theme="dark"]`) a token swap
+ * rather than a second set of components.
+ *
+ * Sizing uses the viewport unit system (`--unit-fx`): a value of 1 equals one
+ * pixel on a 1440px-wide design, and scales proportionally on other screens
+ * up to a 1920px ceiling, so very wide monitors don't inflate the layout.
+ * Write `calc(24 * var(--unit-fx))` where a design specifies 24px.
+ */
+
+@layer tokens {
+  :root {
+    /* Viewport units — 1440 × 996 desktop design base, capped at 1920 wide */
+    --vw: 100vw;
+    --vh: 100vh;
+    --unit-fx: calc(min(var(--vw), 1920px) / 1440);
+    --unit-fy: calc(var(--vh) / 996);
+
+    /* Brand */
+    --color-brand: oklch(73.9% 0.0796 66.71);
+    /* The brand hue as small text on light surfaces; the accent itself is too pale to read (2.3:1). */
+    --color-brand-text: oklch(55% 0.0796 66.71);
+
+    /* Surfaces */
+    --color-bg-primary: oklch(100% 0 0);
+    --color-bg-overlay: oklch(98.1% 0 0);
+    --color-bg-secondary: oklch(24.3% 0 0);
+    --color-bg-menu-open: oklch(94% 0 0);
+
+    /* Text */
+    --color-text-primary: oklch(33.3% 0.0222 66.71);
+    --color-text-secondary: oklch(100% 0 0);
+    --color-text-tertiary: oklch(88.4% 0 0);
+    /* Secondary text on the dark surfaces (About band, 404); fails contrast on light ones. */
+    --color-text-on-dark-muted: oklch(85.1% 0 0);
+
+    /* UI */
+    --color-button: var(--color-brand);
+    --color-divider: var(--color-brand);
+    --color-error: oklch(63.7% 0.237 25.331);
+    --color-nav-ink: oklch(100% 0 0);
+
+    /* Shape */
+    --radius: calc(4 * var(--unit-fx));
+
+    /* Motion */
+    --ease: cubic-bezier(0.215, 0.61, 0.355, 1);
+    --transition-fast: 300ms var(--ease);
+    --transition-base: 500ms var(--ease);
+    --transition-slow: 1000ms var(--ease);
+  }
+
+  /*
+   * Dark theme. A view opts in by rendering <MainLayout theme="dark">, which
+   * sets data-theme on <html>. Only tokens change; no component knows.
+   */
+  [data-theme="dark"] {
+    /* A cooler, quieter sand: the light theme's accent reads orange on plum. */
+    --color-brand: oklch(78% 0.05 80);
+    --color-brand-text: var(--color-brand);
+    --color-bg-primary: oklch(17% 0.02 320);
+    --color-bg-overlay: oklch(30% 0.025 330);
+    --color-bg-menu-open: oklch(24% 0.02 325);
+    --color-text-primary: oklch(90% 0.005 300);
+    --color-text-secondary: oklch(17% 0.02 320);
+    --color-text-tertiary: oklch(34% 0.02 320);
+    --color-text-on-dark-muted: oklch(70% 0.01 300);
+  }
+
+  /* Tablet: 768 × 1024 design base */
+  @media screen and (min-width: 601px) and (max-width: 1024px) {
+    :root {
+      --unit-fx: calc(var(--vw) / 768);
+      --unit-fy: calc(var(--vh) / 1024);
+    }
+  }
+
+  /* Mobile: 375 × 726 design base */
+  @media screen and (max-width: 600px) {
+    :root {
+      --unit-fx: calc(var(--vw) / 375);
+      --unit-fy: calc(var(--vh) / 726);
+    }
+  }
+}

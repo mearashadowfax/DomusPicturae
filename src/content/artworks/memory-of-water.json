@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Memory of Water",
+    "fr": "Mémoire de l'eau",
+    "de": "Erinnerung des Wassers"
+  },
+  "year": 2019,
+  "artist": "yuki-tanaka",
+  "image": "/images/artworks/memory-of-water/image.jpg",
+  "imageAlt": {
+    "en": "Flowing blue tones suggesting the movement of water",
+    "fr": "Tons bleus fluides suggérant le mouvement de l'eau",
+    "de": "Fließende Blautöne, die die Bewegung von Wasser andeuten"
+  },
+  "medium": {
+    "en": "Acrylic on canvas",
+    "fr": "Acrylique sur toile",
+    "de": "Acryl auf Leinwand"
+  },
+  "dimensions": {
+    "width": 70,
+    "height": 100,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "An ethereal meditation on transparency and motion, “Memory of Water” explores how emotion, time, and reflection can coexist in a single ripple. Layered acrylics create a rhythmic flow that oscillates between turbulence and serenity. The painting mirrors the way memories shift—fluid, luminous, and never still.",
+    "fr": "Méditation éthérée sur la transparence et le mouvement, « Mémoire de l'eau » explore la façon dont l'émotion, le temps et le reflet peuvent coexister dans une seule ondulation. Les couches d'acrylique créent un flux rythmique qui oscille entre turbulence et sérénité. La peinture reflète la façon dont les souvenirs se déplacent — fluides, lumineux, jamais immobiles.",
+    "de": "Als ätherische Meditation über Transparenz und Bewegung erkundet „Erinnerung des Wassers“, wie Gefühl, Zeit und Spiegelung in einer einzigen Welle zusammenfinden. Geschichtete Acrylfarben erzeugen einen rhythmischen Fluss zwischen Aufruhr und Gelassenheit. Das Gemälde spiegelt, wie Erinnerungen sich verschieben – flüssig, leuchtend und nie still."
+  },
+  "availability": "not-for-sale"
+}

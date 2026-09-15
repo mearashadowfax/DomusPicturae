@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Whispering Pines",
+    "fr": "Pins murmurants",
+    "de": "Flüsternde Kiefern"
+  },
+  "year": 2023,
+  "artist": "sarah-chen",
+  "image": "/images/artworks/whispering-pines/image.jpg",
+  "imageAlt": {
+    "en": "Forest landscape under soft morning light",
+    "fr": "Paysage forestier sous une douce lumière matinale",
+    "de": "Waldlandschaft im sanften Morgenlicht"
+  },
+  "medium": {
+    "en": "Watercolour on paper",
+    "fr": "Aquarelle sur papier",
+    "de": "Aquarell auf Papier"
+  },
+  "dimensions": {
+    "width": 50,
+    "height": 70,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "Rendered with delicate washes of green and blue, “Whispering Pines” captures the hushed dialogue between wind and forest. The watercolor’s soft transparency mirrors the fleeting quality of light as it passes through leaves. Each brushstroke feels like a breath—momentary yet eternal.",
+    "fr": "Rendus en délicats lavis de vert et de bleu, « Pins murmurants » capture le dialogue feutré entre le vent et la forêt. La transparence douce de l'aquarelle reflète la qualité fugace de la lumière qui traverse les feuilles. Chaque coup de pinceau est comme une respiration — momentanée et pourtant éternelle.",
+    "de": "In zarten Lasuren aus Grün und Blau fängt „Flüsternde Kiefern“ den gedämpften Dialog zwischen Wind und Wald ein. Die weiche Transparenz des Aquarells spiegelt die Flüchtigkeit des Lichts, das durch die Blätter fällt. Jeder Pinselstrich wirkt wie ein Atemzug – vergänglich und doch ewig."
+  },
+  "availability": "available"
+}

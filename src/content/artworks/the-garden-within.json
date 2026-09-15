@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "The Garden Within",
+    "fr": "Le jardin intérieur",
+    "de": "Der Garten im Innern"
+  },
+  "year": 2012,
+  "artist": "isabella-rodriguez",
+  "image": "/images/artworks/the-garden-within/image.jpg",
+  "imageAlt": {
+    "en": "Abstract botanical shapes in muted green",
+    "fr": "Formes botaniques abstraites en vert feutré",
+    "de": "Abstrakte botanische Formen in gedämpftem Grün"
+  },
+  "medium": {
+    "en": "Acrylic on linen",
+    "fr": "Acrylique sur lin",
+    "de": "Acryl auf Leinen"
+  },
+  "dimensions": {
+    "width": 100,
+    "height": 80,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“The Garden Within” is a contemplation of internal growth and quiet resilience. Gentle botanical forms emerge from soft green layers, symbolizing regeneration and inner balance. The work invites viewers to consider their own evolving landscapes—the emotional roots that sustain them.",
+    "fr": "« Le jardin intérieur » est une contemplation de la croissance intérieure et de la résilience tranquille. De douces formes botaniques émergent de couches de vert tendre, symbolisant la régénération et l'équilibre intérieur. L'œuvre invite chacun à considérer ses propres paysages en évolution — les racines émotionnelles qui le soutiennent.",
+    "de": "„Der Garten im Innern“ ist eine Betrachtung inneren Wachstums und stiller Widerstandskraft. Sanfte botanische Formen tauchen aus weichen Grünschichten auf und stehen für Erneuerung und inneres Gleichgewicht. Das Werk lädt ein, die eigenen sich wandelnden Landschaften zu bedenken – die emotionalen Wurzeln, die uns tragen."
+  },
+  "availability": "available"
+}

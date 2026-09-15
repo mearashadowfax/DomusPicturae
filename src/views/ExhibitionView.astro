@@ -1,0 +1,186 @@
+---
+/** Exhibition detail: practical details, hero image and localised body. */
+import { Image } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { renderBody } from "@utils/content";
+import { picture } from "@utils/images";
+import { exhibitionSchema } from "@utils/seo";
+
+interface Props {
+  locale: Locale;
+  exhibition: CollectionEntry<"exhibitions">;
+}
+
+const { locale, exhibition } = Astro.props;
+const t = useUI(locale);
+const title = text(exhibition.data.title, locale);
+const description = text(exhibition.data.description, locale);
+const image = picture(exhibition.data, locale, title);
+const body = await renderBody("exhibitions", exhibition.id, locale);
+
+const schema = exhibitionSchema(
+  { url: Astro.url, site: Astro.site!, locale },
+  exhibition,
+);
+---
+
+<MainLayout
+  locale={locale}
+  title={title}
+  description={description}
+  schema={schema}
+>
+  <Navbar locale={locale} />
+
+  <article class="exhibition">
+    <header class="exhibition-header">
+      <h1>{title}</h1>
+    </header>
+
+    <dl class="exhibition-details">
+      <div>
+        <dt>{t.events.when}</dt>
+        <dd>{text(exhibition.data.timeline, locale)}</dd>
+      </div>
+      <div>
+        <dt>{t.events.location}</dt>
+        <dd>{text(exhibition.data.location, locale)}</dd>
+      </div>
+      <div>
+        <dt>{t.events.admission}</dt>
+        <dd>{text(exhibition.data.admission, locale)}</dd>
+      </div>
+      <div>
+        <dt>{t.events.openingHours}</dt>
+        <dd class="exhibition-hours">
+          {
+            exhibition.data.openingHours.map((item) => (
+              <span>
+                {text(item.day, locale)} <span>{item.hours}</span>
+              </span>
+            ))
+          }
+        </dd>
+      </div>
+    </dl>
+
+    <div class="exhibition-body">
+      {
+        image && (
+          <Image
+            src={image.src}
+            alt={image.alt}
+            class="exhibition-image"
+            format="webp"
+            width={1600}
+            loading="eager"
+          />
+        )
+      }
+      <div class="prose"><Fragment set:html={body} /></div>
+    </div>
+  </article>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .exhibition-header {
+    display: flex;
+    align-items: center;
+    padding-top: calc(120 * var(--unit-fx));
+    padding-bottom: calc(40 * var(--unit-fx));
+  }
+
+  .exhibition-header h1 {
+    margin: auto;
+    font-weight: 300;
+    font-size: calc(45 * var(--unit-fx));
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .exhibition-details {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(10 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .exhibition-details dt {
+    opacity: 0.8;
+    margin-bottom: calc(10 * var(--unit-fx));
+    font-weight: 600;
+    font-size: calc(14 * var(--unit-fx));
+  }
+
+  .exhibition-details dd {
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .exhibition-hours {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .exhibition-hours > span {
+    display: flex;
+    justify-content: space-between;
+    padding: calc(5 * var(--unit-fx)) 0;
+  }
+
+  .exhibition-hours > span > span {
+    margin-left: auto;
+  }
+
+  .exhibition-body {
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(120 * var(--unit-fx));
+    margin-inline: auto;
+    padding-inline: calc(40 * var(--unit-fx));
+    width: 65ch;
+    max-width: 100%;
+    font-size: calc(16 * var(--unit-fx));
+    line-height: 1.4;
+  }
+
+  .exhibition-image {
+    border-radius: var(--radius);
+    aspect-ratio: 16 / 9;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .prose :global(p) {
+    margin-block: calc(25 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .exhibition-header h1 {
+      padding-inline: calc(20 * var(--unit-fx));
+      font-size: calc(35 * var(--unit-fx));
+    }
+
+    .exhibition-details {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: calc(20 * var(--unit-fx));
+      padding-inline: calc(20 * var(--unit-fx));
+    }
+
+    .exhibition-hours > span > span {
+      font-weight: 600;
+      font-size: calc(13 * var(--unit-fx));
+    }
+
+    .exhibition-body {
+      padding-inline: calc(20 * var(--unit-fx));
+      width: 100%;
+    }
+  }
+</style>

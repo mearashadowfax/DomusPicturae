@@ -1,0 +1,53 @@
+{
+  "title": {
+    "en": "Luminous Ground",
+    "fr": "Terrain lumineux",
+    "de": "Leuchtender Grund"
+  },
+  "description": {
+    "en": "Marcus Weber's first solo presentation at the gallery: digital light prints that reimagine mountains, forests and northern skies as layered frequencies of light.",
+    "fr": "Première présentation personnelle de Marcus Weber à la galerie : des impressions lumineuses numériques qui réinventent montagnes, forêts et ciels boréaux comme des fréquences de lumière superposées.",
+    "de": "Marcus Webers erste Einzelpräsentation in der Galerie: digitale Lichtdrucke, die Berge, Wälder und nördliche Himmel als geschichtete Lichtfrequenzen neu erfinden."
+  },
+  "startDate": "2026-11-19",
+  "endDate": "2027-01-16",
+  "timeline": {
+    "en": "November 19, 2026 – January 16, 2027",
+    "fr": "19 novembre 2026 – 16 janvier 2027",
+    "de": "19. November 2026 – 16. Januar 2027"
+  },
+  "image": "/images/exhibitions/luminous-ground/image.jpg",
+  "imageAlt": {
+    "en": "Digital abstraction inspired by the northern lights",
+    "fr": "Abstraction numérique inspirée des aurores boréales",
+    "de": "Digitale Abstraktion, inspiriert von Nordlichtern"
+  },
+  "location": {
+    "en": "Domus Picturae, Via dei Pittori 7, Rome",
+    "fr": "Domus Picturae, Via dei Pittori 7, Rome",
+    "de": "Domus Picturae, Via dei Pittori 7, Rom"
+  },
+  "admission": {
+    "en": "Free",
+    "fr": "Gratuit",
+    "de": "Frei"
+  },
+  "openingHours": [
+    {
+      "day": {
+        "en": "Tuesday – Friday",
+        "fr": "Mardi – vendredi",
+        "de": "Dienstag – Freitag"
+      },
+      "hours": "11:00 – 19:00"
+    },
+    {
+      "day": {
+        "en": "Saturday",
+        "fr": "Samedi",
+        "de": "Samstag"
+      },
+      "hours": "11:00 – 18:00"
+    }
+  ]
+}

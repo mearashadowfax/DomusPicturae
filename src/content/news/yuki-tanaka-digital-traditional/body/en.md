@@ -1,0 +1,13 @@
+**Yuki Tanaka's** new body of work, _"Hybrid Landscapes"_, continues her exploration of the relationship between digital technology and traditional artistic media. The series, which will be featured in her upcoming solo exhibition at Domus Picturae, questions our increasingly complex relationship with both the virtual and the material world.
+
+Tanaka's practice is characterised by her ability to seamlessly integrate digital and traditional elements, creating works that feel simultaneously contemporary and timeless. In "Hybrid Landscapes", she pushes this integration further, developing installations that respond to viewer presence and incorporate both screen-based and physical elements.
+
+"Technology is not separate from our experience of the world — it's woven into it," Tanaka explains. "My work explores what happens when we acknowledge this integration, when we stop thinking of digital and physical as separate realms."
+
+The series includes several large-scale installations that combine projection mapping, interactive sensors and handcrafted elements. In one work, _"Memory Fragments"_, digital projections of fragmented images are mapped onto a sculptural surface made with traditional Japanese paper-making techniques. The projections respond to viewer movement, creating a dynamic relationship between the physical and the virtual.
+
+Another installation, _"Data Streams"_, incorporates real-time data visualisation alongside hand-painted elements, creating a dialogue between algorithmic processes and human gesture. The work questions how we understand information in an age of constant data flow, and how traditional artistic practices might help us process this overwhelming stream.
+
+Tanaka's process involves extensive collaboration with technologists and craftspeople. For "Hybrid Landscapes", she worked with software developers to create custom interactive systems, while also collaborating with traditional paper makers and textile artists to create the physical elements of her installations. "I'm not a programmer or a traditional craftsperson — I'm an artist who works at the intersection of these fields," Tanaka notes. "The work emerges from the dialogue between different forms of knowledge and skill."
+
+"Hybrid Landscapes" opens on May 10, 2025, and will be Tanaka's first solo exhibition at Domus Picturae. Tanaka will take part in a panel discussion on "Art and Technology in Contemporary Practice" on May 15. The exhibition runs through July 15, 2025, and is accompanied by a digital catalogue featuring interactive elements that extend the exhibition experience beyond the gallery walls.

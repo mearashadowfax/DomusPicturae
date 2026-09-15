@@ -1,0 +1,213 @@
+---
+/** Horizontal, wheel-driven presentation of the whole catalogue. */
+import { Image } from "astro:assets";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getCatalogue, getSite } from "@utils/content";
+import { picture } from "@utils/images";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const site = await getSite();
+const slides = (await getCatalogue())
+  .map((artwork) => ({
+    image: picture(artwork.data, locale, text(artwork.data.title, locale)),
+    href: routes.artwork(locale, artwork),
+    isSquare: artwork.data.dimensions.width === artwork.data.dimensions.height,
+  }))
+  .filter((slide) => slide.image !== null);
+---
+
+<MainLayout
+  locale={locale}
+  title={t.viewingRoom.title}
+  description={t.viewingRoom.description}
+>
+  <Navbar locale={locale} />
+
+  <div class="room-sidebar">
+    <h1 class="room-wordmark">{site.data.name.split(" ").pop()}</h1>
+  </div>
+
+  <div class="room">
+    <div class="room-controls">
+      <div class="room-views">
+        <a href={routes.artworks(locale)}>{t.artworks.gridView}</a>
+        {" "}
+        <span class="room-views-separator" aria-hidden="true">|</span>
+        {" "}
+        <span class="is-active">{t.artworks.viewingRoom}</span>
+      </div>
+      <a
+        href={routes.privateCollection(locale)}
+        class="room-private link-underline"
+      >
+        <span>{t.artworks.privateCollection}</span>
+      </a>
+    </div>
+    <div class="room-track">
+      {
+        slides.map((slide) => (
+          <div class="room-slide">
+            <a href={slide.href}>
+              <Image
+                src={slide.image!.src}
+                alt={slide.image!.alt}
+                class:list={{ "is-contained": slide.isSquare }}
+                format="webp"
+                width={700}
+                loading="lazy"
+              />
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</MainLayout>
+
+<style>
+  .room-sidebar {
+    display: flex;
+    align-items: flex-start;
+    transform: rotate(-90deg) translate(-100%, 0);
+    transform-origin: left top;
+    padding: 1.5em 3em;
+    width: 100vh;
+  }
+
+  .room-wordmark {
+    margin-bottom: 4rem;
+    color: var(--color-text-tertiary);
+    font-weight: 300;
+    font-size: calc(150 * var(--unit-fx));
+    text-transform: uppercase;
+  }
+
+  .room {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .room-controls {
+    position: absolute;
+    bottom: calc(45 * var(--unit-fx));
+    left: 15%;
+    z-index: 100;
+  }
+
+  .room-views {
+    position: absolute;
+    bottom: 200%;
+    font-size: calc(12 * var(--unit-fx));
+    white-space: nowrap;
+  }
+
+  .room-views a,
+  .room-views span {
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+  }
+
+  .room-views a:hover {
+    opacity: 0.7;
+  }
+
+  .room-views .is-active {
+    opacity: 1;
+  }
+
+  .room-views-separator {
+    opacity: 1;
+    margin-inline: calc(5 * var(--unit-fx));
+    color: var(--color-brand);
+  }
+
+  .room-private {
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .room-private span {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
+  }
+
+  .room-private :global(svg) {
+    width: calc(15 * var(--unit-fx));
+    height: calc(15 * var(--unit-fx));
+  }
+
+  .room-track {
+    display: flex;
+    position: absolute;
+    top: 0;
+    align-items: center;
+    gap: 100px;
+    padding: 0 calc(400 * var(--unit-fx));
+    width: max-content;
+    height: 100%;
+  }
+
+  .room-slide {
+    background-color: var(--color-bg-primary);
+    width: calc(300 * var(--unit-fx));
+    height: calc(400 * var(--unit-fx));
+  }
+
+  .room-slide img {
+    border-radius: var(--radius);
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .room-slide img.is-contained {
+    object-fit: contain;
+  }
+</style>
+
+<script>
+  import { gsap } from "@scripts/motion";
+
+  const track = document.querySelector<HTMLElement>(".room-track")!;
+  const slides = track.querySelectorAll<HTMLElement>(".room-slide");
+  const ease = 0.075;
+  let target = 0;
+  let current = 0;
+  let maxScroll = track.scrollWidth - window.innerWidth;
+
+  const lerp = (a: number, b: number, f: number) => a + (b - a) * f;
+
+  function update() {
+    current = lerp(current, target, ease);
+    gsap.set(track, { x: -current });
+    slides.forEach((slide) => {
+      const rect = slide.getBoundingClientRect();
+      const distance = (rect.left + rect.right) / 2 - window.innerWidth / 2;
+      const scale =
+        distance > 0
+          ? Math.min(1.75, 1 + distance / window.innerWidth)
+          : Math.max(0.5, 1 - Math.abs(distance) / window.innerWidth);
+      gsap.set(slide, { scale, x: distance > 0 ? (scale - 1) * 300 : 0 });
+    });
+    requestAnimationFrame(update);
+  }
+
+  window.addEventListener(
+    "resize",
+    () => (maxScroll = track.scrollWidth - window.innerWidth),
+  );
+  window.addEventListener("wheel", (event) => {
+    target = Math.min(maxScroll, Math.max(0, target + event.deltaY));
+  });
+  update();
+</script>

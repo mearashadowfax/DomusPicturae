@@ -1,0 +1,66 @@
+---
+/**
+ * Links to the current page in every other locale. Rendered server-side from
+ * the request path, so it needs no client script.
+ */
+import {
+  locales,
+  localeLabels,
+  localizePath,
+  stripLocale,
+  type Locale,
+} from "@/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const basePath = stripLocale(Astro.url.pathname);
+---
+
+<nav class="language-switcher" aria-label="Language">
+  {
+    locales.map((l, index) => (
+      <>
+        <a
+          href={localizePath(l, basePath)}
+          class:list={["language-link", { "is-active": l === locale }]}
+          hreflang={l}
+          aria-current={l === locale ? "true" : undefined}
+        >
+          {localeLabels[l]}
+        </a>
+        {index < locales.length - 1 && <span aria-hidden="true">⏤</span>}
+      </>
+    ))
+  }
+</nav>
+
+<style>
+  .language-switcher {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .language-link {
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+  }
+
+  .language-link:hover {
+    opacity: 0.8;
+  }
+
+  .language-link.is-active {
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    .language-switcher {
+      font-size: calc(20 * var(--unit-fx));
+    }
+  }
+</style>

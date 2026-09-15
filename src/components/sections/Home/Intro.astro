@@ -1,0 +1,19 @@
+---
+import HomeSection from "./HomeSection.astro";
+import type { Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getHomepage } from "@utils/content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { intro } = (await getHomepage()).data;
+---
+
+<HomeSection
+  name="intro"
+  title={text(intro.subheading, locale)}
+  content={text(intro.content, locale)}
+/>

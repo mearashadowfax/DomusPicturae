@@ -1,0 +1,41 @@
+---
+/** Curtain with a progress bar, shown on the first visit; HomeView's script raises it once the hero image has loaded. */
+---
+
+<div class="preloader">
+  <div class="preloader-bar"></div>
+</div>
+
+<style>
+  .preloader {
+    display: flex;
+    position: fixed;
+    justify-content: flex-end;
+    align-items: flex-end;
+    z-index: 2;
+    /* The script animates this to inset(0 0 100% 0): the curtain rises. */
+    clip-path: inset(0% 0% 0% 0%);
+    inset: 0;
+    background-color: var(--color-bg-primary);
+    padding: 2em;
+  }
+
+  .preloader-bar {
+    position: relative;
+    top: -15px;
+    background-color: var(--color-brand);
+    width: 0;
+    height: calc(4 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .preloader {
+      padding: 1em;
+    }
+
+    .preloader-bar {
+      top: -5px;
+      height: calc(2 * var(--unit-fx));
+    }
+  }
+</style>

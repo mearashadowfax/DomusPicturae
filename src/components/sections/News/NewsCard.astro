@@ -1,0 +1,84 @@
+---
+/** Summary card for a news post. */
+import type { CollectionEntry } from "astro:content";
+import { useUI, type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { formatDate } from "@utils/utils";
+import { routes } from "@/routes";
+
+interface Props {
+  entry: CollectionEntry<"news">;
+  locale: Locale;
+}
+
+const { entry, locale } = Astro.props;
+const t = useUI(locale);
+const title = text(entry.data.title, locale);
+---
+
+<li class="news-card">
+  <div class="news-card-header">
+    <span class="news-card-date"
+      >[{formatDate(entry.data.pubDate, locale)}]</span
+    >
+    <h3 class="news-card-title">{title}</h3>
+  </div>
+  <p class="news-card-summary">{text(entry.data.description, locale)}</p>
+  <a class="news-card-link link-underline" href={routes.article(locale, entry)}>
+    {t.news.readMore}<span class="visually-hidden">: {title}</span>
+  </a>
+</li>
+
+<style>
+  .news-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .news-card-header {
+    display: grid;
+    grid-template-columns: calc(60 * var(--unit-fx)) 1fr;
+    align-items: baseline;
+    gap: calc(15 * var(--unit-fx));
+  }
+
+  .news-card-date {
+    font-size: calc(13 * var(--unit-fx));
+  }
+
+  .news-card-title {
+    font-size: calc(18 * var(--unit-fx));
+    font-family: var(--font-baskervville);
+  }
+
+  .news-card-summary {
+    display: -webkit-box;
+    margin-block: calc(12 * var(--unit-fx));
+    font-size: calc(18 * var(--unit-fx));
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .news-card-link {
+    display: inline-block;
+    align-self: flex-start;
+    font-size: calc(13 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .news-card-header {
+      grid-template-columns: calc(45 * var(--unit-fx)) 1fr;
+    }
+
+    .news-card-date {
+      font-size: calc(12 * var(--unit-fx));
+    }
+
+    .news-card-title {
+      font-weight: 500;
+    }
+  }
+</style>

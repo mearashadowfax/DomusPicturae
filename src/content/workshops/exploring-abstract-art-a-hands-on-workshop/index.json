@@ -1,0 +1,24 @@
+{
+  "title": {
+    "en": "Exploring Abstract Art: A Hands-On Workshop",
+    "fr": "Explorer l'art abstrait : un atelier pratique",
+    "de": "Abstrakte Kunst erkunden: Ein praktischer Workshop"
+  },
+  "image": "/images/workshops/exploring-abstract-art-a-hands-on-workshop/image.jpg",
+  "imageAlt": {
+    "en": "Visitors in a modern art museum gallery",
+    "fr": "Visiteurs dans une salle de musée d'art moderne",
+    "de": "Besucher in einem Saal eines Museums für moderne Kunst"
+  },
+  "video": "/images/videos/video3.mp4",
+  "registerTitle": {
+    "en": "Register for workshop updates",
+    "fr": "Inscrivez-vous pour recevoir les informations",
+    "de": "Für Workshop-Updates anmelden"
+  },
+  "registerInfo": {
+    "en": "Fill out the form to register your interest in our upcoming workshop. Select your preferred date and provide your contact details, and we'll notify you with the final schedule and registration details. We look forward to having you join us!",
+    "fr": "Remplissez le formulaire pour manifester votre intérêt pour notre prochain atelier. Choisissez la date qui vous convient et laissez vos coordonnées ; nous vous communiquerons le programme définitif et les modalités d'inscription. Au plaisir de vous accueillir !",
+    "de": "Füllen Sie das Formular aus, um Ihr Interesse an unserem kommenden Workshop zu bekunden. Wählen Sie Ihren Wunschtermin und hinterlassen Sie Ihre Kontaktdaten; wir informieren Sie über den endgültigen Zeitplan und die Anmeldung. Wir freuen uns auf Sie!"
+  }
+}

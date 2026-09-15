@@ -1,0 +1,9 @@
+node_modules
+dist
+.astro
+pnpm-lock.yaml
+public
+*.min.js
+*.min.css
+*.log
+.DS_Store

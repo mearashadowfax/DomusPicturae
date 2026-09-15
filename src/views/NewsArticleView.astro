@@ -1,0 +1,158 @@
+---
+/** A news post: featured image, body, optional slideshow, closing paragraph. */
+import { Image, getImage } from "astro:assets";
+import type { CollectionEntry } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import Slider from "@ui/slider/Slider.astro";
+import type { Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { renderBodySplit } from "@utils/content";
+import { picture, pictures } from "@utils/images";
+import { formatDate } from "@utils/utils";
+import { articleSchema } from "@utils/seo";
+
+interface Props {
+  locale: Locale;
+  article: CollectionEntry<"news">;
+}
+
+const { locale, article } = Astro.props;
+const title = text(article.data.title, locale);
+const description = text(article.data.description, locale);
+const featured = picture(
+  {
+    image: article.data.featuredImage,
+    imageAlt: article.data.featuredImageAlt,
+  },
+  locale,
+  title,
+);
+const slides = pictures(article.data.slides, locale).map((slide) => ({
+  image: slide.src,
+  alt: slide.alt,
+  caption: text(slide.source.caption, locale),
+}));
+const { main, closing } = await renderBodySplit("news", article.id, locale);
+
+/** A WebP for the structured data, so the page never ships the original file. */
+const schemaImage = featured
+  ? await getImage({ src: featured.src, format: "webp", width: 1200 })
+  : null;
+const schema = articleSchema(
+  { url: Astro.url, site: Astro.site!, locale },
+  article,
+  { imageSrc: schemaImage?.src },
+);
+---
+
+<MainLayout
+  locale={locale}
+  title={title}
+  description={description}
+  schema={schema}
+>
+  <Navbar locale={locale} />
+
+  <article class="article">
+    <header class="article-header">
+      <time datetime={article.data.pubDate.toISOString()}
+        >[{formatDate(article.data.pubDate, locale)}]</time
+      >
+      <h1>{title}</h1>
+    </header>
+
+    <div class="article-body">
+      {
+        featured && (
+          <Image
+            src={featured.src}
+            alt={featured.alt}
+            class="article-image"
+            format="webp"
+            width={1400}
+            loading="eager"
+          />
+        )
+      }
+      <div class="prose"><Fragment set:html={main} /></div>
+      {slides.length > 0 && <Slider slides={slides} />}
+      {
+        closing && (
+          <div class="prose">
+            <Fragment set:html={closing} />
+          </div>
+        )
+      }
+    </div>
+  </article>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .article-header {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    align-items: center;
+    padding-top: calc(120 * var(--unit-fx));
+    padding-bottom: calc(40 * var(--unit-fx));
+  }
+
+  .article-header time {
+    margin-left: calc(40 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-fx));
+  }
+
+  .article-header h1 {
+    font-weight: 300;
+    font-size: calc(45 * var(--unit-fx));
+    line-height: 1.2;
+    text-align: center;
+  }
+
+  .article-body {
+    margin-bottom: calc(120 * var(--unit-fx));
+    margin-inline: auto;
+    padding-inline: calc(40 * var(--unit-fx));
+    width: 65ch;
+    max-width: 100%;
+    font-size: calc(16 * var(--unit-fx));
+    line-height: 1.4;
+  }
+
+  .article-image {
+    border-radius: var(--radius);
+    aspect-ratio: 12 / 9;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .prose :global(p) {
+    margin-block: calc(25 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .article-header {
+      display: flex;
+      flex-direction: column-reverse;
+      padding-inline: calc(20 * var(--unit-fx));
+    }
+
+    .article-header time {
+      margin-top: calc(10 * var(--unit-fx));
+      margin-left: 0;
+    }
+
+    .article-header h1 {
+      font-size: calc(35 * var(--unit-fx));
+    }
+
+    .article-body {
+      padding-inline: calc(20 * var(--unit-fx));
+      width: 100%;
+    }
+  }
+</style>

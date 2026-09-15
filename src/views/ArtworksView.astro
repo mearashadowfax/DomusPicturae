@@ -1,0 +1,155 @@
+---
+/** Catalogue grid with links to the viewing room and the private collection. */
+
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
+import { useUI, type Locale } from "@/i18n";
+import { presentCatalogue } from "@utils/content";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const artworks = await presentCatalogue(locale);
+---
+
+<MainLayout
+  locale={locale}
+  title={t.artworks.title}
+  description={t.artworks.description}
+>
+  <Navbar locale={locale} />
+
+  <section class="catalogue">
+    <div class="catalogue-bar">
+      <div class="catalogue-bar-row">
+        <div class="catalogue-views">
+          <span class="is-active">{t.artworks.gridView}</span>
+          {" "}
+          <span class="catalogue-views-separator" aria-hidden="true">|</span>
+          {" "}
+          <a href={routes.viewingRoom(locale)}>{t.artworks.viewingRoom}</a>
+        </div>
+        <a
+          href={routes.privateCollection(locale)}
+          class="catalogue-private link-underline"
+        >
+          <span>{t.artworks.privateCollection}</span>
+        </a>
+      </div>
+      <hr class="section-rule" />
+    </div>
+
+    <ul class="catalogue-grid">
+      {
+        artworks.map((presentation) => (
+          <ArtworkCard presentation={presentation} />
+        ))
+      }
+    </ul>
+  </section>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .catalogue {
+    margin-block: calc(80 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .catalogue-bar {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background-color: var(--color-bg-primary);
+    padding-top: calc(25 * var(--unit-fx));
+  }
+
+  .catalogue-bar-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-inline: calc(90 * var(--unit-fx));
+  }
+
+  .catalogue-views {
+    font-size: calc(14 * var(--unit-fx));
+  }
+
+  .catalogue-views a,
+  .catalogue-views span {
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+  }
+
+  .catalogue-views a:hover {
+    opacity: 0.7;
+  }
+
+  .catalogue-views .is-active {
+    opacity: 1;
+  }
+
+  .catalogue-views-separator {
+    opacity: 1;
+    margin-inline: calc(5 * var(--unit-fx));
+    color: var(--color-brand);
+  }
+
+  .catalogue-private {
+    font-size: calc(16 * var(--unit-fx));
+  }
+
+  .catalogue-private span {
+    display: flex;
+    align-items: center;
+    gap: calc(5 * var(--unit-fx));
+  }
+
+  .catalogue-private :global(svg) {
+    width: calc(15 * var(--unit-fx));
+    height: calc(15 * var(--unit-fx));
+  }
+
+  .catalogue-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: calc(50 * var(--unit-fx));
+    row-gap: calc(100 * var(--unit-fx));
+    padding-block: calc(50 * var(--unit-fx));
+    list-style: none;
+  }
+
+  @media screen and (max-width: 600px) {
+    .catalogue {
+      padding-inline: 0;
+    }
+
+    .catalogue-bar {
+      padding-top: calc(16 * var(--unit-fx));
+    }
+
+    .catalogue-bar-row {
+      padding-inline: 0;
+    }
+
+    .catalogue-views {
+      display: none;
+    }
+
+    .catalogue-private {
+      font-size: calc(14 * var(--unit-fx));
+    }
+
+    .catalogue-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      column-gap: calc(20 * var(--unit-fx));
+    }
+  }
+</style>

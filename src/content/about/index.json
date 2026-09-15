@@ -1,0 +1,110 @@
+{
+  "title": {
+    "en": "Transforming Spaces with Artful Stories",
+    "fr": "Transformer les espaces avec des histoires artistiques",
+    "de": "Räume verwandeln mit kunstvollen Geschichten"
+  },
+  "intro": {
+    "en": "<span>At Domus Picturae</span>, art isn't just a display — it's an experience. Founded in 2021, our gallery was born out of a passion for bringing together diverse and compelling works of art in a space where creativity and community intersect. Our collection spans from classic to contemporary, showcasing artists from around the world and celebrating the beauty and depth of human expression.",
+    "fr": "<span>Chez Domus Picturae</span>, l’art n’est pas seulement une exposition — c’est une expérience. Fondée en 2021, notre galerie est née d’une passion pour réunir des œuvres d’art diverses et captivantes dans un lieu où la créativité et la communauté se rencontrent. Notre collection s’étend du classique au contemporain, mettant en avant des artistes du monde entier et célébrant la beauté et la profondeur de l’expression humaine.",
+    "de": "<span>Bei Domus Picturae</span> ist Kunst nicht nur eine Ausstellung — sie ist ein Erlebnis. Seit unserer Gründung im Jahr 2021 entstand unsere Galerie aus der Leidenschaft, vielfältige und fesselnde Kunstwerke in einem Raum zu vereinen, in dem sich Kreativität und Gemeinschaft begegnen. Unsere Sammlung reicht von klassisch bis zeitgenössisch und präsentiert Künstler aus aller Welt, die die Schönheit und Tiefe menschlichen Ausdrucks feiern."
+  },
+  "contentRight": {
+    "en": "Our mission is to inspire, engage, and provoke thought through the art we present. We believe that art has the power to connect us, to challenge our perspectives, and to enrich our lives. Each piece in our collection tells a story, and we invite you to discover the narratives that resonate with you.",
+    "fr": "Notre mission est d’inspirer, d’engager et de susciter la réflexion à travers l’art que nous présentons. Nous croyons que l’art a le pouvoir de nous connecter, de remettre en question nos perspectives et d’enrichir nos vies. Chaque œuvre de notre collection raconte une histoire, et nous vous invitons à découvrir celles qui résonnent en vous.",
+    "de": "Unsere Mission ist es, durch die von uns präsentierte Kunst zu inspirieren, einzubeziehen und zum Nachdenken anzuregen. Wir glauben, dass Kunst die Kraft hat, uns zu verbinden, unsere Perspektiven herauszufordern und unser Leben zu bereichern. Jedes Werk in unserer Sammlung erzählt eine Geschichte, und wir laden Sie ein, die Erzählungen zu entdecken, die in Ihnen nachklingen."
+  },
+  "contentLast": {
+    "en": "<span>Domus Picturae</span> is more than a gallery—it's a sanctuary for art lovers, a meeting place for artists and collectors, and a bridge between tradition and innovation. We are committed to fostering meaningful connections through art, creating experiences that linger long after you leave our walls.",
+    "fr": "<span>Domus Picturae</span> est bien plus qu’une galerie — c’est un sanctuaire pour les amateurs d’art, un lieu de rencontre pour les artistes et les collectionneurs, et un pont entre tradition et innovation. Nous nous engageons à favoriser des connexions significatives à travers l’art, créant des expériences qui perdurent bien au-delà de votre visite.",
+    "de": "<span>Domus Picturae</span> ist mehr als eine Galerie — es ist ein Zufluchtsort für Kunstliebhaber, ein Treffpunkt für Künstler und Sammler und eine Brücke zwischen Tradition und Innovation. Wir setzen uns dafür ein, bedeutungsvolle Verbindungen durch Kunst zu schaffen und Erlebnisse zu ermöglichen, die lange nach dem Verlassen unserer Räume wirken."
+  },
+  "animationContent": {
+    "en": "Discover our curated collection, where every artwork invites you to see the world through a new lens.",
+    "fr": "Découvrez notre collection soigneusement sélectionnée, où chaque œuvre vous invite à voir le monde autrement.",
+    "de": "Entdecken Sie unsere sorgfältig kuratierte Sammlung, in der jedes Werk Sie einlädt, die Welt neu zu sehen."
+  },
+  "buttonText": {
+    "en": "Explore collection",
+    "fr": "Explorer la collection",
+    "de": "Kollektion ansehen"
+  },
+  "images": [
+    {
+      "caption": {
+        "en": "Gallery Exhibition Space",
+        "fr": "Espace d'exposition",
+        "de": "Ausstellungsraum"
+      },
+      "image": "/images/about/images/0/image.jpg",
+      "imageAlt": {
+        "en": "Interior view of Domus Picturae gallery showcasing contemporary artworks",
+        "fr": "Vue intérieure de la galerie Domus Picturae avec des œuvres contemporaines",
+        "de": "Innenansicht der Galerie Domus Picturae mit zeitgenössischen Werken"
+      }
+    },
+    {
+      "caption": {
+        "en": "Curated Collection",
+        "fr": "Collection choisie",
+        "de": "Kuratierte Sammlung"
+      },
+      "image": "/images/about/images/1/image.jpg",
+      "imageAlt": {
+        "en": "Artworks displayed in the gallery's main exhibition hall",
+        "fr": "Œuvres exposées dans la salle principale de la galerie",
+        "de": "Ausgestellte Werke in der Haupthalle der Galerie"
+      }
+    }
+  ],
+  "animatedImages": [
+    {
+      "image": "/images/about/animatedImages/0/image.jpg",
+      "imageAlt": {
+        "en": "Featured artist work displayed at the gallery",
+        "fr": "Œuvre d'un artiste exposée à la galerie",
+        "de": "Werk eines Künstlers in der Galerie"
+      }
+    },
+    {
+      "image": "/images/about/animatedImages/1/image.jpg",
+      "imageAlt": {
+        "en": "Curated selection of modern art pieces",
+        "fr": "Sélection d'œuvres d'art moderne",
+        "de": "Auswahl moderner Kunstwerke"
+      }
+    },
+    {
+      "image": "/images/about/animatedImages/2/image.jpg",
+      "imageAlt": {
+        "en": "Exhibition space showcasing diverse artistic expressions",
+        "fr": "Espace d'exposition aux expressions artistiques variées",
+        "de": "Ausstellungsraum mit vielfältigen künstlerischen Ausdrucksformen"
+      }
+    },
+    {
+      "image": "/images/about/animatedImages/3/image.jpg",
+      "imageAlt": {
+        "en": "Artistic installation at Domus Picturae",
+        "fr": "Installation artistique à Domus Picturae",
+        "de": "Künstlerische Installation bei Domus Picturae"
+      }
+    },
+    {
+      "image": "/images/about/animatedImages/4/image.jpg",
+      "imageAlt": {
+        "en": "Gallery collection highlighting contemporary artists",
+        "fr": "Collection de la galerie mettant en avant des artistes contemporains",
+        "de": "Galeriesammlung mit zeitgenössischen Künstlern"
+      }
+    },
+    {
+      "image": "/images/about/animatedImages/5/image.jpg",
+      "imageAlt": {
+        "en": "Contemporary artwork from Domus Picturae collection",
+        "fr": "Œuvre contemporaine de la collection Domus Picturae",
+        "de": "Zeitgenössisches Werk aus der Sammlung Domus Picturae"
+      }
+    }
+  ]
+}

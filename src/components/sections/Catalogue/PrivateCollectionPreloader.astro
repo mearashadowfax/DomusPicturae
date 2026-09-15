@@ -1,0 +1,137 @@
+---
+/** Two-panel curtain shown while the private collection loads. */
+import { useUI, type Locale } from "@/i18n";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+---
+
+<div class="curtain">
+  <div class="curtain-loader">
+    <div class="curtain-loader-track">
+      <div class="curtain-loader-fill"></div>
+    </div>
+  </div>
+  <div class="curtain-panel curtain-panel--left">
+    <span class="curtain-word">{t.privateCollection.preloaderFirst}</span>
+  </div>
+  <div class="curtain-panel curtain-panel--right">
+    <span class="curtain-word">{t.privateCollection.preloaderSecond}</span>
+  </div>
+</div>
+
+<style>
+  .curtain {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 50;
+    width: 100vw;
+    height: 100vh;
+  }
+
+  .curtain-panel {
+    display: flex;
+    position: absolute;
+    top: 0;
+    z-index: 50;
+    background-color: var(--color-bg-secondary);
+    width: 50vw;
+    height: 100vh;
+  }
+
+  .curtain-panel--left {
+    left: 0;
+    justify-content: flex-end;
+  }
+
+  .curtain-panel--right {
+    right: 0;
+    justify-content: flex-start;
+  }
+
+  .curtain-word {
+    display: flex;
+    align-items: center;
+    padding: calc(115 * var(--unit-fx));
+    height: 100%;
+    color: var(--color-brand);
+    font-weight: 300;
+    font-size: calc(40 * var(--unit-fx));
+    text-transform: uppercase;
+  }
+
+  .curtain-loader {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 60;
+  }
+
+  .curtain-loader-track {
+    position: relative;
+    border-radius: calc(2 * var(--unit-fx));
+    background-color: var(--color-text-tertiary);
+    width: calc(2 * var(--unit-fx));
+    height: calc(150 * var(--unit-fx));
+    overflow: hidden;
+  }
+
+  .curtain-loader-fill {
+    position: absolute;
+    top: 0;
+    background-color: var(--color-brand);
+    width: 100%;
+    height: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    .curtain-word {
+      padding: calc(30 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-fx));
+    }
+
+    .curtain-loader-track {
+      height: calc(100 * var(--unit-fx));
+    }
+  }
+</style>
+
+<script>
+  import { gsap } from "@scripts/motion";
+
+  gsap.to(".curtain-panel--left", {
+    duration: 2,
+    delay: 2,
+    clipPath: "inset(0 100% 0 0)",
+    ease: "power4.inOut",
+  });
+  gsap.to(".curtain-panel--right", {
+    duration: 2,
+    delay: 2,
+    clipPath: "inset(0 0 0 100%)",
+    ease: "power4.inOut",
+  });
+  gsap.from(".curtain-loader-track", {
+    duration: 2,
+    scale: 0.9,
+    ease: "power1.inOut",
+  });
+  gsap.from(".curtain-loader-fill", {
+    duration: 2.5,
+    top: "100%",
+    ease: "power3.inOut",
+  });
+  gsap.to(".curtain-loader", {
+    duration: 0.8,
+    opacity: 0,
+    delay: 1.6,
+    ease: "power3.inOut",
+  });
+  gsap.delayedCall(4, () => document.querySelector(".curtain")?.remove());
+</script>

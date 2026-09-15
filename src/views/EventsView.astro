@@ -1,0 +1,177 @@
+---
+/** Exhibitions grouped by status, followed by the workshops. */
+import { getCollection } from "astro:content";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import ExhibitionCard from "@sections/Programme/ExhibitionCard.astro";
+import WorkshopCard from "@sections/Programme/WorkshopCard.astro";
+import { useUI, type Locale } from "@/i18n";
+import { getExhibitionsByStatus } from "@utils/content";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const t = useUI(locale);
+const { current, upcoming, past } = await getExhibitionsByStatus();
+const workshops = await getCollection("workshops");
+---
+
+<MainLayout
+  locale={locale}
+  title={t.events.title}
+  description={t.events.description}
+>
+  <Navbar locale={locale} />
+
+  <section class="events">
+    {
+      current.length > 0 && (
+        <>
+          <h2 class="section-heading">{t.events.current}</h2>
+          <hr class="section-rule" />
+          <ul class="events-current">
+            {current.map((exhibition) => (
+              <ExhibitionCard
+                exhibition={exhibition}
+                locale={locale}
+                variant="current"
+              />
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      upcoming.length > 0 && (
+        <>
+          <h2 class="section-heading">{t.events.upcoming}</h2>
+          <hr class="section-rule" />
+          <ul class="events-upcoming">
+            {upcoming.map((exhibition) => (
+              <ExhibitionCard
+                exhibition={exhibition}
+                locale={locale}
+                variant="upcoming"
+              />
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      past.length > 0 && (
+        <>
+          <h2 class="section-heading">{t.events.past}</h2>
+          <hr class="section-rule" />
+          <ul class="events-past">
+            {past.map((exhibition) => (
+              <ExhibitionCard
+                exhibition={exhibition}
+                locale={locale}
+                variant="past"
+              />
+            ))}
+          </ul>
+        </>
+      )
+    }
+
+    {
+      workshops.length > 0 && (
+        <>
+          <h2 class="section-heading">{t.events.workshops}</h2>
+          <hr class="section-rule" />
+          <div class="events-workshops">
+            {workshops.map((workshop) => (
+              <WorkshopCard workshop={workshop} locale={locale} />
+            ))}
+          </div>
+        </>
+      )
+    }
+  </section>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .events {
+    margin-block: calc(120 * var(--unit-fx));
+    padding-inline: calc(40 * var(--unit-fx));
+  }
+
+  .events-current {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    row-gap: calc(100 * var(--unit-fx));
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(100 * var(--unit-fx));
+    list-style: none;
+  }
+
+  .events-upcoming {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: calc(50 * var(--unit-fx));
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(100 * var(--unit-fx));
+    list-style: none;
+  }
+
+  .events-past {
+    position: relative;
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(200 * var(--unit-fx));
+    list-style: none;
+  }
+
+  .events-workshops {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: calc(35 * var(--unit-fx));
+    margin-top: calc(50 * var(--unit-fx));
+    margin-bottom: calc(100 * var(--unit-fx));
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    .events {
+      padding-inline: 0;
+    }
+
+    .events-current {
+      display: flex;
+      flex-direction: column;
+      gap: calc(25 * var(--unit-fx));
+      margin-top: calc(25 * var(--unit-fx));
+      margin-bottom: calc(50 * var(--unit-fx));
+    }
+
+    .events-upcoming {
+      display: flex;
+      flex-direction: column;
+      margin-top: calc(25 * var(--unit-fx));
+      margin-bottom: calc(50 * var(--unit-fx));
+    }
+
+    .events-past {
+      margin-top: calc(25 * var(--unit-fx));
+      margin-bottom: calc(50 * var(--unit-fx));
+    }
+
+    .events-workshops {
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      gap: calc(10 * var(--unit-fx));
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+  }
+</style>

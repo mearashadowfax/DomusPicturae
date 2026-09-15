@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Spectrum of Thought",
+    "fr": "Spectre de la pensée",
+    "de": "Spektrum des Denkens"
+  },
+  "year": 2016,
+  "artist": "isabella-rodriguez",
+  "image": "/images/artworks/spectrum-of-thought/image.jpg",
+  "imageAlt": {
+    "en": "Abstract rainbow spectrum blending into darkness",
+    "fr": "Spectre arc-en-ciel abstrait se fondant dans l'obscurité",
+    "de": "Abstraktes Regenbogenspektrum, das in Dunkelheit übergeht"
+  },
+  "medium": {
+    "en": "Acrylic on linen",
+    "fr": "Acrylique sur lin",
+    "de": "Acryl auf Leinen"
+  },
+  "dimensions": {
+    "width": 145,
+    "height": 85,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "A luminous exploration of cognition, “Spectrum of Thought” visualizes the way ideas form and dissolve in the mind. Colors drift and merge like synapses firing—brief, electric, and transformative. The piece captures consciousness as both chaotic and beautifully ordered.",
+    "fr": "Exploration lumineuse de la cognition, « Spectre de la pensée » visualise la manière dont les idées se forment et se dissolvent dans l'esprit. Les couleurs dérivent et fusionnent comme des synapses qui s'activent — brèves, électriques, transformatrices. L'œuvre saisit la conscience comme à la fois chaotique et magnifiquement ordonnée.",
+    "de": "Als leuchtende Erkundung des Denkens macht „Spektrum des Denkens“ sichtbar, wie Ideen im Geist entstehen und vergehen. Farben treiben und verschmelzen wie feuernde Synapsen – kurz, elektrisch, verwandelnd. Das Werk fasst Bewusstsein als chaotisch und zugleich wunderbar geordnet."
+  },
+  "availability": "sold"
+}

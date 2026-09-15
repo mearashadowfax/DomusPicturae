@@ -1,0 +1,26 @@
+{
+  "name": "Isabella Rodriguez",
+  "isEstate": true,
+  "image": "/images/artists/isabella-rodriguez/image.jpg",
+  "imageAlt": {
+    "en": "Portrait of Isabella Rodriguez",
+    "fr": "Portrait de Isabella Rodriguez",
+    "de": "Porträt von Isabella Rodriguez"
+  },
+  "shortBio": {
+    "en": "I create immersive installations that combine painting, sculpture, and digital elements to explore themes of memory and technology. My work questions how digital culture shapes our perception of reality and how we construct identity in virtual and physical spaces. I am interested in the tension between the handmade and the digital, the permanent and the ephemeral.",
+    "fr": "Je crée des installations immersives qui combinent peinture, sculpture et éléments numériques pour explorer les thèmes de la mémoire et de la technologie. Mon travail remet en question la façon dont la culture numérique façonne notre perception de la réalité et comment nous construisons l'identité dans les espaces virtuels et physiques. Je suis intéressée par la tension entre le fait main et le numérique, le permanent et l'éphémère.",
+    "de": "Ich schaffe immersive Installationen, die Malerei, Skulptur und digitale Elemente kombinieren, um Themen von Erinnerung und Technologie zu erkunden. Meine Arbeit hinterfragt, wie die digitale Kultur unsere Wahrnehmung der Realität prägt und wie wir Identität in virtuellen und physischen Räumen konstruieren. Ich interessiere mich für die Spannung zwischen dem Handgemachten und dem Digitalen, dem Permanenten und dem Ephemeren."
+  },
+  "biography": {
+    "en": "Isabella Rodriguez's interdisciplinary practice reflects on the intersection of art, technology, and human experience. Her installations often incorporate projection mapping, interactive elements, and traditional painting techniques, creating environments that blur the boundaries between physical and digital realms. Rodriguez's work addresses questions of authenticity, presence, and how we navigate increasingly mediated experiences of the world.\n\nThrough her immersive environments, Rodriguez invites participants to question the nature of reality and memory in the digital age. Her work often responds to specific architectural spaces, using technology to reveal hidden narratives and create new layers of meaning. The resulting installations function as both artworks and social experiments, exploring how technology shapes our perception of space, time, and human connection.",
+    "fr": "La pratique interdisciplinaire d'Isabella Rodriguez réfléchit à l'intersection de l'art, de la technologie et de l'expérience humaine. Ses installations incorporent souvent le mappage de projection, les éléments interactifs et les techniques de peinture traditionnelles, créant des environnements qui brouillent les frontières entre les domaines physiques et numériques. Le travail de Rodriguez aborde les questions d'authenticité, de présence et de la façon dont nous naviguons dans des expériences de plus en plus médiatisées du monde.\n\nÀ travers ses environnements immersifs, Rodriguez invite les participants à questionner la nature de la réalité et de la mémoire à l'ère numérique. Son travail répond souvent à des espaces architecturaux spécifiques, utilisant la technologie pour révéler des récits cachés et créer de nouvelles couches de sens. Les installations résultantes fonctionnent à la fois comme des œuvres d'art et des expériences sociales, explorant comment la technologie façonne notre perception de l'espace, du temps et de la connexion humaine.",
+    "de": "Isabella Rodriguez' interdisziplinäre Praxis reflektiert die Schnittstelle von Kunst, Technologie und menschlicher Erfahrung. Ihre Installationen integrieren oft Projektionsmapping, interaktive Elemente und traditionelle Maltechniken und schaffen Umgebungen, die die Grenzen zwischen physischen und digitalen Bereichen verwischen. Rodriguez' Arbeit behandelt Fragen der Authentizität, Präsenz und wie wir in zunehmend vermittelten Erfahrungen der Welt navigieren.\n\nDurch ihre immersiven Umgebungen lädt Rodriguez Teilnehmer ein, die Natur der Realität und des Gedächtnisses im digitalen Zeitalter zu hinterfragen. Ihre Arbeit reagiert oft auf spezifische architektonische Räume und nutzt Technologie, um verborgene Narrative zu enthüllen und neue Bedeutungsebenen zu schaffen. Die resultierenden Installationen fungieren sowohl als Kunstwerke als auch als soziale Experimente und erkunden, wie Technologie unsere Wahrnehmung von Raum, Zeit und menschlicher Verbindung prägt."
+  },
+  "quote": {
+    "en": "We live in a world where the line between real and virtual is increasingly blurred. My work exists in that liminal space, asking what it means to be present when presence itself is mediated.",
+    "fr": "Nous vivons dans un monde où la frontière entre réel et virtuel est de plus en plus floue. Mon travail existe dans cet espace liminal, demandant ce que signifie être présent quand la présence elle-même est médiatisée.",
+    "de": "Wir leben in einer Welt, in der die Grenze zwischen real und virtuell zunehmend verschwimmt. Meine Arbeit existiert in diesem liminalen Raum und fragt, was es bedeutet, präsent zu sein, wenn die Präsenz selbst vermittelt wird."
+  },
+  "hasCv": true
+}

@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Forest of Breathing Lines",
+    "fr": "Forêt de lignes respirantes",
+    "de": "Wald aus atmenden Linien"
+  },
+  "year": 2022,
+  "artist": "marcus-weber",
+  "image": "/images/artworks/forest-of-breathing-lines/image.png",
+  "imageAlt": {
+    "en": "Digital forest made of vertical glowing strokes",
+    "fr": "Forêt numérique composée de traits verticaux lumineux",
+    "de": "Digitaler Wald aus vertikal leuchtenden Strichen"
+  },
+  "medium": {
+    "en": "Digital light print",
+    "fr": "Impression lumineuse numérique",
+    "de": "Digitaler Lichtdruck"
+  },
+  "dimensions": {
+    "width": 95,
+    "height": 115,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Forest of Breathing Lines” constructs a woodland from rhythmic vertical strokes that pulse like quiet respiration. The digital trees glow with inner light, their silhouettes blending into an ambient haze that suggests movement without motion—stillness alive with energy.",
+    "fr": "« Forêt de lignes respirantes » construit un bois à partir de traits verticaux rythmés qui pulsent comme une respiration tranquille. Les arbres numériques rayonnent d'une lumière intérieure, leurs silhouettes se fondant dans une brume ambiante qui suggère le mouvement sans mouvement — une immobilité vivante d'énergie.",
+    "de": "„Wald aus atmenden Linien“ baut ein Gehölz aus rhythmischen vertikalen Strichen, die wie ein ruhiges Atmen pulsieren. Die digitalen Bäume leuchten von innen, ihre Silhouetten verschmelzen mit einem umgebenden Dunst, der Bewegung ohne Bewegung andeutet – Stille, lebendig vor Energie."
+  },
+  "availability": "available"
+}

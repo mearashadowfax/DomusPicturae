@@ -1,0 +1,97 @@
+---
+/** Events teaser: text from the `homepage` singleton plus the first few workshop cards. */
+import { getCollection } from "astro:content";
+import HomeSection from "./HomeSection.astro";
+import WorkshopCard from "@sections/Programme/WorkshopCard.astro";
+import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
+import { type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import { getHomepage } from "@utils/content";
+import { routes } from "@/routes";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+const { events } = (await getHomepage()).data;
+const workshops = (await getCollection("workshops")).slice(
+  0,
+  HOMEPAGE_ITEMS_LIMIT,
+);
+---
+
+<HomeSection
+  name="events"
+  size="large"
+  title={text(events.subheading, locale)}
+  content={text(events.content, locale)}
+>
+  <div class="events-cta">
+    <p>{text(events.description, locale)}</p>
+    <a href={routes.events(locale)} class="link-underline">
+      <span>{text(events.buttonText, locale)}</span>
+    </a>
+  </div>
+
+  {
+    workshops.length > 0 && (
+      <div class="events-workshops">
+        {workshops.map((workshop) => (
+          <WorkshopCard workshop={workshop} locale={locale} />
+        ))}
+      </div>
+    )
+  }
+</HomeSection>
+
+<style>
+  .events-cta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: calc(100 * var(--unit-fx));
+    margin-bottom: calc(13 * var(--unit-fx));
+    font-size: calc(25 * var(--unit-fx));
+  }
+
+  .events-cta a span {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
+  }
+
+  .events-cta :global(svg) {
+    width: calc(25 * var(--unit-fx));
+    height: calc(25 * var(--unit-fx));
+  }
+
+  .events-workshops {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  @media screen and (max-width: 600px) {
+    .events-cta p {
+      display: none;
+    }
+
+    .events-cta {
+      font-size: calc(20 * var(--unit-fx));
+    }
+
+    .events-cta :global(svg) {
+      width: calc(15 * var(--unit-fx));
+      height: calc(15 * var(--unit-fx));
+    }
+
+    .events-workshops {
+      justify-content: flex-start;
+      gap: calc(10 * var(--unit-fx));
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+  }
+</style>

@@ -1,0 +1,194 @@
+{
+  "intro": {
+    "subheading": {
+      "en": "Where art <br /> ignites inspiration",
+      "fr": "Où l'art <br /> enflamme l'inspiration",
+      "de": "Wo Kunst <br /> Inspiration entfacht"
+    },
+    "content": {
+      "en": "<span>Domus Picturae</span> is more than just an art gallery; it's a vibrant hub for artistic exploration. Here, we celebrate the power of creativity by showcasing established and emerging artists across various mediums.",
+      "fr": "<span>Domus Picturae</span> n’est pas seulement une galerie d’art ; c’est un lieu vibrant d’exploration artistique. Ici, nous célébrons la puissance de la créativité en présentant des artistes confirmés et émergents à travers divers médiums.",
+      "de": "<span>Domus Picturae</span> ist mehr als nur eine Kunstgalerie; sie ist ein lebendiges Zentrum für künstlerische Entfaltung. Hier feiern wir die Kraft der Kreativität, indem wir etablierte und aufstrebende Künstler in verschiedenen Medien präsentieren."
+    }
+  },
+  "events": {
+    "subheading": {
+      "en": "Upcoming Events <br /> & Workshops",
+      "fr": "Événements <br /> & Ateliers à venir",
+      "de": "Bevorstehende Veranstaltungen <br /> & Workshops"
+    },
+    "content": {
+      "en": "<span>At Domus Picturae</span>, we believe in the power of art to unite and inspire. Our gallery hosts events and workshops for all art lovers. Whether you're an aspiring artist or an enthusiast, join us for talks, workshops, previews, and more.",
+      "fr": "<span>À Domus Picturae</span>, nous croyons au pouvoir de l'art pour unir et inspirer. Notre galerie accueille des événements et des ateliers pour tous les amateurs d'art. Que vous soyez un artiste en herbe ou un passionné, rejoignez-nous pour des conférences, des ateliers, des avant-premières et bien plus encore.",
+      "de": "<span>In der Domus Picturae</span> glauben wir an die Kraft der Kunst, Menschen zu verbinden und zu inspirieren. Unsere Galerie veranstaltet Events und Workshops für alle Kunstliebhaber. Ob Sie ein aufstrebender Künstler oder ein Enthusiast sind – nehmen Sie an Gesprächen, Workshops, Vorpremieren und vielem mehr teil."
+    },
+    "description": {
+      "en": "Explore events that inspire and connect.",
+      "fr": "Découvrez des événements qui inspirent et rassemblent.",
+      "de": "Entdecken Sie Veranstaltungen, die inspirieren und verbinden."
+    },
+    "buttonText": {
+      "en": "See the events",
+      "fr": "Voir les événements",
+      "de": "Zu den Veranstaltungen"
+    }
+  },
+  "about": {
+    "content": {
+      "en": "Unveil the story behind our collection. Explore our gallery's philosophy and artists.",
+      "fr": "Découvrez l'histoire derrière notre collection. Explorez la philosophie de notre galerie et les artistes.",
+      "de": "Entdecken Sie die Geschichte hinter unserer Sammlung. Erkunden Sie die Philosophie und die Künstler unserer Galerie."
+    },
+    "buttonText": {
+      "en": "More about us",
+      "fr": "En savoir plus sur nous",
+      "de": "Mehr über uns"
+    },
+    "galleryItems": [
+      {
+        "image": "/images/homepage/about/galleryItems/0/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 1",
+          "fr": "Œuvre 1",
+          "de": "Kunstwerk 1"
+        },
+        "top": -5.0,
+        "left": 5.0,
+        "parallaxSpeed": 0.065
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/1/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 2",
+          "fr": "Œuvre 2",
+          "de": "Kunstwerk 2"
+        },
+        "top": 40.0,
+        "left": -5.0,
+        "parallaxSpeed": 0.05
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/2/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 3",
+          "fr": "Œuvre 3",
+          "de": "Kunstwerk 3"
+        },
+        "top": 25.0,
+        "left": 17.0,
+        "parallaxSpeed": 0.08
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/3/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 4",
+          "fr": "Œuvre 4",
+          "de": "Kunstwerk 4"
+        },
+        "top": 70.0,
+        "left": 10.0,
+        "parallaxSpeed": 0.07
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/4/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 5",
+          "fr": "Œuvre 5",
+          "de": "Kunstwerk 5"
+        },
+        "top": 62.0,
+        "left": 32.0,
+        "parallaxSpeed": 0.1
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/5/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 6",
+          "fr": "Œuvre 6",
+          "de": "Kunstwerk 6"
+        },
+        "top": -10.0,
+        "left": 65.0,
+        "parallaxSpeed": 0.085
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/6/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 7",
+          "fr": "Œuvre 7",
+          "de": "Kunstwerk 7"
+        },
+        "top": 10.0,
+        "left": 85.0,
+        "parallaxSpeed": 0.06
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/7/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 8",
+          "fr": "Œuvre 8",
+          "de": "Kunstwerk 8"
+        },
+        "top": 40.0,
+        "left": 73.0,
+        "parallaxSpeed": 0.04
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/8/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 9",
+          "fr": "Œuvre 9",
+          "de": "Kunstwerk 9"
+        },
+        "top": 80.0,
+        "left": 70.0,
+        "parallaxSpeed": 0.1
+      },
+      {
+        "image": "/images/homepage/about/galleryItems/9/image.jpg",
+        "imageAlt": {
+          "en": "Artwork 10",
+          "fr": "Œuvre 10",
+          "de": "Kunstwerk 10"
+        },
+        "top": 50.0,
+        "left": 95.0,
+        "parallaxSpeed": 0.065
+      }
+    ]
+  },
+  "collection": [
+    {
+      "artwork": "aurora-syntax",
+      "caption": {
+        "en": "",
+        "fr": "",
+        "de": ""
+      }
+    },
+    {
+      "artwork": "whispering-pines",
+      "caption": {
+        "en": "",
+        "fr": "",
+        "de": ""
+      }
+    },
+    {
+      "artwork": "lunar-fragments",
+      "caption": {
+        "en": "",
+        "fr": "",
+        "de": ""
+      }
+    },
+    {
+      "artwork": "digital-bloom",
+      "caption": {
+        "en": "",
+        "fr": "",
+        "de": ""
+      }
+    }
+  ]
+}

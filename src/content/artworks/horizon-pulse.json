@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Horizon Pulse",
+    "fr": "Pouls de l'horizon",
+    "de": "Horizontpuls"
+  },
+  "year": 2023,
+  "artist": "marcus-weber",
+  "image": "/images/artworks/horizon-pulse/image.png",
+  "imageAlt": {
+    "en": "Minimal digital seascape with glowing horizon line",
+    "fr": "Paysage marin numérique minimal avec une ligne d'horizon lumineuse",
+    "de": "Minimale digitale Meereslandschaft mit leuchtender Horizontlinie"
+  },
+  "medium": {
+    "en": "Digital light print",
+    "fr": "Impression lumineuse numérique",
+    "de": "Digitaler Lichtdruck"
+  },
+  "dimensions": {
+    "width": 140,
+    "height": 70,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Horizon Pulse” reduces the ocean to a single glowing boundary where sky and water meet. The work glimmers in soft, oscillating light, echoing the slow heartbeat of open seas. Its minimal geometry creates a sense of infinite calm, expanding outward from one luminous line.",
+    "fr": "« Pouls de l'horizon » réduit l'océan à une seule frontière lumineuse où ciel et eau se rejoignent. L'œuvre scintille d'une lumière douce et oscillante, écho du lent battement des mers ouvertes. Sa géométrie minimale crée un sentiment de calme infini, s'étendant à partir d'une unique ligne lumineuse.",
+    "de": "„Horizontpuls“ reduziert den Ozean auf eine einzige leuchtende Grenze, an der Himmel und Wasser sich treffen. Das Werk schimmert in weichem, oszillierendem Licht und hallt den langsamen Herzschlag offener Meere wider. Seine minimale Geometrie erzeugt ein Gefühl unendlicher Ruhe, das sich von einer leuchtenden Linie aus ausbreitet."
+  },
+  "availability": "available"
+}

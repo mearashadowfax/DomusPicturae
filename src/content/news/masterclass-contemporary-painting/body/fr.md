@@ -1,0 +1,13 @@
+Domus Picturae est heureuse de lancer une nouvelle **série de masterclasses** qui met les artistes de la galerie en dialogue direct avec les étudiants, les artistes émergents et les amateurs d'art. Le programme débute en mars 2025 avec des sessions animées par **Emma Thompson** et **Sophie Laurent**, offrant aux participants un aperçu rare des techniques et des processus à l'origine de leurs œuvres.
+
+Cette série reflète l'engagement de la galerie en faveur de la pédagogie et sa conviction que comprendre le processus artistique approfondit l'appréciation de l'art contemporain. « Nous voulons démystifier le processus créatif », explique la directrice Elena Marchetti. « Ces masterclasses offrent une occasion unique d'apprendre directement auprès d'artistes en activité, de comprendre non seulement ce qu'ils créent, mais comment et pourquoi. »
+
+La masterclass d'**Emma Thompson**, _« La couleur comme langage : construire des compositions abstraites »_, se déroule sur deux jours (8 et 9 mars 2025) et porte sur son approche de la couleur, du geste et de la composition. Les participants exploreront la relation entre le geste spontané et la révision délibérée, et découvriront comment Thompson construit ses peintures par couches successives et effacements. La session combine discussion théorique et pratique, Thompson apportant un retour individuel sur le travail de chacun.
+
+« Enseigner m'oblige à formuler des processus souvent intuitifs », note Thompson. « J'ai hâte de partager des techniques développées au fil des années et d'apprendre des perspectives des participants. »
+
+La masterclass de **Sophie Laurent**, _« La psychologie du portrait : saisir la vie intérieure »_, prévue les 15 et 16 mars 2025, porte sur son approche du portrait. Les participants découvriront le processus de séances prolongées de Laurent, ses techniques pour construire la profondeur par couches de peinture à l'huile et ses méthodes pour intégrer des éléments contextuels qui ajoutent des strates narratives aux portraits. La masterclass comprend une démonstration de portrait en direct et des temps de pratique.
+
+Les deux masterclasses ont lieu dans l'espace d'exposition modulable de la galerie, temporairement reconfiguré en atelier. Le cadre intime, limité à douze participants par session, garantit une attention personnalisée et des échanges enrichissants avec les artistes.
+
+Les prochaines sessions feront intervenir d'autres artistes de la galerie, notamment James Park sur les techniques sculpturales et Yuki Tanaka sur l'intégration des médias numériques et traditionnels. Les inscriptions pour les sessions de mars sont ouvertes, dans la limite des places disponibles. La galerie propose également des sessions privées pour les écoles d'art et les institutions.

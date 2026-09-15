@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Aurora Syntax",
+    "fr": "Syntaxe d'aurore",
+    "de": "Aurora-Syntax"
+  },
+  "year": 2020,
+  "artist": "emma-thompson",
+  "image": "/images/artworks/aurora-syntax/image.jpg",
+  "imageAlt": {
+    "en": "Digital abstraction inspired by northern lights",
+    "fr": "Abstraction numérique inspirée des aurores boréales",
+    "de": "Digitale Abstraktion, inspiriert von Nordlichtern"
+  },
+  "medium": {
+    "en": "Digital light print",
+    "fr": "Impression lumineuse numérique",
+    "de": "Digitaler Lichtdruck"
+  },
+  "dimensions": {
+    "width": 90,
+    "height": 175,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Aurora Syntax” transforms data into light, bridging natural wonder with algorithmic rhythm. The artwork glows in sweeping gradients that recall auroras—alive, coded, and ephemeral. It embodies the poetry of technology: structured chaos rendered in radiant order.",
+    "fr": "« Syntaxe d'aurore » transforme les données en lumière, reliant la merveille naturelle au rythme algorithmique. L'œuvre rayonne en larges dégradés qui évoquent les aurores — vivantes, codées, éphémères. Elle incarne la poésie de la technologie : un chaos structuré rendu en ordre radieux.",
+    "de": "„Aurora-Syntax“ verwandelt Daten in Licht und verbindet Naturwunder mit algorithmischem Rhythmus. Das Werk leuchtet in ausladenden Verläufen, die an Polarlichter erinnern – lebendig, codiert und flüchtig. Es verkörpert die Poesie der Technologie: strukturiertes Chaos in strahlender Ordnung."
+  },
+  "availability": "sold"
+}

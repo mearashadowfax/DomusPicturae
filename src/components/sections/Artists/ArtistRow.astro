@@ -1,0 +1,106 @@
+---
+/** One row of the artists index; hovering the name reveals the portrait and short bio. */
+import { Image } from "astro:assets";
+import { type Locale } from "@/i18n";
+import { text } from "@/i18n/localized";
+import type { Artist } from "@utils/content";
+import { picture } from "@utils/images";
+import { routes } from "@/routes";
+
+interface Props {
+  artist: Artist;
+  locale: Locale;
+}
+
+const { artist, locale } = Astro.props;
+const portrait = picture(artist.data, locale, artist.data.name);
+---
+
+<li class="artist-row">
+  <a class="artist-row-link" href={routes.artist(locale, artist)}>
+    {artist.data.name}
+  </a>
+  <div class="artist-row-preview">
+    <div class="artist-row-preview-inner">
+      {
+        portrait && (
+          <Image
+            src={portrait.src}
+            alt={portrait.alt}
+            format="webp"
+            width={600}
+            class="artist-row-portrait"
+          />
+        )
+      }
+      <p class="artist-row-bio">{text(artist.data.shortBio, locale)}</p>
+    </div>
+  </div>
+</li>
+
+<style>
+  .artist-row-link {
+    display: inline-block;
+    position: relative;
+    opacity: 0.5;
+    transition: opacity var(--transition-base);
+    font-size: calc(45 * var(--unit-fx));
+    line-height: 1.2;
+    font-family: var(--font-baskervville);
+  }
+
+  .artist-row-link:hover {
+    opacity: 1;
+  }
+
+  .artist-row-preview {
+    position: absolute;
+    top: 0;
+    right: 0;
+    opacity: 0;
+    transition: opacity var(--transition-fast);
+    width: calc(230 * var(--unit-fx));
+    height: 100vh;
+    pointer-events: none;
+  }
+
+  .artist-row-link:hover ~ .artist-row-preview {
+    opacity: 1;
+  }
+
+  .artist-row-preview-inner {
+    position: sticky;
+    top: calc(30 * var(--unit-fx));
+  }
+
+  .artist-row-portrait {
+    border-radius: var(--radius);
+    width: calc(230 * var(--unit-fx));
+    height: 20vw;
+    object-fit: cover;
+  }
+
+  .artist-row-bio {
+    padding-top: calc(10 * var(--unit-fx));
+    font-size: calc(14 * var(--unit-fx));
+    font-family: var(--font-satoshi);
+  }
+
+  .artist-row:last-child {
+    padding-bottom: calc(150 * var(--unit-fx));
+  }
+
+  @media screen and (max-width: 600px) {
+    .artist-row-link {
+      font-size: calc(25 * var(--unit-fx));
+    }
+
+    .artist-row-preview {
+      display: none;
+    }
+
+    .artist-row:last-child {
+      padding-bottom: 0;
+    }
+  }
+</style>

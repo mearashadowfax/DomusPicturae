@@ -1,0 +1,31 @@
+{
+  "title": {
+    "en": "Fragmented City",
+    "fr": "Ville fragmentée",
+    "de": "Fragmentierte Stadt"
+  },
+  "year": 2025,
+  "artist": "marcus-weber",
+  "image": "/images/artworks/fragmented-city/image.jpg",
+  "imageAlt": {
+    "en": "Geometric abstraction of urban structures",
+    "fr": "Abstraction géométrique de structures urbaines",
+    "de": "Geometrische Abstraktion urbaner Strukturen"
+  },
+  "medium": {
+    "en": "Mixed media",
+    "fr": "Techniques mixtes",
+    "de": "Mischtechnik"
+  },
+  "dimensions": {
+    "width": 60,
+    "height": 140,
+    "unit": "cm"
+  },
+  "description": {
+    "en": "“Fragmented City” dissects the modern metropolis into shards of form and color. Angular geometries collide with layers of muted texture, reflecting the fractured pulse of urban life. Through abstraction, the artist captures both the rhythm and alienation of the contemporary city—its density, dissonance, and hidden beauty that flickers between chaos and order.",
+    "fr": "« Ville fragmentée » dissèque la métropole moderne en éclats de forme et de couleur. Des géométries anguleuses se heurtent à des couches de texture feutrée, reflétant le pouls fracturé de la vie urbaine. Par l'abstraction, l'artiste saisit à la fois le rythme et l'aliénation de la ville contemporaine — sa densité, sa dissonance et la beauté cachée qui vacille entre chaos et ordre.",
+    "de": "„Fragmentierte Stadt“ zerlegt die moderne Metropole in Splitter aus Form und Farbe. Kantige Geometrien prallen auf Schichten gedämpfter Textur und spiegeln den gebrochenen Puls des urbanen Lebens. Durch Abstraktion fängt der Künstler Rhythmus und Entfremdung der zeitgenössischen Stadt ein – ihre Dichte, ihre Dissonanz und die verborgene Schönheit, die zwischen Chaos und Ordnung flackert."
+  },
+  "availability": "not-for-sale"
+}

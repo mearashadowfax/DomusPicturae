@@ -1,0 +1,10 @@
+/**
+ * Entry stylesheet, imported once by the layout.
+ *
+ * Cascade layers, lowest priority first. Component \3c style> blocks are
+ * unlayered and therefore always win over these.
+ */
+@layer tokens, base, utilities;
+
+@import "./variables.css";
+@import "./base.css";

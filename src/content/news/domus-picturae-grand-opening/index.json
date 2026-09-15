@@ -1,0 +1,60 @@
+{
+  "title": {
+    "en": "Domus Picturae: A New Chapter in Contemporary Art",
+    "fr": "Domus Picturae : un nouveau chapitre de l'art contemporain",
+    "de": "Domus Picturae: Ein neues Kapitel zeitgenössischer Kunst"
+  },
+  "pubDate": "2025-03-15",
+  "description": {
+    "en": "Domus Picturae opens its doors in Rome, establishing a new space for contemporary art dialogue and discovery.",
+    "fr": "Domus Picturae ouvre ses portes à Rome et crée un nouvel espace de dialogue et de découverte autour de l'art contemporain.",
+    "de": "Domus Picturae öffnet in Rom seine Türen und schafft einen neuen Ort für Dialog und Entdeckung zeitgenössischer Kunst."
+  },
+  "featuredImage": "/images/news/domus-picturae-grand-opening/featuredImage.jpg",
+  "featuredImageAlt": {
+    "en": "Domus Picturae gallery interior during the opening reception",
+    "fr": "Intérieur de la galerie Domus Picturae lors de la réception d'ouverture",
+    "de": "Innenraum der Galerie Domus Picturae während des Eröffnungsempfangs"
+  },
+  "slides": [
+    {
+      "image": "/images/news/domus-picturae-grand-opening/slides/0/image.jpg",
+      "imageAlt": {
+        "en": "Five brown wooden chairs",
+        "fr": "Cinq chaises en bois brun",
+        "de": "Fünf braune Holzstühle"
+      },
+      "caption": {
+        "en": "Chairs on a cable line",
+        "fr": "Chaises sur une ligne suspendue",
+        "de": "Stühle an einer Seillinie"
+      }
+    },
+    {
+      "image": "/images/news/domus-picturae-grand-opening/slides/1/image.jpg",
+      "imageAlt": {
+        "en": "Two black spheres",
+        "fr": "Deux sphères noires",
+        "de": "Zwei schwarze Kugeln"
+      },
+      "caption": {
+        "en": "Sculptural installation",
+        "fr": "Installation sculpturale",
+        "de": "Skulpturale Installation"
+      }
+    },
+    {
+      "image": "/images/news/domus-picturae-grand-opening/slides/2/image.jpg",
+      "imageAlt": {
+        "en": "Grey tunnel walkway",
+        "fr": "Passage en tunnel gris",
+        "de": "Grauer Tunnelgang"
+      },
+      "caption": {
+        "en": "Stepping down",
+        "fr": "Descente",
+        "de": "Abstieg"
+      }
+    }
+  ]
+}
