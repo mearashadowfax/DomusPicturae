@@ -199,25 +199,31 @@ const depthStep = 2500;
 
     slides.forEach((slide, index) => {
       const initialZ = -(slides.length - 1 - index) * DEPTH_STEP;
+      const place = (progress: number) => {
+        const z = initialZ + progress * travel;
+        const opacity =
+          z >= -DEPTH_STEP
+            ? mapRange(z, -DEPTH_STEP, 0, 0.5, 1)
+            : mapRange(z, -2 * DEPTH_STEP, -DEPTH_STEP, 0, 0.5);
+        slide.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+        slide.style.transform = `translate(-50%, -50%) translateZ(${z}px)`;
+        gsap.to(backdrops[index], {
+          duration: 1.5,
+          opacity: z < 100 ? 1 : 0,
+          ease: "power3.out",
+        });
+      };
+
+      // onUpdate only fires once scroll progress changes, so place the
+      // slides for the resting position up front; otherwise the stage fades
+      // in over nothing and the works only appear after the first scroll.
+      place(0);
       ScrollTrigger.create({
         trigger: scene,
         start: "top top",
         end: "bottom bottom",
         scrub: true,
-        onUpdate: ({ progress }) => {
-          const z = initialZ + progress * travel;
-          const opacity =
-            z >= -DEPTH_STEP
-              ? mapRange(z, -DEPTH_STEP, 0, 0.5, 1)
-              : mapRange(z, -2 * DEPTH_STEP, -DEPTH_STEP, 0, 0.5);
-          slide.style.opacity = String(Math.max(0, Math.min(1, opacity)));
-          slide.style.transform = `translate(-50%, -50%) translateZ(${z}px)`;
-          gsap.to(backdrops[index], {
-            duration: 1.5,
-            opacity: z < 100 ? 1 : 0,
-            ease: "power3.out",
-          });
-        },
+        onUpdate: ({ progress }) => place(progress),
       });
     });
   });
