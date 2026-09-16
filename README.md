@@ -1,22 +1,45 @@
-# Multilingual Astro Template for Art Galleries
+# Domus Picturae
 
-Domus Picturae is an **open-source website template** for contemporary art galleries: a catalogue of artists and artworks, an immersive viewing room, a private collection, exhibitions, workshops and news – in as many languages as you need. Built with [Astro](https://astro.build/) and [Keystatic CMS](https://keystatic.com/), styled with plain CSS design tokens, and animated with [GSAP](https://gsap.com/) and [Lenis](https://lenis.dev/), it builds to a fully static site that deploys anywhere.
+A website template for contemporary art galleries, built with [Astro](https://astro.build/) and [Keystatic](https://keystatic.com/). You get a finished gallery site – artists, artworks, a viewing room, a private collection, exhibitions, workshops and news – in every language you need, with a browser-based editor for the content and no server to run.
 
 <p align="left">
     <a href="https://domus-picturae.vercel.app" target="_blank">
       <img src="src/assets/images/cover.jpg" alt="Domus Picturae – Multilingual Astro Template for Art Galleries" /></a>
 </p>
 
+**Live demo:** [domus-picturae.vercel.app](https://domus-picturae.vercel.app). All demo content – artists, artworks, events – is fictional.
+
+Two things set it apart from a general-purpose Astro starter. Every text field is localised per field, so each page exists **once** and is rendered for every locale; adding a language is a documented six-step change, not a copy of the site. And the content model is described **once** in `src/content-model/collections.ts` and generates both the Astro content schemas and the Keystatic admin, so the editor and the build never drift apart.
+
+- **Gallery-native content model.** Artists and estates, artworks with `available` / `sold` / `not-for-sale` status, exhibitions, workshops, news and pages. Availability decides where a work is shown: catalogue and viewing room, or the dark-themed private collection.
+- **Multilingual by construction.** English, French and German out of the box on Astro's i18n routing, with typed UI strings, `hreflang` links and per-locale sitemap entries. The locale list in `src/i18n/config.ts` is the single source of truth.
+- **Git-based editing.** Keystatic runs at `/keystatic` in development and writes straight to `src/content/`, so content ships in the same commits as code.
+- **Fully static.** No adapter, no runtime. Deploys to Vercel, Netlify, Cloudflare Pages, GitHub Pages or any web server.
+- **Plain CSS design system.** Tokens as custom properties, cascade layers, component-scoped styles and a token-swap dark theme. No utility framework.
+- **Motion.** GSAP and Lenis power smooth scrolling, scroll-driven reveals, a horizontal viewing room and a 3D private-collection scene.
+- **Forms that work on day one.** Newsletter and workshop registration islands (React, react-hook-form, zod, honeypot) deliver to Formspree or any JSON webhook, and run in demo mode until you configure one.
+- **SEO and quality gates.** Per-page metadata, Open Graph, schema.org JSON-LD, sitemap and robots.txt; type and content checks, Vitest specs, Prettier and a CI workflow on every PR.
+
+An artwork is one JSON file with a key per locale on every text field. This entry is served at `/artworks/alpine-echo-field`, `/fr/artworks/alpine-echo-field` and `/de/artworks/alpine-echo-field`; change `availability` to `"not-for-sale"` and it moves to `/private-collection/…` instead:
+
+```json
+{
+  "title": {
+    "en": "Alpine Echo Field",
+    "fr": "Champ d'écho alpin",
+    "de": "Alpines Echofeld"
+  },
+  "year": 2021,
+  "artist": "marcus-weber",
+  "availability": "sold"
+}
+```
+
+---
+
 ## Table of Contents
 
-- [Why Choose Domus Picturae?](#why-choose-domus-picturae)
-  - [Features](#features)
-- [What's New](#whats-new)
 - [Getting Started](#getting-started)
-  - [Use This Template](#use-this-template)
-  - [Clone the Repository](#clone-the-repository)
-  - [Installation](#installation)
-  - [Development Commands](#development-commands)
 - [Deployment](#deployment)
 - [Project Structure](#project-structure)
 - [Customization](#customization)
@@ -29,78 +52,55 @@ Domus Picturae is an **open-source website template** for contemporary art galle
   - [Localised Content](#localised-content)
   - [Artwork Availability](#artwork-availability)
 - [Internationalization](#internationalization)
-- [Integrations and Enhancements](#integrations-and-enhancements)
+- [Integrations](#integrations)
 - [Documentation](#documentation)
 - [Contributing](#contributing)
 - [License](#license)
 
-## Why Choose Domus Picturae?
-
-- **Built for galleries:** The content model speaks the language of the art world – artists and estates, artworks with availability, exhibitions, workshops, a viewing room and a private collection.
-- **Multilingual from the ground up:** Every piece of text is localised per field, one implementation serves every language, and adding a locale is a documented, mechanical change.
-- **Easy content management:** Keystatic edits everything, including per-language bodies and images, without leaving the browser.
-- **Deploy anywhere:** Fully static output with no server runtime required.
-
-### Features
-
-- **Astro-powered:** Static site generation with content collections and image optimization.
-- **Keystatic CMS:** Local, Git-based editing at `/keystatic` during development.
-- **Internationalization (i18n):** Three locales out of the box (English, French, German) on Astro's i18n routing, with typed UI strings and hreflang links.
-- **Plain CSS design system:** Tokens as custom properties, cascade layers, component-scoped styles and a token-swap dark theme – no utility framework.
-- **GSAP and Lenis:** Smooth scrolling, scroll-driven reveals, a horizontal viewing room and a 3D private-collection scene.
-- **Forms:** Newsletter and workshop registration islands (React + react-hook-form + zod) with a honeypot, delivering to Formspree or any webhook — demo mode until configured.
-- **SEO:** Per-page metadata, Open Graph, schema.org structured data, sitemap and robots.txt.
-- **Quality gates:** Type and content checks, unit specs, Prettier and a CI workflow.
-
-## What's New
-
-> [!NOTE]
-> Fully static output, a single plain-CSS styling system, one implementation of every page shared across locales, form delivery through Formspree or any webhook (demo mode until configured), and a content model that generates both the Astro schemas and the Keystatic admin. All demo content is fictional. Report issues on the [issues page](https://github.com/mearashadowfax/DomusPicturae/issues) or [start a discussion](https://github.com/mearashadowfax/DomusPicturae/discussions/new/choose).
+---
 
 ## Getting Started
 
-This guide will provide you with the necessary steps to set up and familiarize yourself with the project on your local development machine.
+You need **Node.js 22.12 or newer** and **pnpm**. If you don't have pnpm, `corepack enable` gives you the version pinned in `package.json`.
 
-### Use This Template
-
-Click the `Use this template` button at the top right of the repository to create your own repo based on this template.
-
-### Clone the Repository
-
-Once your repository is created, you can clone it to your local machine using the following commands:
+**1. Create your repository.** Click **Use this template** at the top of [the GitHub page](https://github.com/mearashadowfax/DomusPicturae), then clone it:
 
 ```bash
 git clone https://github.com/[YOUR_USERNAME]/[YOUR_REPO_NAME].git
 cd [YOUR_REPO_NAME]
 ```
 
-### Installation
-
-Start by installing the project dependencies. Open your terminal, navigate to the project's root directory, and execute:
+**2. Install and run.**
 
 ```bash
 pnpm install
+pnpm dev
 ```
 
-### Development Commands
+The site is at `http://localhost:4321` and the Keystatic admin at `http://localhost:4321/keystatic`. Edits made in the admin are written to `src/content/`.
 
-With dependencies installed, you can utilize the following pnpm scripts to manage your project's development lifecycle:
+**3. Make it yours.** Open **Site settings** in Keystatic and replace the gallery name, address, contact details and social links. Then set the canonical URL in `astro.config.mjs` (`site`) and `src/data/constants.ts`. See [Customization](#customization) for the rest.
 
-- `pnpm dev`: Starts the development server with the Keystatic admin at `/keystatic`.
-- `pnpm build`: Builds the static site into `dist/`.
-- `pnpm preview`: Serves the built site locally.
-- `pnpm check`: Type-checks components and validates every content entry.
-- `pnpm test`: Runs the unit specs (Vitest).
-- `pnpm format:fix` / `pnpm format:check`: Prettier fixes and checks.
+**4. Build.**
 
-> [!TIP]
-> Need more details? Check out [Astro's documentation](https://docs.astro.build/en/reference/cli-reference/).
+```bash
+pnpm build     # static site in dist/
+pnpm preview   # serve dist/ locally
+```
+
+Other scripts:
+
+- `pnpm check` type-checks components and validates every content entry.
+- `pnpm test` runs the unit specs (Vitest).
+- `pnpm format:fix` / `pnpm format:check` run Prettier.
+
+---
 
 ## Deployment
 
-Domus Picturae builds to a fully static site with no adapter, so it deploys to Vercel, Netlify, Cloudflare Pages, GitHub Pages or any web server. Set the canonical URL in `astro.config.mjs` (`site`) and `src/data/constants.ts` first, and optionally the two form variables from `.env.template` in your host's build environment.
+The build is fully static with no adapter, so `dist/` deploys to Vercel, Netlify, Cloudflare Pages, GitHub Pages or any web server. Before deploying, set the canonical URL in `astro.config.mjs` (`site`) and `src/data/constants.ts`, and optionally the two form variables from `.env.template` in your host's build environment.
 
-Click the button below to start deploying your project on Vercel:
+Click the button below to deploy the template to Vercel in one step:
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmearashadowfax%2FDomusPicturae)
 
@@ -108,6 +108,8 @@ Click the button below to start deploying your project on Vercel:
 > The Keystatic admin needs server routes, so it is only included while running `pnpm dev`; production builds are static. To edit content from a hosted admin, add an SSR adapter and switch Keystatic to GitHub storage as described in [`docs/deployment.md`](docs/deployment.md).
 
 `vercel.json` only adds HTTP security headers and is ignored by other hosts.
+
+---
 
 ## Project Structure
 
@@ -133,6 +135,8 @@ src/
 └── views/               One component per page type, shared by every locale
 ```
 
+---
+
 ## Customization
 
 ### Gallery Details
@@ -151,13 +155,15 @@ Colours, radius and motion curves are custom properties in `src/assets/styles/va
 
 The newsletter and workshop forms post JSON to the endpoints in `PUBLIC_FORM_NEWSLETTER` and `PUBLIC_FORM_WORKSHOP` (a Formspree form or any JSON webhook). Unset, they run in demo mode and log the submission instead, so a fresh clone works before any service exists; see [`docs/forms.md`](docs/forms.md).
 
+---
+
 ## Content Management
 
 ### Keystatic CMS
 
 Run `pnpm dev` and open `http://localhost:4321/keystatic`. Keystatic runs in `local` storage mode and edits the files under `src/content/` directly, so content changes are committed with the rest of the code. Switch `KEYSTATIC_STORAGE_MODE` in `keystatic.config.ts` to `"github"` for hosted editing.
 
-The content model is defined once in `src/content-model/collections.ts`; `src/content.config.ts` (Astro schemas) and `keystatic.config.ts` (admin UI) are generated from it.
+The content model is defined once in `src/content-model/collections.ts`; `src/content.config.ts` (Astro schemas) and `keystatic.config.ts` (admin UI) are generated from it. Six collections (artists, artworks, news, exhibitions, workshops, pages) and three singletons (homepage, about, site settings) ship with the demo.
 
 ### Localised Content
 
@@ -173,18 +179,24 @@ Images, dates, numbers and slugs are shared. Long-form entries (news, exhibition
 
 An artwork is `available`, `sold` or `not-for-sale`. Available and sold works appear in the catalogue and viewing room; works that are not for sale form the private collection, shown on the dark theme.
 
+---
+
 ## Internationalization
 
-The locale list in `src/i18n/config.ts` is the single source of truth: `astro.config.mjs`, the content schemas, the Keystatic admin and every component read from it. Each page exists once in `src/views/` and is rendered by a thin route file per locale in `src/pages/`, so `src/pages/` still shows every URL the site serves. Adding a language is a six-step change described in [`docs/i18n.md`](docs/i18n.md).
+The locale list in `src/i18n/config.ts` is the single source of truth: `astro.config.mjs`, the content schemas, the Keystatic admin and every component read from it. Each page exists once in `src/views/` and is rendered by a thin route file per locale in `src/pages/`, so `src/pages/` still shows every URL the site serves. The default locale (`en`) is served without a prefix; every other locale lives under `/<locale>/`. Adding a language is a six-step change described in [`docs/i18n.md`](docs/i18n.md).
 
-## Integrations and Enhancements
+---
+
+## Integrations
 
 - **[Astro SEO](https://github.com/jonasmerlin/astro-seo)** and **[Astro SEO Schema](https://github.com/codiume/orbit/tree/main/packages/astro-seo-schema)** for metadata and structured data; the JSON-LD shapes live in `src/utils/seo.ts`.
-- **Astro Fonts** to self-host Satoshi (Fontshare) and Baskervville (Google Fonts) — fetched at build time and served from `/_astro/fonts/`, so visitors never contact a third-party font CDN.
+- **Astro Fonts** to self-host Satoshi (Fontshare) and Baskervville (Google Fonts) – fetched at build time and served from `/_astro/fonts/`, so visitors never contact a third-party font CDN.
 - **[GSAP](https://gsap.com/)** with ScrollTrigger and SplitText for reveals and scroll-driven scenes.
 - **[Lenis](https://lenis.darkroom.engineering/)** for smooth scrolling, synced with ScrollTrigger.
 - **[@astrojs/sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/)** with per-locale entries.
 - **[Keystatic](https://keystatic.com/)** with localised fields generated from the locale list.
+
+---
 
 ## Documentation
 
@@ -197,10 +209,16 @@ The locale list in `src/i18n/config.ts` is the single source of truth: `astro.co
 | [docs/deployment.md](docs/deployment.md)             | Static hosting, the Vercel demo, running Keystatic in production |
 | [CONTEXT.md](CONTEXT.md)                             | Glossary of the terms used in code and content                   |
 
+---
+
 ## Contributing
 
-Contributions are welcome. Open an issue for bugs or proposals, or submit a pull request; CI runs formatting, type/content checks and a full build on every PR. See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+Contributions are welcome. Open an issue for bugs or proposals, or submit a pull request; CI runs formatting, type/content checks, the unit specs and a full build on every PR. See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow and [SECURITY.md](SECURITY.md) for reporting vulnerabilities.
+
+Questions and ideas are welcome in [Discussions](https://github.com/mearashadowfax/DomusPicturae/discussions/new/choose); bugs go to the [issue tracker](https://github.com/mearashadowfax/DomusPicturae/issues).
+
+---
 
 ## License
 
-This project is released under the MIT License. Please read the [LICENSE](LICENSE) file for more details.
+Released under the MIT License. See [LICENSE](LICENSE) for details.
