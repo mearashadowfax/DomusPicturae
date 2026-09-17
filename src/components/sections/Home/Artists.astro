@@ -20,32 +20,30 @@ const artists = await getArtistsSorted();
   <h2 class="artists-title">{t.home.artists}</h2>
   <hr class="artists-rule" />
   <ul class="artists-list">
-    {
-      artists.map((artist) => {
-        const portrait = picture(artist.data, locale, artist.data.name);
-        return (
-          <li class="artist-item">
-            <a class="artist-link" href={routes.artist(locale, artist)}>
-              {artist.data.name}
-            </a>
-            <div class="artist-preview">
-              <div class="artist-preview-inner">
-                {portrait && (
-                  <Image
-                    src={portrait.src}
-                    alt={portrait.alt}
-                    format="webp"
-                    width={600}
-                    class="artist-portrait"
-                  />
-                )}
-                <p class="artist-bio">{text(artist.data.shortBio, locale)}</p>
-              </div>
+    {artists.map((artist) => {
+      const portrait = picture(artist.data, locale, artist.data.name);
+      return (
+        <li class="artist-item">
+          <a class="artist-link" href={routes.artist(locale, artist)}>
+            {artist.data.name}
+          </a>
+          <div class="artist-preview">
+            <div class="artist-preview-inner">
+              {portrait && (
+                <Image
+                  src={portrait.src}
+                  alt={portrait.alt}
+                  format="webp"
+                  width={600}
+                  class="artist-portrait"
+                />
+              )}
+              <p class="artist-bio">{text(artist.data.shortBio, locale)}</p>
             </div>
-          </li>
-        );
-      })
-    }
+          </div>
+        </li>
+      );
+    })}
   </ul>
 </section>
 

@@ -57,34 +57,32 @@ const schema = articleSchema(
 
   <article class="article">
     <header class="article-header">
-      <time datetime={article.data.pubDate.toISOString()}
-        >[{formatDate(article.data.pubDate, locale)}]</time
-      >
+      <time datetime={article.data.pubDate.toISOString()}>
+        [{formatDate(article.data.pubDate, locale)}]
+      </time>
       <h1>{title}</h1>
     </header>
 
     <div class="article-body">
-      {
-        featured && (
-          <Image
-            src={featured.src}
-            alt={featured.alt}
-            class="article-image"
-            format="webp"
-            width={1400}
-            loading="eager"
-          />
-        )
-      }
-      <div class="prose"><Fragment set:html={main} /></div>
+      {featured && (
+        <Image
+          src={featured.src}
+          alt={featured.alt}
+          class="article-image"
+          format="webp"
+          width={1400}
+          loading="eager"
+        />
+      )}
+      <div class="prose">
+        <Fragment set:html={main} />
+      </div>
       {slides.length > 0 && <Slider slides={slides} />}
-      {
-        closing && (
-          <div class="prose">
-            <Fragment set:html={closing} />
-          </div>
-        )
-      }
+      {closing && (
+        <div class="prose">
+          <Fragment set:html={closing} />
+        </div>
+      )}
     </div>
   </article>
 

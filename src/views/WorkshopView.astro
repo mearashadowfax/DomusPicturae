@@ -47,19 +47,19 @@ const description = text(workshop.data.registerInfo, locale);
     </div>
 
     <div class="workshop-body">
-      {
-        image && (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            class="workshop-image"
-            format="webp"
-            width={1400}
-            loading="eager"
-          />
-        )
-      }
-      <div class="prose"><Fragment set:html={body} /></div>
+      {image && (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          class="workshop-image"
+          format="webp"
+          width={1400}
+          loading="eager"
+        />
+      )}
+      <div class="prose">
+        <Fragment set:html={body} />
+      </div>
     </div>
   </article>
 

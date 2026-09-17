@@ -25,5 +25,7 @@ const icon: IconDefinition = Icons[name];
   aria-hidden="true"
   focusable="false"
 >
-  {icon.paths.map((path) => <path d={path.d} class={path.class} />)}
+  {icon.paths.map((path) => (
+    <path d={path.d} class={path.class} />
+  ))}
 </svg>

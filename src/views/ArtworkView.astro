@@ -73,29 +73,27 @@ const schema = artworkSchema(
     <div class="artwork-info">
       <h1 class="artwork-heading">
         <span class="artwork-artist">{artist.data.name}</span>
-        <span class="artwork-title"
-          ><em>{title}{artwork.data.year && ` (${artwork.data.year})`}</em
-          ></span
-        >
+        <span class="artwork-title">
+          <em>
+            {title}
+            {artwork.data.year && ` (${artwork.data.year})`}
+          </em>
+        </span>
         <span class="artwork-dimensions">
-          <span class="artwork-caps">{t.artworks.framed}</span>{" "}
-          {height}<span class="artwork-caps">{t.artworks.height}</span> × {
-            width
-          }<span class="artwork-caps">{t.artworks.width}</span>{" "}
-          {unit}
+          <span class="artwork-caps">{t.artworks.framed}</span> {height}
+          <span class="artwork-caps">{t.artworks.height}</span> × {width}
+          <span class="artwork-caps">{t.artworks.width}</span> {unit}
         </span>
         <span class="artwork-medium">{medium}</span>
       </h1>
 
       {description && <p class="artwork-description">{description}</p>}
 
-      {
-        canInquire && inquiryHref && (
-          <a href={inquiryHref} class="button-outline artwork-action">
-            <span>{t.artworks.inquire}</span>
-          </a>
-        )
-      }
+      {canInquire && inquiryHref && (
+        <a href={inquiryHref} class="button-outline artwork-action">
+          <span>{t.artworks.inquire}</span>
+        </a>
+      )}
       {badge && <div class="artwork-status">{t.artworks[badge]}</div>}
 
       <dl class="artwork-notes">
@@ -103,32 +101,28 @@ const schema = artworkSchema(
           <dt>{t.artworks.noteTitle}</dt>
           <dd>{t.artworks.noteText}</dd>
         </div>
-        {
-          !isPrivate && (
-            <div>
-              <dt>{t.artworks.shippingTitle}</dt>
-              <dd>{t.artworks.shippingText}</dd>
-            </div>
-          )
-        }
+        {!isPrivate && (
+          <div>
+            <dt>{t.artworks.shippingTitle}</dt>
+            <dd>{t.artworks.shippingText}</dd>
+          </div>
+        )}
       </dl>
     </div>
 
     <div class="artwork-media">
-      {
-        image && (
-          <div class="artwork-zoom" data-zoom-src={zoom!.src}>
-            <Image
-              src={image.src}
-              alt={image.alt}
-              format="webp"
-              width={1600}
-              quality={85}
-              loading="eager"
-            />
-          </div>
-        )
-      }
+      {image && (
+        <div class="artwork-zoom" data-zoom-src={zoom!.src}>
+          <Image
+            src={image.src}
+            alt={image.alt}
+            format="webp"
+            width={1600}
+            quality={85}
+            loading="eager"
+          />
+        </div>
+      )}
     </div>
   </article>
 
@@ -145,21 +139,21 @@ const schema = artworkSchema(
     <hr class="section-rule" />
     <div class="related-body">
       <ul class="related-grid">
-        {related.map((item) => <ArtworkCard presentation={item} />)}
+        {related.map((item) => (
+          <ArtworkCard presentation={item} />
+        ))}
       </ul>
       <aside class="related-artist-card">
         <div class="related-artist-card-inner">
-          {
-            portrait && (
-              <Image
-                src={portrait.src}
-                alt={portrait.alt}
-                format="webp"
-                width={600}
-                class="related-portrait"
-              />
-            )
-          }
+          {portrait && (
+            <Image
+              src={portrait.src}
+              alt={portrait.alt}
+              format="webp"
+              width={600}
+              class="related-portrait"
+            />
+          )}
           <p class="related-bio">{text(artist.data.shortBio, locale)}</p>
         </div>
       </aside>

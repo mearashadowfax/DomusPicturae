@@ -29,10 +29,10 @@ const artworks = await presentCatalogue(locale);
     <div class="catalogue-bar">
       <div class="catalogue-bar-row">
         <div class="catalogue-views">
-          <span class="is-active">{t.artworks.gridView}</span>
-          {" "}
-          <span class="catalogue-views-separator" aria-hidden="true">|</span>
-          {" "}
+          <span class="is-active">{t.artworks.gridView}</span>{" "}
+          <span class="catalogue-views-separator" aria-hidden="true">
+            |
+          </span>{" "}
           <a href={routes.viewingRoom(locale)}>{t.artworks.viewingRoom}</a>
         </div>
         <a
@@ -46,11 +46,9 @@ const artworks = await presentCatalogue(locale);
     </div>
 
     <ul class="catalogue-grid">
-      {
-        artworks.map((presentation) => (
-          <ArtworkCard presentation={presentation} />
-        ))
-      }
+      {artworks.map((presentation) => (
+        <ArtworkCard presentation={presentation} />
+      ))}
     </ul>
   </section>
 

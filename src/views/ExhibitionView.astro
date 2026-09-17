@@ -58,31 +58,29 @@ const schema = exhibitionSchema(
       <div>
         <dt>{t.events.openingHours}</dt>
         <dd class="exhibition-hours">
-          {
-            exhibition.data.openingHours.map((item) => (
-              <span>
-                {text(item.day, locale)} <span>{item.hours}</span>
-              </span>
-            ))
-          }
+          {exhibition.data.openingHours.map((item) => (
+            <span>
+              {text(item.day, locale)} <span>{item.hours}</span>
+            </span>
+          ))}
         </dd>
       </div>
     </dl>
 
     <div class="exhibition-body">
-      {
-        image && (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            class="exhibition-image"
-            format="webp"
-            width={1600}
-            loading="eager"
-          />
-        )
-      }
-      <div class="prose"><Fragment set:html={body} /></div>
+      {image && (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          class="exhibition-image"
+          format="webp"
+          width={1600}
+          loading="eager"
+        />
+      )}
+      <div class="prose">
+        <Fragment set:html={body} />
+      </div>
     </div>
   </article>
 

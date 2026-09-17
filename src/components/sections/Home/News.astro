@@ -24,7 +24,9 @@ const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
   </div>
   <hr class="news-rule" />
   <ul class="news-grid">
-    {news.map((entry) => <NewsCard entry={entry} locale={locale} />)}
+    {news.map((entry) => (
+      <NewsCard entry={entry} locale={locale} />
+    ))}
   </ul>
 </section>
 

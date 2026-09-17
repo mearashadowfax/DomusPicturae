@@ -20,28 +20,26 @@ const items = pictures(about.galleryItems, locale);
 <section class="about">
   <div class="about-title">
     <h2>{text(about.content, locale)}</h2>
-    <a href={routes.about(locale)} class="link-underline"
-      >{text(about.buttonText, locale)}</a
-    >
+    <a href={routes.about(locale)} class="link-underline">
+      {text(about.buttonText, locale)}
+    </a>
   </div>
   <div class="about-gallery">
-    {
-      items.map((item) => (
-        <div
-          class="about-item"
-          style={`top: ${item.source.top}%; left: ${item.source.left}%;`}
-          data-parallax-speed={item.source.parallaxSpeed}
-        >
-          <Image
-            src={item.src}
-            alt={item.alt}
-            format="webp"
-            width={500}
-            loading="lazy"
-          />
-        </div>
-      ))
-    }
+    {items.map((item) => (
+      <div
+        class="about-item"
+        style={`top: ${item.source.top}%; left: ${item.source.left}%;`}
+        data-parallax-speed={item.source.parallaxSpeed}
+      >
+        <Image
+          src={item.src}
+          alt={item.alt}
+          format="webp"
+          width={500}
+          loading="lazy"
+        />
+      </div>
+    ))}
   </div>
 </section>
 

@@ -33,29 +33,25 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
 <li class:list={["exhibition-card", `is-${variant}`]}>
   <a href={href} class="exhibition-card-link">
     <div class="exhibition-card-image">
-      {
-        image && (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            format="webp"
-            width={imageWidth}
-          />
-        )
-      }
+      {image && (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          format="webp"
+          width={imageWidth}
+        />
+      )}
     </div>
     <h3 class="exhibition-card-title">
       <span class="exhibition-card-name">{title}</span>
       <span class="exhibition-card-dateline">{dateline}</span>
     </h3>
   </a>
-  {
-    variant === "current" && (
-      <p class="exhibition-card-summary">
-        {text(exhibition.data.description, locale)}
-      </p>
-    )
-  }
+  {variant === "current" && (
+    <p class="exhibition-card-summary">
+      {text(exhibition.data.description, locale)}
+    </p>
+  )}
 </li>
 
 <style>

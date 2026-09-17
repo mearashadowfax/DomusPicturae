@@ -36,19 +36,19 @@ const description = paragraphs(
 
   <section class="about">
     <h1 class="about-title">{text(about.title, locale)}</h1>
-    <p class="about-intro"><Fragment set:html={text(about.intro, locale)} /></p>
+    <p class="about-intro">
+      <Fragment set:html={text(about.intro, locale)} />
+    </p>
 
     <div class="about-images">
-      {
-        images.map((item) => (
-          <figure class="about-figure">
-            <div class="about-figure-image">
-              <Image src={item.src} alt={item.alt} format="webp" width={800} />
-            </div>
-            <figcaption>{text(item.source.caption, locale)}</figcaption>
-          </figure>
-        ))
-      }
+      {images.map((item) => (
+        <figure class="about-figure">
+          <div class="about-figure-image">
+            <Image src={item.src} alt={item.alt} format="webp" width={800} />
+          </div>
+          <figcaption>{text(item.source.caption, locale)}</figcaption>
+        </figure>
+      ))}
     </div>
 
     <p class="about-right">{text(about.contentRight, locale)}</p>
@@ -61,22 +61,20 @@ const description = paragraphs(
     <div class="cards-copy">
       <p class="cards-text">{text(about.animationContent, locale)}</p>
       <div class="cards-link">
-        <a href={routes.artworks(locale)} class="link-underline"
-          >{text(about.buttonText, locale)}</a
-        >
+        <a href={routes.artworks(locale)} class="link-underline">
+          {text(about.buttonText, locale)}
+        </a>
       </div>
     </div>
-    {
-      rows.map((row) => (
-        <div class="cards-row">
-          {row.map((item, i) => (
-            <div class:list={["card", i === 0 ? "card-left" : "card-right"]}>
-              <Image src={item.src} alt={item.alt} format="webp" width={1000} />
-            </div>
-          ))}
-        </div>
-      ))
-    }
+    {rows.map((row) => (
+      <div class="cards-row">
+        {row.map((item, i) => (
+          <div class:list={["card", i === 0 ? "card-left" : "card-right"]}>
+            <Image src={item.src} alt={item.alt} format="webp" width={1000} />
+          </div>
+        ))}
+      </div>
+    ))}
   </section>
 
   <Footer locale={locale} />

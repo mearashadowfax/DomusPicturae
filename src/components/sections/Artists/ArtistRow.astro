@@ -22,17 +22,15 @@ const portrait = picture(artist.data, locale, artist.data.name);
   </a>
   <div class="artist-row-preview">
     <div class="artist-row-preview-inner">
-      {
-        portrait && (
-          <Image
-            src={portrait.src}
-            alt={portrait.alt}
-            format="webp"
-            width={600}
-            class="artist-row-portrait"
-          />
-        )
-      }
+      {portrait && (
+        <Image
+          src={portrait.src}
+          alt={portrait.alt}
+          format="webp"
+          width={600}
+          class="artist-row-portrait"
+        />
+      )}
       <p class="artist-row-bio">{text(artist.data.shortBio, locale)}</p>
     </div>
   </div>

@@ -20,21 +20,19 @@ const basePath = stripLocale(Astro.url.pathname);
 ---
 
 <nav class="language-switcher" aria-label="Language">
-  {
-    locales.map((l, index) => (
-      <>
-        <a
-          href={localizePath(l, basePath)}
-          class:list={["language-link", { "is-active": l === locale }]}
-          hreflang={l}
-          aria-current={l === locale ? "true" : undefined}
-        >
-          {localeLabels[l]}
-        </a>
-        {index < locales.length - 1 && <span aria-hidden="true">⏤</span>}
-      </>
-    ))
-  }
+  {locales.map((l, index) => (
+    <>
+      <a
+        href={localizePath(l, basePath)}
+        class:list={["language-link", { "is-active": l === locale }]}
+        hreflang={l}
+        aria-current={l === locale ? "true" : undefined}
+      >
+        {localeLabels[l]}
+      </a>
+      {index < locales.length - 1 && <span aria-hidden="true">⏤</span>}
+    </>
+  ))}
 </nav>
 
 <style>

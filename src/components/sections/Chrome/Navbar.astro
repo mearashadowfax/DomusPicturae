@@ -24,7 +24,9 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
 ---
 
 <nav class="navbar">
-  <div class="navbar-logo"><a href={homeUrl}>{site.data.name}</a></div>
+  <div class="navbar-logo">
+    <a href={homeUrl}>{site.data.name}</a>
+  </div>
   <button
     class="navbar-open"
     aria-controls="menu-overlay"
@@ -36,7 +38,9 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
 
 <div class="menu" id="menu-overlay">
   <div class="menu-bar">
-    <div class="menu-logo"><a href={homeUrl}>{site.data.name}</a></div>
+    <div class="menu-logo">
+      <a href={homeUrl}>{site.data.name}</a>
+    </div>
     <button
       class="menu-close"
       aria-controls="menu-overlay"
@@ -56,36 +60,32 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
           <source src="/showreel.mp4" type="video/mp4" />
         </video>
       </div>
-      {
-        site.data.showreelLink && (
-          <div class="menu-showreel-details">
-            <a
-              href={site.data.showreelLink}
-              target="_blank"
-              rel="noopener"
-              class="link-underline"
-            >
-              <Icon name="play" />
-              {t.menu.showreel}
-            </a>
-          </div>
-        )
-      }
+      {site.data.showreelLink && (
+        <div class="menu-showreel-details">
+          <a
+            href={site.data.showreelLink}
+            target="_blank"
+            rel="noopener"
+            class="link-underline"
+          >
+            <Icon name="play" />
+            {t.menu.showreel}
+          </a>
+        </div>
+      )}
     </div>
 
     <ul class="menu-list">
-      {
-        links.map((link) => (
-          <li class="menu-item">
-            <a
-              href={link.href}
-              class:list={["menu-link", { "is-active": isActive(link.href) }]}
-            >
-              {link.label}
-            </a>
-          </li>
-        ))
-      }
+      {links.map((link) => (
+        <li class="menu-item">
+          <a
+            href={link.href}
+            class:list={["menu-link", { "is-active": isActive(link.href) }]}
+          >
+            {link.label}
+          </a>
+        </li>
+      ))}
     </ul>
   </div>
 
@@ -98,31 +98,27 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
         <LanguageSwitcher locale={locale} />
       </div>
       <div class="menu-socials">
-        {
-          site.data.social.x && (
-            <a
-              href={site.data.social.x}
-              target="_blank"
-              rel="noopener"
-              class="link-underline"
-            >
-              X <span class="visually-hidden">{t.menu.opensInNewTab}</span>
-            </a>
-          )
-        }
-        {
-          site.data.social.instagram && (
-            <a
-              href={site.data.social.instagram}
-              target="_blank"
-              rel="noopener"
-              class="link-underline"
-            >
-              Instagram{" "}
-              <span class="visually-hidden">{t.menu.opensInNewTab}</span>
-            </a>
-          )
-        }
+        {site.data.social.x && (
+          <a
+            href={site.data.social.x}
+            target="_blank"
+            rel="noopener"
+            class="link-underline"
+          >
+            X <span class="visually-hidden">{t.menu.opensInNewTab}</span>
+          </a>
+        )}
+        {site.data.social.instagram && (
+          <a
+            href={site.data.social.instagram}
+            target="_blank"
+            rel="noopener"
+            class="link-underline"
+          >
+            Instagram{" "}
+            <span class="visually-hidden">{t.menu.opensInNewTab}</span>
+          </a>
+        )}
       </div>
     </div>
   </div>

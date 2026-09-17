@@ -22,24 +22,20 @@ const isSquare =
 <li class="artwork-card">
   <a href={href}>
     <div class="artwork-card-image">
-      {
-        image && (
-          <Image
-            src={image.src}
-            alt={image.alt}
-            class:list={{ "is-contained": isSquare }}
-            format="webp"
-            width={800}
-          />
-        )
-      }
-      {
-        badge && (
-          <div class="artwork-card-badge">
-            <span>{t.artworks[badge]}</span>
-          </div>
-        )
-      }
+      {image && (
+        <Image
+          src={image.src}
+          alt={image.alt}
+          class:list={{ "is-contained": isSquare }}
+          format="webp"
+          width={800}
+        />
+      )}
+      {badge && (
+        <div class="artwork-card-badge">
+          <span>{t.artworks[badge]}</span>
+        </div>
+      )}
     </div>
     <p class="artwork-card-caption">
       {artist.data.name}

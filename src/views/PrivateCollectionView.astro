@@ -46,43 +46,39 @@ const depthStep = 2500;
 
   <section class="scene" style={`--slides: ${slides.length}`}>
     <div class="scene-backdrop">
-      {
-        slides.map((slide) => (
-          <Image
-            src={slide.image!.src}
-            alt=""
-            format="webp"
-            width={1200}
-            height={1600}
-            loading="lazy"
-          />
-        ))
-      }
+      {slides.map((slide) => (
+        <Image
+          src={slide.image!.src}
+          alt=""
+          format="webp"
+          width={1200}
+          height={1600}
+          loading="lazy"
+        />
+      ))}
     </div>
 
     <div class="scene-stage">
-      {
-        slides.map((slide, i) => (
-          <a
-            href={slide.href}
-            class="scene-slide"
-            style={`--z: ${-(slides.length - 1 - i) * depthStep}px; --side: ${i % 2 === 0 ? "30%" : "70%"}`}
-          >
-            <p class="scene-caption">
-              {slide.title}
-              {slide.year && <span>{slide.year}</span>}
-            </p>
-            <Image
-              src={slide.image!.src}
-              alt={slide.image!.alt}
-              format="webp"
-              width={400}
-              height={500}
-              loading="lazy"
-            />
-          </a>
-        ))
-      }
+      {slides.map((slide, i) => (
+        <a
+          href={slide.href}
+          class="scene-slide"
+          style={`--z: ${-(slides.length - 1 - i) * depthStep}px; --side: ${i % 2 === 0 ? "30%" : "70%"}`}
+        >
+          <p class="scene-caption">
+            {slide.title}
+            {slide.year && <span>{slide.year}</span>}
+          </p>
+          <Image
+            src={slide.image!.src}
+            alt={slide.image!.alt}
+            format="webp"
+            width={400}
+            height={500}
+            loading="lazy"
+          />
+        </a>
+      ))}
     </div>
   </section>
 </MainLayout>

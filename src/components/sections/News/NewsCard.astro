@@ -18,14 +18,15 @@ const title = text(entry.data.title, locale);
 
 <li class="news-card">
   <div class="news-card-header">
-    <span class="news-card-date"
-      >[{formatDate(entry.data.pubDate, locale)}]</span
-    >
+    <span class="news-card-date">
+      [{formatDate(entry.data.pubDate, locale)}]
+    </span>
     <h3 class="news-card-title">{title}</h3>
   </div>
   <p class="news-card-summary">{text(entry.data.description, locale)}</p>
   <a class="news-card-link link-underline" href={routes.article(locale, entry)}>
-    {t.news.readMore}<span class="visually-hidden">: {title}</span>
+    {t.news.readMore}
+    <span class="visually-hidden">: {title}</span>
   </a>
 </li>
 

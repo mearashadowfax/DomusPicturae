@@ -27,73 +27,65 @@ const workshops = await getCollection("workshops");
   <Navbar locale={locale} />
 
   <section class="events">
-    {
-      current.length > 0 && (
-        <>
-          <h2 class="section-heading">{t.events.current}</h2>
-          <hr class="section-rule" />
-          <ul class="events-current">
-            {current.map((exhibition) => (
-              <ExhibitionCard
-                exhibition={exhibition}
-                locale={locale}
-                variant="current"
-              />
-            ))}
-          </ul>
-        </>
-      )
-    }
+    {current.length > 0 && (
+      <>
+        <h2 class="section-heading">{t.events.current}</h2>
+        <hr class="section-rule" />
+        <ul class="events-current">
+          {current.map((exhibition) => (
+            <ExhibitionCard
+              exhibition={exhibition}
+              locale={locale}
+              variant="current"
+            />
+          ))}
+        </ul>
+      </>
+    )}
 
-    {
-      upcoming.length > 0 && (
-        <>
-          <h2 class="section-heading">{t.events.upcoming}</h2>
-          <hr class="section-rule" />
-          <ul class="events-upcoming">
-            {upcoming.map((exhibition) => (
-              <ExhibitionCard
-                exhibition={exhibition}
-                locale={locale}
-                variant="upcoming"
-              />
-            ))}
-          </ul>
-        </>
-      )
-    }
+    {upcoming.length > 0 && (
+      <>
+        <h2 class="section-heading">{t.events.upcoming}</h2>
+        <hr class="section-rule" />
+        <ul class="events-upcoming">
+          {upcoming.map((exhibition) => (
+            <ExhibitionCard
+              exhibition={exhibition}
+              locale={locale}
+              variant="upcoming"
+            />
+          ))}
+        </ul>
+      </>
+    )}
 
-    {
-      past.length > 0 && (
-        <>
-          <h2 class="section-heading">{t.events.past}</h2>
-          <hr class="section-rule" />
-          <ul class="events-past">
-            {past.map((exhibition) => (
-              <ExhibitionCard
-                exhibition={exhibition}
-                locale={locale}
-                variant="past"
-              />
-            ))}
-          </ul>
-        </>
-      )
-    }
+    {past.length > 0 && (
+      <>
+        <h2 class="section-heading">{t.events.past}</h2>
+        <hr class="section-rule" />
+        <ul class="events-past">
+          {past.map((exhibition) => (
+            <ExhibitionCard
+              exhibition={exhibition}
+              locale={locale}
+              variant="past"
+            />
+          ))}
+        </ul>
+      </>
+    )}
 
-    {
-      workshops.length > 0 && (
-        <>
-          <h2 class="section-heading">{t.events.workshops}</h2>
-          <hr class="section-rule" />
-          <div class="events-workshops">
-            {workshops.map((workshop) => (
-              <WorkshopCard workshop={workshop} locale={locale} />
-            ))}
-          </div>
-        </>
-      )
-    }
+    {workshops.length > 0 && (
+      <>
+        <h2 class="section-heading">{t.events.workshops}</h2>
+        <hr class="section-rule" />
+        <div class="events-workshops">
+          {workshops.map((workshop) => (
+            <WorkshopCard workshop={workshop} locale={locale} />
+          ))}
+        </div>
+      </>
+    )}
   </section>
 
   <Footer locale={locale} />
@@ -162,7 +154,7 @@ const workshops = await getCollection("workshops");
     }
 
     /* A full-bleed strip: cards snap to the gutter and the last one can
-       scroll fully into view. */
+         scroll fully into view. */
     .events-workshops {
       flex-wrap: nowrap;
       justify-content: flex-start;

@@ -39,28 +39,26 @@ const slides = (
 ---
 
 <section class="collection">
-  {
-    slides.map((slide) => (
-      <div class="collection-item">
-        <a href={slide.href}>
-          <div class="collection-image">
-            <Image
-              src={slide.image.src}
-              alt={slide.image.alt}
-              format="webp"
-              width={900}
-              loading="lazy"
-            />
-          </div>
-          <p class="collection-caption">
-            {slide.artist}
-            <br />
-            <em>{slide.caption}</em>
-          </p>
-        </a>
-      </div>
-    ))
-  }
+  {slides.map((slide) => (
+    <div class="collection-item">
+      <a href={slide.href}>
+        <div class="collection-image">
+          <Image
+            src={slide.image.src}
+            alt={slide.image.alt}
+            format="webp"
+            width={900}
+            loading="lazy"
+          />
+        </div>
+        <p class="collection-caption">
+          {slide.artist}
+          <br />
+          <em>{slide.caption}</em>
+        </p>
+      </a>
+    </div>
+  ))}
 </section>
 
 <style>

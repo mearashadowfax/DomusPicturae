@@ -16,10 +16,14 @@ const { name, title, content, size = "default" } = Astro.props;
 ---
 
 <section class:list={["home-section", `home-section--${size}`, name]}>
-  <h2 class="home-section-title"><Fragment set:html={title} /></h2>
+  <h2 class="home-section-title">
+    <Fragment set:html={title} />
+  </h2>
   <hr class="home-section-rule" />
   <div class="home-section-body">
-    <p class="home-section-content"><Fragment set:html={content} /></p>
+    <p class="home-section-content">
+      <Fragment set:html={content} />
+    </p>
   </div>
   <slot />
 </section>

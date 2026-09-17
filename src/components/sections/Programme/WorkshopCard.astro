@@ -21,24 +21,20 @@ const image = picture(workshop.data, locale, text(workshop.data.title, locale));
   class="workshop-card"
   aria-label={text(workshop.data.title, locale)}
 >
-  {
-    image && (
-      <Image
-        src={image.src}
-        alt={image.alt}
-        format="webp"
-        width={800}
-        class="workshop-card-image"
-      />
-    )
-  }
-  {
-    workshop.data.video && (
-      <video class="workshop-card-video" muted loop playsinline preload="none">
-        <source src={workshop.data.video} type="video/mp4" />
-      </video>
-    )
-  }
+  {image && (
+    <Image
+      src={image.src}
+      alt={image.alt}
+      format="webp"
+      width={800}
+      class="workshop-card-image"
+    />
+  )}
+  {workshop.data.video && (
+    <video class="workshop-card-video" muted loop playsinline preload="none">
+      <source src={workshop.data.video} type="video/mp4" />
+    </video>
+  )}
 </a>
 
 <style>

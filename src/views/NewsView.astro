@@ -27,7 +27,9 @@ const news = await getNewsSorted();
     <h1 class="section-heading">{t.news.title}</h1>
     <hr class="section-rule" />
     <ul class="news-grid">
-      {news.map((entry) => <NewsCard entry={entry} locale={locale} />)}
+      {news.map((entry) => (
+        <NewsCard entry={entry} locale={locale} />
+      ))}
     </ul>
   </section>
 

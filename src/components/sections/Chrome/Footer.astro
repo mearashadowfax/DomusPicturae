@@ -28,37 +28,31 @@ const year = new Date().getFullYear();
         <div class="footer-main">
           <div class="footer-contact">
             <address>
-              {
-                addressLines.map((line, i) => (
-                  <>
-                    {line}
-                    {i < addressLines.length - 1 && <br />}
-                  </>
-                ))
-              }
+              {addressLines.map((line, i) => (
+                <>
+                  {line}
+                  {i < addressLines.length - 1 && <br />}
+                </>
+              ))}
             </address>
             <ul>
-              {
-                site.data.phone && (
-                  <li>
-                    <a
-                      href={`tel:${site.data.phone.replace(/\s+/g, "")}`}
-                      class="tap-target"
-                    >
-                      {site.data.phone}
-                    </a>
-                  </li>
-                )
-              }
-              {
-                site.data.email && (
-                  <li>
-                    <a href={`mailto:${site.data.email}`} class="tap-target">
-                      {site.data.email}
-                    </a>
-                  </li>
-                )
-              }
+              {site.data.phone && (
+                <li>
+                  <a
+                    href={`tel:${site.data.phone.replace(/\s+/g, "")}`}
+                    class="tap-target"
+                  >
+                    {site.data.phone}
+                  </a>
+                </li>
+              )}
+              {site.data.email && (
+                <li>
+                  <a href={`mailto:${site.data.email}`} class="tap-target">
+                    {site.data.email}
+                  </a>
+                </li>
+              )}
             </ul>
           </div>
           <div class="footer-newsletter">
@@ -75,35 +69,33 @@ const year = new Date().getFullYear();
 
         <div class="footer-bottom">
           <ul class="footer-legal">
-            <li>© {year} {site.data.name}</li>
-            {
-              links.map((link) => (
-                <>
-                  <li aria-hidden="true">|</li>
-                  <li>
-                    <a href={link.href} class="tap-target">
-                      {link.label}
-                    </a>
-                  </li>
-                </>
-              ))
-            }
+            <li>
+              © {year} {site.data.name}
+            </li>
+            {links.map((link) => (
+              <>
+                <li aria-hidden="true">|</li>
+                <li>
+                  <a href={link.href} class="tap-target">
+                    {link.label}
+                  </a>
+                </li>
+              </>
+            ))}
           </ul>
-          {
-            site.data.creditName && (
-              <div class="footer-credit">
-                {t.footer.craftedBy}{" "}
-                <a
-                  href={site.data.creditUrl}
-                  target="_blank"
-                  rel="noopener"
-                  class="link-underline"
-                >
-                  {site.data.creditName}
-                </a>
-              </div>
-            )
-          }
+          {site.data.creditName && (
+            <div class="footer-credit">
+              {t.footer.craftedBy}{" "}
+              <a
+                href={site.data.creditUrl}
+                target="_blank"
+                rel="noopener"
+                class="link-underline"
+              >
+                {site.data.creditName}
+              </a>
+            </div>
+          )}
         </div>
       </div>
     </div>

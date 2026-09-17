@@ -23,25 +23,23 @@ const total = slides.length;
 
 <div class="slider" style={`--slides: ${total};`}>
   <div class="slider-track">
-    {
-      slides.map((slide, index) => (
-        <div class="slide">
-          <Image
-            class="slide-image"
-            src={slide.image}
-            alt={slide.alt}
-            format="webp"
-            width={1400}
-          />
-          <p class="slide-caption">
-            <span class="slide-index">
-              [{index + 1}/{total}]
-            </span>{" "}
-            <span>{slide.caption}</span>
-          </p>
-        </div>
-      ))
-    }
+    {slides.map((slide, index) => (
+      <div class="slide">
+        <Image
+          class="slide-image"
+          src={slide.image}
+          alt={slide.alt}
+          format="webp"
+          width={1400}
+        />
+        <p class="slide-caption">
+          <span class="slide-index">
+            [{index + 1}/{total}]
+          </span>{" "}
+          <span>{slide.caption}</span>
+        </p>
+      </div>
+    ))}
   </div>
 </div>
 

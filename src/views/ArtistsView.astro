@@ -35,32 +35,34 @@ const estates = all.filter((a) => a.data.isEstate);
       >
         {t.artists.tabArtists}
       </button>
-      {
-        estates.length > 0 && (
-          <>
-            {" "}
-            <span class="artists-tabs-separator" aria-hidden="true">
-              |
-            </span>{" "}
-            <button
-              class="artists-tab"
-              role="tab"
-              aria-selected="false"
-              aria-controls="estates-list"
-            >
-              {t.artists.tabEstates}
-            </button>
-          </>
-        )
-      }
+      {estates.length > 0 && (
+        <>
+          {" "}
+          <span class="artists-tabs-separator" aria-hidden="true">
+            |
+          </span>{" "}
+          <button
+            class="artists-tab"
+            role="tab"
+            aria-selected="false"
+            aria-controls="estates-list"
+          >
+            {t.artists.tabEstates}
+          </button>
+        </>
+      )}
     </h1>
     <hr class="section-rule" />
     <div class="artists-lists">
       <ul class="artists-list" id="artists-list" role="tabpanel">
-        {artists.map((artist) => <ArtistRow artist={artist} locale={locale} />)}
+        {artists.map((artist) => (
+          <ArtistRow artist={artist} locale={locale} />
+        ))}
       </ul>
       <ul class="artists-list" id="estates-list" role="tabpanel" hidden>
-        {estates.map((artist) => <ArtistRow artist={artist} locale={locale} />)}
+        {estates.map((artist) => (
+          <ArtistRow artist={artist} locale={locale} />
+        ))}
       </ul>
     </div>
   </section>

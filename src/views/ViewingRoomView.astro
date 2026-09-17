@@ -39,10 +39,10 @@ const slides = (await getCatalogue())
   <div class="room">
     <div class="room-controls">
       <div class="room-views">
-        <a href={routes.artworks(locale)}>{t.artworks.gridView}</a>
-        {" "}
-        <span class="room-views-separator" aria-hidden="true">|</span>
-        {" "}
+        <a href={routes.artworks(locale)}>{t.artworks.gridView}</a>{" "}
+        <span class="room-views-separator" aria-hidden="true">
+          |
+        </span>{" "}
         <span class="is-active">{t.artworks.viewingRoom}</span>
       </div>
       <a
@@ -53,22 +53,20 @@ const slides = (await getCatalogue())
       </a>
     </div>
     <div class="room-track">
-      {
-        slides.map((slide) => (
-          <div class="room-slide">
-            <a href={slide.href}>
-              <Image
-                src={slide.image!.src}
-                alt={slide.image!.alt}
-                class:list={{ "is-contained": slide.isSquare }}
-                format="webp"
-                width={700}
-                loading="lazy"
-              />
-            </a>
-          </div>
-        ))
-      }
+      {slides.map((slide) => (
+        <div class="room-slide">
+          <a href={slide.href}>
+            <Image
+              src={slide.image!.src}
+              alt={slide.image!.alt}
+              class:list={{ "is-contained": slide.isSquare }}
+              format="webp"
+              width={700}
+              loading="lazy"
+            />
+          </a>
+        </div>
+      ))}
     </div>
   </div>
 </MainLayout>

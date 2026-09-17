@@ -54,54 +54,50 @@ const schema = artistSchema(
     <section class="artist-hero">
       <div>
         <h1 class="artist-name">{artist.data.name}</h1>
-        {
-          artist.data.hasCv && (
-            <a
-              href={routes.cv(artist)}
-              target="_blank"
-              rel="noopener"
-              class="button-outline artist-cv"
-            >
-              <span>{t.artists.viewCv}</span>
-            </a>
-          )
-        }
+        {artist.data.hasCv && (
+          <a
+            href={routes.cv(artist)}
+            target="_blank"
+            rel="noopener"
+            class="button-outline artist-cv"
+          >
+            <span>{t.artists.viewCv}</span>
+          </a>
+        )}
       </div>
       <div class="artist-biography">
-        {biography.map((para) => <p>{para}</p>)}
+        {biography.map((para) => (
+          <p>{para}</p>
+        ))}
       </div>
     </section>
 
     <hr class="artist-rule" />
 
     <section class="artist-quote">
-      {
-        portrait && (
-          <Image
-            src={portrait.src}
-            alt={portrait.alt}
-            format="webp"
-            width={600}
-            class="artist-portrait"
-          />
-        )
-      }
+      {portrait && (
+        <Image
+          src={portrait.src}
+          alt={portrait.alt}
+          format="webp"
+          width={600}
+          class="artist-portrait"
+        />
+      )}
       {quote && <blockquote>“{quote}”</blockquote>}
     </section>
 
-    {
-      works.length > 0 && (
-        <section class="artist-works">
-          <h2 class="section-heading">{t.artists.featuredWorks}</h2>
-          <hr class="section-rule" />
-          <ul class="artist-works-grid">
-            {works.map((presentation) => (
-              <ArtworkCard presentation={presentation} />
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    {works.length > 0 && (
+      <section class="artist-works">
+        <h2 class="section-heading">{t.artists.featuredWorks}</h2>
+        <hr class="section-rule" />
+        <ul class="artist-works-grid">
+          {works.map((presentation) => (
+            <ArtworkCard presentation={presentation} />
+          ))}
+        </ul>
+      </section>
+    )}
   </div>
 
   <Footer locale={locale} />

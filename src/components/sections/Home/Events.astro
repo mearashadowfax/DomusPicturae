@@ -34,15 +34,13 @@ const workshops = (await getCollection("workshops")).slice(
     </a>
   </div>
 
-  {
-    workshops.length > 0 && (
-      <div class="events-workshops">
-        {workshops.map((workshop) => (
-          <WorkshopCard workshop={workshop} locale={locale} />
-        ))}
-      </div>
-    )
-  }
+  {workshops.length > 0 && (
+    <div class="events-workshops">
+      {workshops.map((workshop) => (
+        <WorkshopCard workshop={workshop} locale={locale} />
+      ))}
+    </div>
+  )}
 </HomeSection>
 
 <style>
