@@ -70,8 +70,10 @@ const wordmark = site.data.name.split(" ").pop();
     white-space: nowrap;
   }
 
-  /* Letters start below the h1's clip and are slid up by the home script.
-     A transform, not `top`: moving a positioned box counts as layout shift. */
+  /*
+   * Letters start below the h1's clip and are slid up by the home script.
+   * A transform, not `top`: moving a positioned box counts as layout shift.
+   */
   .hero-title :global(h1 span) {
     display: inline-block;
     transform: translateY(400px);

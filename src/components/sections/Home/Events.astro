@@ -70,8 +70,10 @@ const workshops = (await getCollection("workshops")).slice(
     width: 100%;
   }
 
-  /* Tablets and phones: a full-bleed strip. Cards snap to the gutter and the
-     last one can scroll fully into view. */
+  /*
+   * Tablets and phones: a full-bleed strip. Cards snap to the gutter and the
+   * last one can scroll fully into view.
+   */
   @media screen and (max-width: 1024px) {
     .events-workshops {
       justify-content: flex-start;
