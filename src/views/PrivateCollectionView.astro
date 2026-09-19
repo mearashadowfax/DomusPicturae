@@ -138,8 +138,8 @@ const depthStep = 2500;
     transform: translate(-50%, -50%) translateZ(var(--z));
     opacity: 0;
     border-radius: var(--radius);
-    width: 400px;
-    height: 500px;
+    width: calc(400 * var(--unit-fx));
+    height: calc(500 * var(--unit-fx));
   }
 
   .scene-slide img {
@@ -152,7 +152,7 @@ const depthStep = 2500;
   .scene-caption {
     margin-bottom: calc(12 * var(--unit-fx));
     color: var(--color-text-primary);
-    font-size: calc(18 * var(--unit-fx));
+    font-size: calc(18 * var(--unit-type));
     line-height: 1.4;
     font-family: var(--font-baskervville);
     text-align: center;
@@ -161,7 +161,7 @@ const depthStep = 2500;
   .scene-caption span {
     display: block;
     color: var(--color-text-on-dark-muted);
-    font-size: calc(12 * var(--unit-fx));
+    font-size: calc(12 * var(--unit-type));
     font-family: var(--font-satoshi);
   }
 </style>

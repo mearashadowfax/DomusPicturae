@@ -60,7 +60,7 @@ const artists = await getArtistsSorted();
     opacity: 0;
     will-change: transform;
     font-weight: 300;
-    font-size: calc(25 * var(--unit-fx));
+    font-size: calc(25 * var(--unit-type));
     line-height: 1.2;
   }
 
@@ -85,7 +85,7 @@ const artists = await getArtistsSorted();
     /* 0.7 keeps the primary text at >= 4.5:1 on white; 0.5 fell to 2.8:1. */
     opacity: 0.7;
     transition: opacity var(--transition-base);
-    font-size: calc(45 * var(--unit-fx));
+    font-size: calc(45 * var(--unit-type));
     line-height: 1.2;
     font-family: var(--font-baskervville);
   }
@@ -123,7 +123,7 @@ const artists = await getArtistsSorted();
 
   .artist-bio {
     padding-top: calc(10 * var(--unit-fx));
-    font-size: calc(14 * var(--unit-fx));
+    font-size: calc(14 * var(--unit-type));
   }
 
   /* The reveals only run on desktop; phones show the final state. */
@@ -137,7 +137,7 @@ const artists = await getArtistsSorted();
     }
 
     .artist-link {
-      font-size: calc(25 * var(--unit-fx));
+      font-size: calc(25 * var(--unit-type));
     }
 
     .artist-item + .artist-item {

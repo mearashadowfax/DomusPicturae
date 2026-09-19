@@ -77,7 +77,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
 
   .exhibition-card-title {
     font-weight: 500;
-    font-size: calc(25 * var(--unit-fx));
+    font-size: calc(25 * var(--unit-type));
   }
 
   .exhibition-card-dateline {
@@ -123,7 +123,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
   .exhibition-card-summary {
     display: -webkit-box;
     max-width: 70ch;
-    font-size: calc(16 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     overflow: hidden;
@@ -175,7 +175,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
   .is-past .exhibition-card-dateline {
     opacity: 0.7;
     font-style: normal;
-    font-size: calc(30 * var(--unit-fx));
+    font-size: calc(30 * var(--unit-type));
     white-space: nowrap;
   }
 
@@ -185,7 +185,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
     right: 0;
     opacity: 0;
     transition: opacity var(--transition-fast);
-    width: 25rem;
+    width: calc(400 * var(--unit-fx));
     pointer-events: none;
   }
 
@@ -200,7 +200,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
 
   @media screen and (max-width: 600px) {
     .exhibition-card-dateline {
-      font-size: calc(16 * var(--unit-fx));
+      font-size: calc(16 * var(--unit-type));
       line-height: 1.4;
     }
 
@@ -220,11 +220,11 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
 
     .is-past .exhibition-card-title {
       width: 100%;
-      font-size: calc(20 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-type));
     }
 
     .is-past .exhibition-card-dateline {
-      font-size: calc(20 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-type));
     }
 
     .is-past .exhibition-card-image {

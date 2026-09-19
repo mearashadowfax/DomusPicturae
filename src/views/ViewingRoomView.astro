@@ -85,7 +85,7 @@ const slides = (await getCatalogue())
     margin-bottom: 4rem;
     color: var(--color-text-tertiary);
     font-weight: 300;
-    font-size: calc(150 * var(--unit-fx));
+    font-size: calc(150 * var(--unit-type));
     text-transform: uppercase;
   }
 
@@ -105,7 +105,7 @@ const slides = (await getCatalogue())
   .room-views {
     position: absolute;
     bottom: 200%;
-    font-size: calc(12 * var(--unit-fx));
+    font-size: calc(12 * var(--unit-type));
     white-space: nowrap;
   }
 
@@ -130,7 +130,7 @@ const slides = (await getCatalogue())
   }
 
   .room-private {
-    font-size: calc(16 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
   }
 
   .room-private span {
@@ -149,7 +149,7 @@ const slides = (await getCatalogue())
     position: absolute;
     top: 0;
     align-items: center;
-    gap: 100px;
+    gap: calc(100 * var(--unit-fx));
     padding: 0 calc(400 * var(--unit-fx));
     width: max-content;
     height: 100%;

@@ -40,7 +40,7 @@ const basePath = stripLocale(Astro.url.pathname);
     display: flex;
     align-items: center;
     gap: calc(10 * var(--unit-fx));
-    font-size: calc(16 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
   }
 
   .language-link {
@@ -58,7 +58,7 @@ const basePath = stripLocale(Astro.url.pathname);
 
   @media screen and (max-width: 600px) {
     .language-switcher {
-      font-size: calc(20 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-type));
     }
   }
 </style>

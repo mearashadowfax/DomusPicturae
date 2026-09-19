@@ -54,7 +54,7 @@ const body = await renderBody("pages", entry.id, locale);
     margin: auto;
     max-width: 20ch;
     font-weight: 300;
-    font-size: calc(75 * var(--unit-fx));
+    font-size: calc(75 * var(--unit-type));
     line-height: 1.2;
     font-family: var(--font-baskervville);
     text-align: center;
@@ -66,20 +66,20 @@ const body = await renderBody("pages", entry.id, locale);
     padding-inline: var(--gutter);
     width: 65ch;
     max-width: 100%;
-    font-size: calc(16 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
     line-height: 1.4;
   }
 
   .prose :global(h2) {
     margin-top: calc(40 * var(--unit-fx));
     font-weight: 500;
-    font-size: calc(22 * var(--unit-fx));
+    font-size: calc(22 * var(--unit-type));
   }
 
   .prose :global(h3) {
     margin-top: calc(25 * var(--unit-fx));
     font-weight: 500;
-    font-size: calc(18 * var(--unit-fx));
+    font-size: calc(18 * var(--unit-type));
   }
 
   .prose :global(p),
@@ -107,7 +107,7 @@ const body = await renderBody("pages", entry.id, locale);
 
     .page-title {
       max-width: 100%;
-      font-size: calc(35 * var(--unit-fx));
+      font-size: calc(35 * var(--unit-type));
     }
 
     .page-body {

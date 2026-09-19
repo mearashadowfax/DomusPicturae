@@ -6,7 +6,7 @@
 
 .newsletter-form__title {
   font-weight: 400;
-  font-size: calc(25 * var(--unit-fx));
+  font-size: calc(25 * var(--unit-type));
   font-family: var(--font-baskervville);
   text-transform: uppercase;
 }
@@ -27,14 +27,14 @@
   width: 100%;
   color: inherit;
   caret-color: var(--color-brand);
-  font-size: calc(15 * var(--unit-fx));
+  font-size: calc(15 * var(--unit-type));
   line-height: normal;
 }
 
 .newsletter-form__row input::placeholder {
   opacity: 0.6;
   color: inherit;
-  font-size: calc(15 * var(--unit-fx));
+  font-size: calc(15 * var(--unit-type));
 }
 
 .newsletter-form__row button {
@@ -47,7 +47,7 @@
   margin-top: calc(5 * var(--unit-fx));
   width: 70%;
   font-weight: 400;
-  font-size: calc(12 * var(--unit-fx));
+  font-size: calc(12 * var(--unit-type));
 }
 
 .registration-form {
@@ -59,7 +59,7 @@
 }
 
 .registration-form label {
-  font-size: calc(13 * var(--unit-fx));
+  font-size: calc(13 * var(--unit-type));
 }
 
 .registration-form input {
@@ -73,13 +73,13 @@
   width: 100%;
   color: inherit;
   caret-color: var(--color-brand);
-  font-size: calc(15 * var(--unit-fx));
+  font-size: calc(15 * var(--unit-type));
 }
 
 .registration-form input::placeholder {
   opacity: 0.6;
   color: inherit;
-  font-size: calc(15 * var(--unit-fx));
+  font-size: calc(15 * var(--unit-type));
 }
 
 .registration-form input[type="date"] {
@@ -94,7 +94,7 @@
 .form-error {
   margin-top: calc(6 * var(--unit-fx));
   color: var(--color-error);
-  font-size: calc(12 * var(--unit-fx));
+  font-size: calc(12 * var(--unit-type));
 }
 
 /* Tablets: the form islands sit in narrower columns, so the type holds at 14–15px. */
@@ -106,11 +106,11 @@
 
   .newsletter-form__terms {
     width: 100%;
-    font-size: calc(13 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-type));
   }
 
   .registration-form label {
-    font-size: calc(14 * var(--unit-fx));
+    font-size: calc(14 * var(--unit-type));
   }
 }
 

@@ -155,7 +155,7 @@
     padding: calc(10 * var(--unit-fx)) calc(20 * var(--unit-fx));
     overflow: hidden;
     color: var(--color-text-primary);
-    font-size: calc(13 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-type));
     text-align: center;
   }
 
@@ -189,7 +189,7 @@
   /* Page section heading with a brand-coloured rule underneath. */
   .section-heading {
     font-weight: 300;
-    font-size: calc(25 * var(--unit-fx));
+    font-size: calc(25 * var(--unit-type));
     line-height: 1.2;
   }
 
@@ -217,7 +217,7 @@
 
   @media screen and (max-width: 600px) {
     .section-heading {
-      font-size: calc(18 * var(--unit-fx));
+      font-size: calc(18 * var(--unit-type));
     }
   }
 }

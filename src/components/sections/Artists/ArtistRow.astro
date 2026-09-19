@@ -42,7 +42,7 @@ const portrait = picture(artist.data, locale, artist.data.name);
     position: relative;
     opacity: 0.5;
     transition: opacity var(--transition-base);
-    font-size: calc(45 * var(--unit-fx));
+    font-size: calc(45 * var(--unit-type));
     line-height: 1.2;
     font-family: var(--font-baskervville);
   }
@@ -80,7 +80,7 @@ const portrait = picture(artist.data, locale, artist.data.name);
 
   .artist-row-bio {
     padding-top: calc(10 * var(--unit-fx));
-    font-size: calc(14 * var(--unit-fx));
+    font-size: calc(14 * var(--unit-type));
     font-family: var(--font-satoshi);
   }
 
@@ -90,7 +90,7 @@ const portrait = picture(artist.data, locale, artist.data.name);
 
   @media screen and (max-width: 600px) {
     .artist-row-link {
-      font-size: calc(25 * var(--unit-fx));
+      font-size: calc(25 * var(--unit-type));
     }
 
     .artist-row-preview {

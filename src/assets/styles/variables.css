@@ -9,7 +9,8 @@
  * Sizing uses the viewport unit system (`--unit-fx`): a value of 1 equals one
  * pixel on a 1440px-wide design, and scales proportionally on other screens
  * up to a 1920px ceiling, so very wide monitors don't inflate the layout.
- * Write `calc(24 * var(--unit-fx))` where a design specifies 24px.
+ * Write `calc(24 * var(--unit-fx))` where a design specifies 24px, and
+ * `calc(24 * var(--unit-type))` for font-size (see below).
  */
 
 @layer tokens {
@@ -19,6 +20,19 @@
     --vh: 100vh;
     --unit-fx: calc(min(var(--vw), 1920px) / 1440);
     --unit-fy: calc(var(--vh) / 996);
+
+    /*
+     * Type unit. `--unit-fx` is purely viewport-derived, so it ignores the
+     * browser's font-size preference (Settings > Appearance, not Ctrl +).
+     * `--rem-scale` is the user's root font-size as a ratio of the 16px
+     * default (tan(atan2()) turns a length ratio into a plain number), so
+     * `--unit-type` equals `--unit-fx` for everyone at the default and grows
+     * with the preference for those who raise it. Only font-size uses it;
+     * layout keeps `--unit-fx`, since there's no wider viewport to absorb
+     * larger boxes. Write `font-size: calc(14 * var(--unit-type))`.
+     */
+    --rem-scale: tan(atan2(1rem, 16px));
+    --unit-type: calc(var(--unit-fx) * var(--rem-scale));
 
     /* Brand */
     --color-brand: oklch(73.9% 0.0796 66.71);

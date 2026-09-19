@@ -46,7 +46,7 @@ const { name, title, content, size = "default" } = Astro.props;
     will-change: transform;
     max-width: 17ch;
     font-weight: 300;
-    font-size: calc(25 * var(--unit-fx));
+    font-size: calc(25 * var(--unit-type));
     line-height: 1.2;
   }
 
@@ -69,7 +69,7 @@ const { name, title, content, size = "default" } = Astro.props;
     will-change: transform;
     margin-inline: auto;
     width: 100%;
-    font-size: calc(45 * var(--unit-fx));
+    font-size: calc(45 * var(--unit-type));
     line-height: 1.3;
     font-family: var(--font-baskervville);
   }
@@ -92,7 +92,7 @@ const { name, title, content, size = "default" } = Astro.props;
     }
 
     .home-section-content {
-      font-size: calc(20 * var(--unit-fx));
+      font-size: calc(20 * var(--unit-type));
     }
   }
 </style>

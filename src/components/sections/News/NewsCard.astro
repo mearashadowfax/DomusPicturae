@@ -45,18 +45,18 @@ const title = text(entry.data.title, locale);
   }
 
   .news-card-date {
-    font-size: calc(13 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-type));
   }
 
   .news-card-title {
-    font-size: calc(18 * var(--unit-fx));
+    font-size: calc(18 * var(--unit-type));
     font-family: var(--font-baskervville);
   }
 
   .news-card-summary {
     display: -webkit-box;
     margin-block: calc(12 * var(--unit-fx));
-    font-size: calc(18 * var(--unit-fx));
+    font-size: calc(18 * var(--unit-type));
     -webkit-box-orient: vertical;
     -webkit-line-clamp: 4;
     overflow: hidden;
@@ -66,12 +66,12 @@ const title = text(entry.data.title, locale);
   .news-card-link {
     display: inline-block;
     align-self: flex-start;
-    font-size: calc(13 * var(--unit-fx));
+    font-size: calc(13 * var(--unit-type));
   }
 
   @media screen and (max-width: 1024px) {
     .news-card-link {
-      font-size: calc(14 * var(--unit-fx));
+      font-size: calc(14 * var(--unit-type));
     }
   }
 
@@ -81,7 +81,7 @@ const title = text(entry.data.title, locale);
     }
 
     .news-card-date {
-      font-size: calc(12 * var(--unit-fx));
+      font-size: calc(12 * var(--unit-type));
     }
   }
 </style>
