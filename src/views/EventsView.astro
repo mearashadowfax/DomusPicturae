@@ -1,13 +1,12 @@
 ---
 /** Exhibitions grouped by status, followed by the workshops. */
-import { getCollection } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import ExhibitionCard from "@sections/Programme/ExhibitionCard.astro";
 import WorkshopCard from "@sections/Programme/WorkshopCard.astro";
 import { useUI, type Locale } from "@/i18n";
-import { getExhibitionsByStatus } from "@utils/content";
+import { getEvents } from "@utils/content";
 
 interface Props {
   locale: Locale;
@@ -15,8 +14,10 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { current, upcoming, past } = await getExhibitionsByStatus();
-const workshops = await getCollection("workshops");
+const {
+  exhibitions: { current, upcoming, past },
+  workshops,
+} = await getEvents();
 ---
 
 <MainLayout

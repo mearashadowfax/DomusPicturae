@@ -79,7 +79,7 @@ pnpm dev
 
 The site is at `http://localhost:4321` and the Keystatic admin at `http://localhost:4321/keystatic`. Edits made in the admin are written to `src/content/`.
 
-**3. Make it yours.** Open **Site settings** in Keystatic and replace the gallery name, address, contact details and social links. Then set the canonical URL in `astro.config.mjs` (`site`) and `src/data/constants.ts`. See [Customization](#customization) for the rest.
+**3. Make it yours.** Open **Site settings** in Keystatic and replace the gallery name, address, contact details and social links. Then set the canonical URL in `astro.config.mjs` (`site`). See [Customization](#customization) for the rest.
 
 **4. Build.**
 
@@ -98,7 +98,7 @@ Other scripts:
 
 ## Deployment
 
-The build is fully static with no adapter, so `dist/` deploys to Vercel, Netlify, Cloudflare Pages, GitHub Pages or any web server. Before deploying, set the canonical URL in `astro.config.mjs` (`site`) and `src/data/constants.ts`, and optionally the two form variables from `.env.template` in your host's build environment.
+The build is fully static with no adapter, so `dist/` deploys to Vercel, Netlify, Cloudflare Pages, GitHub Pages or any web server. Before deploying, set the canonical URL in `astro.config.mjs` (`site`), and optionally the two form variables from `.env.template` in your host's build environment.
 
 Click the button below to deploy the template to Vercel in one step:
 
@@ -130,8 +130,8 @@ src/
 ├── i18n/                Locale list and UI strings per locale
 ├── layouts/             The page shell
 ├── pages/               Routes: thin files per locale that render a view
-├── routes.ts            Every URL the site serves: hrefs and getStaticPaths helpers
-├── utils/               Content, image and formatting helpers
+├── routes.ts            Every URL the site serves, as href builders
+├── utils/               The content module and the pure rules behind it; images, SEO, formatting
 └── views/               One component per page type, shared by every locale
 ```
 
@@ -141,7 +141,7 @@ src/
 
 ### Gallery Details
 
-The gallery name, tagline, address, contact details, social links and footer credit live in the **Site settings** singleton in Keystatic (`src/content/site/index.json`). The demo ships with the template author's name in the `creditName` / `creditUrl` fields; replace them with your own or clear them to hide the credit. Build-time values – the canonical URL, sharing image and theme colour – are in `src/data/constants.ts` and `public/site.webmanifest`.
+The gallery name, tagline, address, contact details, social links and footer credit live in the **Site settings** singleton in Keystatic (`src/content/site/index.json`). The demo ships with the template author's name in the `creditName` / `creditUrl` fields; replace them with your own or clear them to hide the credit. Build-time values – the sharing image and theme colour – are in `src/data/constants.ts` and `public/site.webmanifest`; the canonical URL is `site` in `astro.config.mjs`.
 
 ### Navigation
 

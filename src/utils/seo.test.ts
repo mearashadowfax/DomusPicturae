@@ -9,15 +9,13 @@ import {
   articleSchema,
   artworkSchema,
   exhibitionSchema,
+  pageContext,
   webPageSchema,
 } from "./seo";
 
 const site = new URL("https://example.test/");
-const page = (path: string, locale: "en" | "fr" = "en") => ({
-  url: new URL(path, site),
-  site,
-  locale,
-});
+const page = (path: string, locale: "en" | "fr" = "en") =>
+  pageContext({ url: new URL(path, site), site }, locale);
 
 const artist = {
   id: "sarah-chen",
@@ -113,5 +111,53 @@ describe("seo schemas", () => {
       datePublished: "2025-03-15T09:30:00.000Z",
     });
     expect((a as { image?: string }).image).toBeUndefined();
+  });
+});
+
+describe("pageContext", () => {
+  it("derives canonical, alternates and x-default from the site origin", () => {
+    const ctx = pageContext(
+      { url: new URL("https://example.test/fr/artists/sarah-chen"), site },
+      "fr",
+    );
+    expect(ctx.url.href).toBe("https://example.test/fr/artists/sarah-chen");
+    expect(ctx.basePath).toBe("/artists/sarah-chen");
+    expect(ctx.alternates).toEqual([
+      {
+        locale: "en",
+        path: "/artists/sarah-chen",
+        href: "https://example.test/artists/sarah-chen",
+      },
+      {
+        locale: "fr",
+        path: "/fr/artists/sarah-chen",
+        href: "https://example.test/fr/artists/sarah-chen",
+      },
+      {
+        locale: "de",
+        path: "/de/artists/sarah-chen",
+        href: "https://example.test/de/artists/sarah-chen",
+      },
+    ]);
+    expect(ctx.xDefault).toBe("https://example.test/artists/sarah-chen");
+  });
+
+  it("maps the home page of a prefixed locale back to the bare origin", () => {
+    const ctx = pageContext(
+      { url: new URL("https://example.test/de"), site },
+      "de",
+    );
+    expect(ctx.basePath).toBe("/");
+    expect(ctx.alternates.map((a) => a.path)).toEqual(["/", "/fr", "/de"]);
+    expect(ctx.xDefault).toBe("https://example.test/");
+  });
+
+  it("refuses to run without a site origin", () => {
+    expect(() =>
+      pageContext(
+        { url: new URL("https://example.test/"), site: undefined },
+        "en",
+      ),
+    ).toThrow(/astro.config.mjs/);
   });
 });

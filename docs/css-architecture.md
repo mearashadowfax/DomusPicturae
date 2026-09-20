@@ -67,6 +67,7 @@ Three conventions:
 | `.button-outline`                    | An outlined button that fills with the brand colour on hover                                                     |
 | `.section-heading` / `.section-rule` | A small page heading with a brand-coloured rule                                                                  |
 | `.hide`                              | Fade helper used by scripted reveals                                                                             |
+| `[data-reveal="lines"]` / `"rule"`   | Starting state (hidden / zero-width) for the scroll reveals `reveal()` plays; phones get the final state         |
 | `.visually-hidden`                   | Screen-reader-only text                                                                                          |
 | `.tap-target`                        | Gives a small text link a 24px hit area on touch screens without moving it (`.link-underline` has this built in) |
 
@@ -74,14 +75,17 @@ Three conventions:
 
 Scroll-driven and reveal animations use GSAP and Lenis smooth scrolling. `src/assets/scripts/motion.ts` registers the GSAP plugins once, defines the house easing (`EASE`) and exposes the recipes the pages share:
 
-| Recipe                           | Effect                                                                                                    |
-| -------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| `revealLines(selector, trigger)` | Splits text into lines that rise into view as `trigger` scrolls in                                        |
-| `drawRule(selector, trigger)`    | Draws a horizontal rule from left to right                                                                |
-| `slideIn(containers)`            | Slides an image container in from the left while its image slides in from the right                       |
-| `onDesktop(init)`                | Runs `init` once fonts are ready and again when the desktop breakpoint is crossed, cleaning up in between |
+| Recipe                         | Effect                                                                                                    |
+| ------------------------------ | --------------------------------------------------------------------------------------------------------- |
+| `reveal(root?)`                | Plays every `data-reveal` under `root` (`lines` or `rule`), triggered by its nearest `<section>`          |
+| `revealLines(target, trigger)` | Splits text into lines that rise into view as `trigger` scrolls in                                        |
+| `drawRule(target, trigger)`    | Draws a horizontal rule from left to right                                                                |
+| `slideIn(containers)`          | Slides an image container in from the left while its image slides in from the right                       |
+| `onDesktop(init)`              | Runs `init` once fonts are ready and again when the desktop breakpoint is crossed, cleaning up in between |
 
-Component `<script>` blocks import `gsap`, `ScrollTrigger` and the recipes from there rather than from `gsap` directly, so plugins are registered in one place. Selectors in those scripts refer to the same class names as the styles; rename both together.
+Component `<script>` blocks import `gsap`, `ScrollTrigger` and the recipes from there rather than from `gsap` directly, so plugins are registered in one place.
+
+Scroll reveals are declared in markup rather than wired up by selector: a section puts `data-reveal="lines"` on a heading or paragraph and `data-reveal="rule"` on an `<hr>`, and the page's script calls `reveal()` once. The hidden starting state lives in `base.css` under the same attribute, so nothing can be left hidden with no script to reveal it. Where a script still addresses an element by class (the hero, the collection images, the scroll scenes), the selector refers to the same class name as the styles; rename both together.
 
 `src/assets/scripts/fitText.ts` exports `fitText(element, { container, fill })`: it shrinks a single-line element's `font-size` until the text fits its container (or `fill` of it), re-measuring when the container resizes. The stylesheet's size remains the ceiling and the no-JS fallback. The hero and footer wordmarks use it because the gallery name comes from Keystatic and can be any length.
 

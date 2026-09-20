@@ -1,14 +1,21 @@
 ---
 /**
- * Full-viewport hero. Shows the last word of the gallery name as a wordmark;
- * the footer shows the first, so a two-word name reads across the page.
+ * Full-viewport hero. Shows the last word of the gallery name as a wordmark
+ * (see `wordmarks()`).
+ *
+ * The wordmark is rendered one letter per <span> so the homepage's first
+ * visit can slide the letters up individually. The stylesheet leaves the
+ * letters in place: the home script moves them below the h1's clip before
+ * its reveal, so without JavaScript the wordmark is simply visible.
  */
 import { Image } from "astro:assets";
 import hero from "@images/hero.webp";
 import { getSite } from "@utils/content";
+import { wordmarks } from "@utils/utils";
 
 const site = await getSite();
-const wordmark = site.data.name.split(" ").pop();
+const wordmark = wordmarks(site.data.name).last;
+const letters = Array.from(wordmark);
 ---
 
 <section class="hero">
@@ -23,7 +30,11 @@ const wordmark = site.data.name.split(" ").pop();
     />
   </div>
   <div class="hero-title">
-    <h1>{wordmark}</h1>
+    <h1 aria-label={wordmark}>
+      {letters.map((letter) => (
+        <span aria-hidden="true">{letter}</span>
+      ))}
+    </h1>
   </div>
 </section>
 
@@ -66,17 +77,13 @@ const wordmark = site.data.name.split(" ").pop();
     font-weight: 400;
     font-size: 18.5vw;
     text-transform: uppercase;
-    /* The letters become inline-blocks on the first visit; never break between them. */
+    /* The letters are inline-blocks; never break between them. */
     white-space: nowrap;
   }
 
-  /*
-   * Letters start below the h1's clip and are slid up by the home script.
-   * A transform, not `top`: moving a positioned box counts as layout shift.
-   */
-  .hero-title :global(h1 span) {
+  /* Inline-blocks so the home script can transform each letter. */
+  .hero-title h1 span {
     display: inline-block;
-    transform: translateY(400px);
   }
 
   @media screen and (max-width: 600px) {

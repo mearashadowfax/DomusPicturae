@@ -12,15 +12,15 @@ import Footer from "@sections/Chrome/Footer.astro";
 import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
+import type { Artwork } from "@utils/artwork-presentation";
 import {
+  getArtworkPresentation,
+  getRelatedArtworks,
   getSite,
-  presentEntry,
-  presentRelated,
-  type Artwork,
 } from "@utils/content";
 import { picture } from "@utils/images";
 import { routes } from "@/routes";
-import { artworkSchema } from "@utils/seo";
+import { artworkSchema, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
@@ -30,12 +30,10 @@ interface Props {
 const { locale, artwork } = Astro.props;
 const t = useUI(locale);
 const site = await getSite();
-const presentation = await presentEntry(artwork, locale);
-const { artist, theme, badge, canInquire } = presentation;
+const presentation = await getArtworkPresentation(artwork, locale);
+const { artist, theme, badge, canInquire, title, image } = presentation;
 const isPrivate = presentation.section === "private-collection";
 
-const title = text(artwork.data.title, locale);
-const image = picture(artwork.data, locale, title);
 /** Wide WebP for the hover zoom, so the page never ships the original file. */
 const zoom = image
   ? await getImage({ src: image.src, format: "webp", width: 2400, quality: 85 })
@@ -44,20 +42,16 @@ const portrait = picture(artist.data, locale, artist.data.name);
 const medium = text(artwork.data.medium, locale);
 const description = text(artwork.data.description, locale);
 const { width, height, unit } = artwork.data.dimensions;
-const related = await presentRelated(presentation);
+const related = await getRelatedArtworks(presentation);
 const inquiryHref = site.data.email
   ? `mailto:${site.data.email}?subject=${encodeURIComponent(`${title} — ${artist.data.name}`)}`
   : undefined;
 
 const metaDescription = `${title}, ${artist.data.name}${artwork.data.year ? `, ${artwork.data.year}` : ""}. ${medium}, ${width} × ${height} ${unit}.`;
-const schema = artworkSchema(
-  { url: Astro.url, site: Astro.site!, locale },
-  presentation,
-  {
-    description: description || metaDescription,
-    imageSrc: zoom?.src,
-  },
-);
+const schema = artworkSchema(pageContext(Astro, locale), presentation, {
+  description: description || metaDescription,
+  imageSrc: zoom?.src,
+});
 ---
 
 <MainLayout

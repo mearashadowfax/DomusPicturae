@@ -12,6 +12,32 @@
     padding: 0;
   }
 
+  /*
+   * Scroll reveals (see `reveal()` in scripts/motion.ts). The starting state
+   * lives here, next to the attribute the script looks for, so an element
+   * is never hidden unless something will reveal it. The reveals only run
+   * on desktop; phones show the final state.
+   */
+  [data-reveal="lines"] {
+    opacity: 0;
+    will-change: transform;
+  }
+
+  [data-reveal="rule"] {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+
+  @media screen and (max-width: 600px) {
+    [data-reveal="lines"] {
+      opacity: 1;
+    }
+
+    [data-reveal="rule"] {
+      transform: scaleX(1);
+    }
+  }
+
   html {
     -ms-overflow-style: none;
     scrollbar-width: none;

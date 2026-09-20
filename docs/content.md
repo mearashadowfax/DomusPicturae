@@ -13,7 +13,7 @@ All editorial content lives in `src/content/` and is edited through the Keystati
 | `artists`     | `src/content/artists/<slug>.json`  | collection | `isEstate` lists the artist under _Estates_; `hasCv` links to `public/cv/<slug>.pdf` |
 | `artworks`    | `src/content/artworks/<slug>.json` | collection | `availability` is `available`, `sold` or `not-for-sale` (see below)                  |
 | `exhibitions` | `src/content/exhibitions/<slug>/`  | collection | Grouped into current / upcoming / past by `startDate` and `endDate`                  |
-| `workshops`   | `src/content/workshops/<slug>/`    | collection | Optional hover video from `public/`                                                  |
+| `workshops`   | `src/content/workshops/<slug>/`    | collection | Listed by slug; optional hover video from `public/`                                  |
 | `news`        | `src/content/news/<slug>/`         | collection | Newest first; optional slideshow                                                     |
 | `pages`       | `src/content/pages/<slug>/`        | collection | Long-form pages such as terms and privacy policy                                     |
 | `homepage`    | `src/content/homepage/index.json`  | singleton  | Text for each homepage section and the featured artworks                             |
@@ -50,7 +50,7 @@ src/content/news/domus-picturae-grand-opening/
     └── de.md
 ```
 
-Keystatic writes the `body/<locale>.md` files itself. In templates, render a body with `renderBody(collection, id, locale)` from `src/utils/content.ts`.
+Keystatic writes the `body/<locale>.md` files itself, naming the directory after the collection's `body` field; `src/utils/body.ts` reads that field's key from the model rather than hard-coding it, so renaming the field moves both sides together. In templates, render a body with `renderBody(collection, id, locale)` from `src/utils/content.ts`; it falls back to the default locale like any other localisable field.
 
 ## Images
 

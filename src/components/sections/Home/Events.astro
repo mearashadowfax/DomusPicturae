@@ -1,12 +1,11 @@
 ---
 /** Events teaser: text from the `homepage` singleton plus the first few workshop cards. */
-import { getCollection } from "astro:content";
 import HomeSection from "./HomeSection.astro";
 import WorkshopCard from "@sections/Programme/WorkshopCard.astro";
 import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
 import { type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import { getHomepage } from "@utils/content";
+import { getEvents, getHomepage } from "@utils/content";
 import { routes } from "@/routes";
 
 interface Props {
@@ -15,14 +14,10 @@ interface Props {
 
 const { locale } = Astro.props;
 const { events } = (await getHomepage()).data;
-const workshops = (await getCollection("workshops")).slice(
-  0,
-  HOMEPAGE_ITEMS_LIMIT,
-);
+const workshops = (await getEvents()).workshops.slice(0, HOMEPAGE_ITEMS_LIMIT);
 ---
 
 <HomeSection
-  name="events"
   size="large"
   title={text(events.subheading, locale)}
   content={text(events.content, locale)}

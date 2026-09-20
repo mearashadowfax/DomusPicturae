@@ -13,16 +13,10 @@ import { Schema } from "astro-seo-schema";
 import type { Thing, WithContext } from "schema-dts";
 import Cursor from "@ui/Cursor.astro";
 import { SITE } from "@/data/constants";
-import {
-  locales,
-  localeTags,
-  localizePath,
-  stripLocale,
-  type Locale,
-} from "@/i18n";
+import { localeTags, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
 import { getSite } from "@utils/content";
-import { webPageSchema } from "@utils/seo";
+import { pageContext, webPageSchema } from "@utils/seo";
 import "@styles/global.css";
 
 interface Props {
@@ -45,14 +39,14 @@ const {
 } = Astro.props;
 
 const site = await getSite();
+const page = pageContext(Astro, locale);
 const pageTitle = title ? `${title} | ${site.data.name}` : site.data.name;
 const pageDescription = description ?? text(site.data.description, locale);
-const socialImage = new URL(SITE.socialImage.src, SITE.url).href;
-const canonical = Astro.url.href;
-const basePath = stripLocale(Astro.url.pathname);
+const socialImage = new URL(SITE.socialImage.src, page.site).href;
+const canonical = page.url.href;
 
 const defaultSchema = webPageSchema(
-  { url: Astro.url, site: new URL(SITE.url), locale },
+  page,
   { name: site.data.name, description: text(site.data.description, locale) },
   { title: pageTitle, description: pageDescription },
 );
@@ -104,16 +98,12 @@ const defaultSchema = webPageSchema(
           },
           { rel: "manifest", href: "/site.webmanifest" },
           { rel: "sitemap", href: "/sitemap-index.xml" },
-          ...locales.map((l) => ({
+          ...page.alternates.map(({ locale: l, href }) => ({
             rel: "alternate",
             hreflang: l,
-            href: new URL(localizePath(l, basePath), SITE.url).href,
+            href,
           })),
-          {
-            rel: "alternate",
-            hreflang: "x-default",
-            href: new URL(basePath, SITE.url).href,
-          },
+          { rel: "alternate", hreflang: "x-default", href: page.xDefault },
         ],
         meta: [
           {

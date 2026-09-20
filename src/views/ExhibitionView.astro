@@ -1,19 +1,19 @@
 ---
 /** Exhibition detail: practical details, hero image and localised body. */
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
 import { renderBody } from "@utils/content";
+import type { Exhibition } from "@utils/programme";
 import { picture } from "@utils/images";
-import { exhibitionSchema } from "@utils/seo";
+import { exhibitionSchema, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
-  exhibition: CollectionEntry<"exhibitions">;
+  exhibition: Exhibition;
 }
 
 const { locale, exhibition } = Astro.props;
@@ -23,10 +23,7 @@ const description = text(exhibition.data.description, locale);
 const image = picture(exhibition.data, locale, title);
 const body = await renderBody("exhibitions", exhibition.id, locale);
 
-const schema = exhibitionSchema(
-  { url: Astro.url, site: Astro.site!, locale },
-  exhibition,
-);
+const schema = exhibitionSchema(pageContext(Astro, locale), exhibition);
 ---
 
 <MainLayout

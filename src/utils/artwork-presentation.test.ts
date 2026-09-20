@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
+  artworksByArtist,
   isCatalogueWork,
   isPrivateCollectionWork,
   presentArtwork,
@@ -22,10 +23,17 @@ function artwork(
   id: string,
   availability: string,
   artistId = "sarah-chen",
+  extra: Record<string, unknown> = {},
 ): Artwork {
   return {
     id,
-    data: { availability, artist: { collection: "artists", id: artistId } },
+    data: {
+      availability,
+      artist: { collection: "artists", id: artistId },
+      title: { en: `${id} (en)`, fr: `${id} (fr)` },
+      dimensions: { width: 100, height: 80, unit: "cm" },
+      ...extra,
+    },
   } as unknown as Artwork;
 }
 
@@ -56,6 +64,25 @@ describe("presentArtwork", () => {
       badge: "notForSale",
       canInquire: false,
       href: "/de/private-collection/c",
+    });
+  });
+
+  it("carries the localised title, year, image and shape", () => {
+    const p = presentArtwork(artwork("a", "available"), [artist], "fr");
+    expect(p).toMatchObject({
+      title: "a (fr)",
+      year: undefined,
+      image: null,
+      isSquare: false,
+    });
+    const square = artwork("b", "available", "sarah-chen", {
+      year: 2024,
+      dimensions: { width: 50, height: 50, unit: "cm" },
+    });
+    expect(presentArtwork(square, [artist], "de")).toMatchObject({
+      title: "b (en)",
+      year: 2024,
+      isSquare: true,
     });
   });
 
@@ -91,6 +118,17 @@ describe("relatedArtworks", () => {
       "self",
       "same-artist",
     ]);
+  });
+});
+
+describe("artworksByArtist", () => {
+  it("keeps every work by the artist, whichever section it is in", () => {
+    const pool = [
+      artwork("a", "available"),
+      artwork("b", "not-for-sale"),
+      artwork("c", "sold", "james-park"),
+    ];
+    expect(artworksByArtist(pool, artist).map((a) => a.id)).toEqual(["a", "b"]);
   });
 });
 

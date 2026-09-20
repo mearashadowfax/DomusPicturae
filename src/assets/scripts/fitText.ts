@@ -7,7 +7,7 @@
  * scales it down, so a name that already fits is left exactly as designed.
  *
  * Measures the text itself (a Range, not the block box) so it works on an
- * `<h1>` whose letters have been split into spans for a reveal.
+ * `<h1>` whose letters are rendered as individual spans (the hero wordmark).
  */
 export function fitText(
   element: HTMLElement,

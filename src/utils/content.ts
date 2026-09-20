@@ -1,26 +1,38 @@
+import { getCollection, getEntry } from "astro:content";
+import type { Locale } from "@/i18n/config";
+import { text } from "@/i18n/localized";
+import { listArtists, type Artist, type ArtistListing } from "./artists";
 import {
-  getCollection,
-  getEntry,
-  type CollectionEntry,
-  type CollectionKey,
-} from "astro:content";
-import { marked } from "marked";
-import { defaultLocale, type Locale } from "@/i18n/config";
-import {
+  artworksByArtist,
   isCatalogueWork,
   isPrivateCollectionWork,
   presentArtwork,
   presentArtworks,
   relatedArtworks,
-  type Artist,
   type Artwork,
   type ArtworkPresentation,
 } from "./artwork-presentation";
+import {
+  bodyMarkdown,
+  renderMarkdown,
+  type BodyCollection,
+  type BodySources,
+} from "./body";
+import type { Picture } from "./images";
+import {
+  classifyExhibitions,
+  sortNews,
+  sortWorkshops,
+  type ExhibitionsByStatus,
+  type Workshop,
+} from "./programme";
 
 /**
- * Helpers for reading content collections. Views call these instead of
- * filtering `getCollection` results themselves so the rules (what counts as a
- * catalogue work, how bodies are localised) live in one place.
+ * The content module: every question a view asks of the content, answered
+ * in domain terms (CONTEXT.md). This is the only module that imports
+ * `astro:content`; the rules it applies (which works are in the Catalogue,
+ * how Artists are listed, which Exhibitions are current, how a body falls
+ * back between locales) live in pure modules beside it and are tested there.
  */
 
 // ---------------------------------------------------------------- singletons
@@ -30,6 +42,10 @@ export const getHomepage = () =>
   getEntry("homepage", "index").then(required("homepage"));
 export const getAboutPage = () =>
   getEntry("about", "index").then(required("about"));
+
+/** A standalone page (terms, privacy policy) by its id in `src/content/pages/`. */
+export const getPage = (id: string) =>
+  getEntry("pages", id).then(required(`pages/${id}`));
 
 function required<T>(name: string) {
   return (entry: T | undefined): T => {
@@ -41,92 +57,128 @@ function required<T>(name: string) {
 
 // ---------------------------------------------------------------- catalogue
 
-export {
-  isCatalogueWork,
-  isPrivateCollectionWork,
-  presentArtwork,
-  presentArtworks,
-  relatedArtworks,
-  type Artist,
-  type Artwork,
-  type ArtworkPresentation,
-} from "./artwork-presentation";
-
-export async function getCatalogue() {
-  return (await getCollection("artworks")).filter(isCatalogueWork);
+/** Every Artist, alphabetical, Estates listed separately. */
+export async function getArtists(): Promise<ArtistListing> {
+  return listArtists(await getCollection("artists"));
 }
 
-export async function getPrivateCollection() {
-  return (await getCollection("artworks")).filter(isPrivateCollectionWork);
+/** The works one section holds, presented for a locale. */
+async function presentSection(
+  inSection: (artwork: Artwork) => boolean,
+  locale: Locale,
+) {
+  const [artworks, artists] = await Promise.all([
+    getCollection("artworks"),
+    getCollection("artists"),
+  ]);
+  return presentArtworks(artworks.filter(inSection), artists, locale);
 }
 
-export async function getArtistsSorted() {
-  return (await getCollection("artists")).sort((a, b) =>
-    a.data.name.localeCompare(b.data.name),
-  );
-}
+/** The Catalogue, presented for a locale. */
+export const getCatalogue = (locale: Locale) =>
+  presentSection(isCatalogueWork, locale);
 
-export function artworksByArtist(artworks: Artwork[], artist: Artist) {
-  return artworks.filter((artwork) => artwork.data.artist.id === artist.id);
-}
+/** The Private Collection, presented for a locale. */
+export const getPrivateCollection = (locale: Locale) =>
+  presentSection(isPrivateCollectionWork, locale);
 
-/** The catalogue, presented for a locale (one artists lookup for the whole list). */
-export async function presentCatalogue(locale: Locale) {
+/** Every work by an artist, whichever section it is in, presented. */
+export async function getArtistWorks(artist: Artist, locale: Locale) {
   return presentArtworks(
-    await getCatalogue(),
-    await getCollection("artists"),
+    artworksByArtist(await getCollection("artworks"), artist),
+    [artist],
     locale,
   );
 }
 
-/** One artwork, presented for a locale. */
-export async function presentEntry(artwork: Artwork, locale: Locale) {
+/** One artwork's presentation for a locale (resolves its artist). */
+export async function getArtworkPresentation(artwork: Artwork, locale: Locale) {
   return presentArtwork(artwork, await getCollection("artists"), locale);
 }
 
 /** The artist's other works, whichever section they are in. */
-export async function presentRelated(presentation: ArtworkPresentation) {
+export async function getRelatedArtworks(presentation: ArtworkPresentation) {
   return relatedArtworks(presentation, await getCollection("artworks"));
+}
+
+export interface FeaturedArtwork {
+  presentation: ArtworkPresentation;
+  /** Always present: a featured work without an image fails the build. */
+  image: Picture;
+  /** The editor's caption, falling back to the title. */
+  caption: string;
+}
+
+/**
+ * The Artworks featured on the homepage, in the editor's order. Featuring a
+ * work that does not exist, is in the Private Collection or has no image is
+ * a content error and fails the build rather than silently dropping it.
+ */
+export async function getFeaturedArtworks(
+  locale: Locale,
+): Promise<FeaturedArtwork[]> {
+  const [homepage, artworks, artists] = await Promise.all([
+    getHomepage(),
+    getCollection("artworks"),
+    getCollection("artists"),
+  ]);
+  return homepage.data.collection.map((item) => {
+    const artwork = artworks.find((a) => a.id === item.artwork.id);
+    if (!artwork) {
+      throw new Error(
+        `Homepage features artwork "${item.artwork.id}", which does not exist in src/content/artworks/.`,
+      );
+    }
+    const presentation = presentArtwork(artwork, artists, locale);
+    if (presentation.section !== "artworks") {
+      throw new Error(
+        `Homepage features "${artwork.id}", which is in the Private Collection. Feature a Catalogue work or change its availability.`,
+      );
+    }
+    if (!presentation.image) {
+      throw new Error(
+        `Homepage features "${artwork.id}", which has no image. Add one or feature another work.`,
+      );
+    }
+    return {
+      presentation,
+      image: presentation.image,
+      caption: text(item.caption, locale) || presentation.title,
+    };
+  });
 }
 
 // ---------------------------------------------------------------- programme
 
-export async function getNewsSorted() {
-  return (await getCollection("news")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-  );
+export interface Events {
+  exhibitions: ExhibitionsByStatus;
+  workshops: Workshop[];
 }
 
-export async function getExhibitionsByStatus(now = new Date()) {
-  const exhibitions = await getCollection("exhibitions");
-  const current = exhibitions.filter(
-    (e) => now >= e.data.startDate && now <= e.data.endDate,
-  );
-  const upcoming = exhibitions
-    .filter((e) => now < e.data.startDate)
-    .sort((a, b) => a.data.startDate.valueOf() - b.data.startDate.valueOf());
-  const past = exhibitions
-    .filter((e) => now > e.data.endDate)
-    .sort((a, b) => b.data.endDate.valueOf() - a.data.endDate.valueOf());
-  return { current, upcoming, past };
+/** Exhibitions by status as of `now` (build time), and every Workshop. */
+export async function getEvents(now = new Date()): Promise<Events> {
+  const [exhibitions, workshops] = await Promise.all([
+    getCollection("exhibitions"),
+    getCollection("workshops"),
+  ]);
+  return {
+    exhibitions: classifyExhibitions(exhibitions, now),
+    workshops: sortWorkshops(workshops),
+  };
+}
+
+/** Every News post, newest first. */
+export async function getNews() {
+  return sortNews(await getCollection("news"));
 }
 
 // ---------------------------------------------------------------- bodies
 
-/**
- * Raw Markdown bodies of every directory-style entry, keyed by path:
- * `/src/content/<collection>/<id>/body/<locale>.md`.
- */
-const bodies = import.meta.glob<string>("/src/content/**/body/*.md", {
-  query: "?raw",
-  import: "default",
-  eager: true,
-});
-
-type BodyCollection = Extract<
-  CollectionKey,
-  "news" | "exhibitions" | "workshops" | "pages"
->;
+/** Raw Markdown bodies of every directory-style entry, keyed by path from the project root. */
+const bodies: BodySources = import.meta.glob<string>(
+  "/src/content/*/*/*/*.md",
+  { query: "?raw", import: "default", eager: true },
+);
 
 /** The Markdown source of an entry's body for a locale, falling back to the default locale. */
 export function getBodyMarkdown(
@@ -134,45 +186,63 @@ export function getBodyMarkdown(
   id: string,
   locale: Locale,
 ): string {
-  const path = (l: Locale) => `/src/content/${collection}/${id}/body/${l}.md`;
-  const source =
-    bodies[path(locale)]?.trim() || bodies[path(defaultLocale)]?.trim() || "";
-  return source;
+  return bodyMarkdown(bodies, collection, id, locale);
 }
 
 /** Render an entry's localised body to HTML. */
-export async function renderBody(
+export function renderBody(
   collection: BodyCollection,
   id: string,
   locale: Locale,
 ): Promise<string> {
-  return marked.parse(getBodyMarkdown(collection, id, locale));
+  return renderMarkdown(getBodyMarkdown(collection, id, locale));
 }
+
+// ---------------------------------------------------------------- static paths
 
 /**
- * Render a body as two parts: everything up to the last paragraph, and the
- * last paragraph on its own. News articles show a slideshow between them.
+ * The `getStaticPaths` implementations the thin route files in `src/pages/`
+ * re-export. They pick entries with the same rules as the queries above and
+ * build params from entry ids, which `routes.*` turn back into hrefs; both
+ * sides of a dynamic route therefore agree by construction.
  */
-export async function renderBodySplit(
-  collection: BodyCollection,
-  id: string,
-  locale: Locale,
-) {
-  const source = getBodyMarkdown(collection, id, locale);
-  const paragraphs = source.split(/\n\s*\n/).filter((p) => p.trim());
-  if (paragraphs.length < 2) {
-    return { main: await marked.parse(source), closing: "" };
-  }
-  return {
-    main: await marked.parse(paragraphs.slice(0, -1).join("\n\n")),
-    closing: await marked.parse(paragraphs[paragraphs.length - 1]),
-  };
+
+export async function artworkPaths() {
+  return (await getCollection("artworks"))
+    .filter(isCatalogueWork)
+    .map((artwork) => ({ params: { id: artwork.id }, props: { artwork } }));
 }
 
-/** Split a plain-text field into paragraphs on blank lines. */
-export function paragraphs(value: string | undefined): string[] {
-  return (value ?? "")
-    .split(/\n\s*\n/)
-    .map((p) => p.trim())
-    .filter(Boolean);
+export async function privateCollectionPaths() {
+  return (await getCollection("artworks"))
+    .filter(isPrivateCollectionWork)
+    .map((artwork) => ({ params: { id: artwork.id }, props: { artwork } }));
+}
+
+export async function artistPaths() {
+  return (await getCollection("artists")).map((artist) => ({
+    params: { id: artist.id },
+    props: { artist },
+  }));
+}
+
+export async function newsPaths() {
+  return (await getCollection("news")).map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+export async function exhibitionPaths() {
+  return (await getCollection("exhibitions")).map((exhibition) => ({
+    params: { slug: exhibition.id },
+    props: { exhibition },
+  }));
+}
+
+export async function workshopPaths() {
+  return (await getCollection("workshops")).map((workshop) => ({
+    params: { slug: workshop.id },
+    props: { workshop },
+  }));
 }

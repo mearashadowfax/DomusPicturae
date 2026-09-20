@@ -1,22 +1,18 @@
 ---
 /** Artist detail: biography, quote and every work of theirs the gallery holds. */
 import { Image } from "astro:assets";
-import { getCollection } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import {
-  artworksByArtist,
-  paragraphs,
-  presentArtworks,
-  type Artist,
-} from "@utils/content";
+import type { Artist } from "@utils/artists";
+import { paragraphs } from "@utils/body";
+import { getArtistWorks } from "@utils/content";
 import { picture } from "@utils/images";
 import { routes } from "@/routes";
-import { artistSchema } from "@utils/seo";
+import { artistSchema, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
@@ -28,18 +24,10 @@ const t = useUI(locale);
 const portrait = picture(artist.data, locale, artist.data.name);
 const biography = paragraphs(text(artist.data.biography, locale));
 const quote = text(artist.data.quote, locale);
-const works = presentArtworks(
-  artworksByArtist(await getCollection("artworks"), artist),
-  [artist],
-  locale,
-);
+const works = await getArtistWorks(artist, locale);
 const description = biography[0] || text(artist.data.shortBio, locale);
 
-const schema = artistSchema(
-  { url: Astro.url, site: Astro.site!, locale },
-  artist,
-  description,
-);
+const schema = artistSchema(pageContext(Astro, locale), artist, description);
 ---
 
 <MainLayout

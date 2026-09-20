@@ -3,11 +3,11 @@ import socialImageSrc from "@images/social.png";
 /**
  * Build-time site constants. Everything editorial (gallery name, contact
  * details, social links) lives in the `site` singleton (`src/content/site/`)
- * and is edited through Keystatic; only values the build itself needs are here.
+ * and is edited through Keystatic; only values the build itself needs are
+ * here. The canonical origin is `site` in astro.config.mjs (read through
+ * `pageContext()` in `src/utils/seo.ts`), not a constant.
  */
 export const SITE = {
-  /** Canonical origin; must match `site` in astro.config.mjs. */
-  url: "https://domus-picturae.vercel.app/",
   /** Default social sharing image. */
   socialImage: socialImageSrc,
   /** Theme colour reported to browsers and PWA manifests. */

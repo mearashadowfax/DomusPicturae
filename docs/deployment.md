@@ -2,7 +2,7 @@
 
 `pnpm build` writes a fully static site to `dist/`. It has no server-side code, so it deploys to any static host: Vercel, Netlify, Cloudflare Pages, GitHub Pages, an S3 bucket, or a plain web server.
 
-Before deploying, set the canonical URL in two places: `site` in `astro.config.mjs` (used for the sitemap and hreflang links) and `SITE.url` in `src/data/constants.ts` (used for social sharing images). To deliver form submissions, set `PUBLIC_FORM_NEWSLETTER` and `PUBLIC_FORM_WORKSHOP` in the host's build environment (see `docs/forms.md`); without them the forms run in demo mode.
+Before deploying, set the canonical URL once: `site` in `astro.config.mjs`. Every absolute URL (sitemap, canonical, hreflang links, social sharing images, structured data) is derived from it. To deliver form submissions, set `PUBLIC_FORM_NEWSLETTER` and `PUBLIC_FORM_WORKSHOP` in the host's build environment (see `docs/forms.md`); without them the forms run in demo mode.
 
 ## Vercel (the demo)
 

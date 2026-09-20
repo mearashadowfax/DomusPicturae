@@ -2,21 +2,16 @@
 /** Grid tile for a presented artwork: image, artist, title and year, with a badge when sold or not for sale. */
 import { Image } from "astro:assets";
 import { useUI } from "@/i18n";
-import { text } from "@/i18n/localized";
-import type { ArtworkPresentation } from "@utils/content";
-import { picture } from "@utils/images";
+import type { ArtworkPresentation } from "@utils/artwork-presentation";
 
 interface Props {
   presentation: ArtworkPresentation;
 }
 
 const { presentation } = Astro.props;
-const { artwork, artist, locale, href, badge } = presentation;
+const { artist, locale, href, badge, title, year, image, isSquare } =
+  presentation;
 const t = useUI(locale);
-const title = text(artwork.data.title, locale);
-const image = picture(artwork.data, locale, title);
-const isSquare =
-  artwork.data.dimensions.width === artwork.data.dimensions.height;
 ---
 
 <li class="artwork-card">
@@ -42,7 +37,7 @@ const isSquare =
       <br />
       <em>
         {title}
-        {artwork.data.year && `, ${artwork.data.year}`}
+        {year && `, ${year}`}
       </em>
     </p>
   </a>

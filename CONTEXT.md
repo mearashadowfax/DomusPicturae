@@ -34,6 +34,10 @@ _Avoid_: Gallery collection, NFS works
 An immersive scroll presentation of the whole Catalogue. A way of showing the Catalogue, not a subset of it.
 _Avoid_: Showroom, gallery view
 
+**Featured Artwork**:
+A Catalogue Artwork the editor has chosen to show on the homepage, in the editor's order, with an optional caption. Featuring a Private Collection work or a work without an image is a content error.
+_Avoid_: Homepage collection, highlight, hero artwork
+
 ### Programme
 
 **Exhibition**:

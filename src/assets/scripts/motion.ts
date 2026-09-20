@@ -3,6 +3,12 @@
  * pages share. View scripts import from here instead of registering plugins
  * and re-implementing reveals themselves.
  *
+ * Scroll reveals are declared in markup: an element with `data-reveal`
+ * ships hidden on desktop (see `[data-reveal]` in base.css) and `reveal()`
+ * plays the matching recipe when its section scrolls in. Hiding and
+ * revealing key off the same attribute, so a section cannot end up hidden
+ * with nothing to un-hide it.
+ *
  * Honours `prefers-reduced-motion`: every recipe then applies its final
  * state immediately and creates no tween, so content is never hidden.
  */
@@ -28,6 +34,9 @@ export { gsap, ScrollTrigger, SplitText };
 export type Cleanup = () => void;
 const noop: Cleanup = () => {};
 
+/** A selector or the element itself. */
+type Target = string | Element;
+
 interface TriggerOptions {
   start?: string;
   /** Play once (default) or replay as the trigger scrolls in and out. */
@@ -35,7 +44,7 @@ interface TriggerOptions {
 }
 
 function triggerFor(
-  trigger: string,
+  trigger: string | Element,
   { start = "top 80%", once = true }: TriggerOptions,
 ): ScrollTrigger.Vars {
   return once
@@ -45,8 +54,8 @@ function triggerFor(
 
 /** Split text into lines that rise into view as `trigger` scrolls in. */
 export function revealLines(
-  selector: string,
-  trigger: string,
+  selector: Target,
+  trigger: string | Element,
   options: TriggerOptions = {},
 ): Cleanup {
   if (reducedMotion) {
@@ -85,8 +94,8 @@ export function revealLines(
 
 /** Draw a horizontal rule from left to right as `trigger` scrolls in. */
 export function drawRule(
-  selector: string,
-  trigger: string,
+  selector: Target,
+  trigger: string | Element,
   options: TriggerOptions = {},
 ): Cleanup {
   if (reducedMotion) {
@@ -100,6 +109,32 @@ export function drawRule(
     scrollTrigger: triggerFor(trigger, options),
   });
   return () => tween.scrollTrigger?.kill();
+}
+
+/** The recipes `data-reveal` can name. */
+const recipes = { lines: revealLines, rule: drawRule } as const;
+type Recipe = keyof typeof recipes;
+
+/**
+ * Play every `data-reveal` under `root` (`lines` or `rule`), each triggered
+ * by its nearest `<section>` (or the element itself outside one), and return
+ * one cleanup for them all. An unknown recipe name is a markup error and
+ * throws, so it cannot leave content hidden silently.
+ */
+export function reveal(root: ParentNode = document): Cleanup {
+  const cleanups = Array.from(
+    root.querySelectorAll<HTMLElement>("[data-reveal]"),
+  ).map((element) => {
+    const name = element.dataset.reveal as Recipe;
+    const recipe = recipes[name];
+    if (!recipe) {
+      throw new Error(
+        `Unknown data-reveal="${name}"; use one of: ${Object.keys(recipes).join(", ")}.`,
+      );
+    }
+    return recipe(element, element.closest("section") ?? element);
+  });
+  return () => cleanups.forEach((cleanup) => cleanup());
 }
 
 /** Slide an image container in from the left while its image slides in from the right. */

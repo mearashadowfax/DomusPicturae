@@ -7,6 +7,7 @@
 import NewsletterForm from "@components/forms/NewsletterForm";
 import { useUI, type Locale } from "@/i18n";
 import { getSite } from "@utils/content";
+import { wordmarks } from "@utils/utils";
 import { getFooterNavigation } from "@/routes";
 
 interface Props {
@@ -64,7 +65,7 @@ const year = new Date().getFullYear();
           </div>
         </div>
 
-        <h2 class="footer-wordmark">{site.data.name.split(" ")[0]}</h2>
+        <h2 class="footer-wordmark">{wordmarks(site.data.name).first}</h2>
         <hr class="footer-rule" />
 
         <div class="footer-bottom">

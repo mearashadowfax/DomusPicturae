@@ -1,21 +1,22 @@
 ---
 /** A news post: featured image, body, optional slideshow, closing paragraph. */
 import { Image, getImage } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import Slider from "@ui/slider/Slider.astro";
 import type { Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import { renderBodySplit } from "@utils/content";
+import { renderMarkdown, splitClosingParagraph } from "@utils/body";
+import { getBodyMarkdown } from "@utils/content";
+import type { NewsPost } from "@utils/programme";
 import { picture, pictures } from "@utils/images";
 import { formatDate } from "@utils/utils";
-import { articleSchema } from "@utils/seo";
+import { articleSchema, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
-  article: CollectionEntry<"news">;
+  article: NewsPost;
 }
 
 const { locale, article } = Astro.props;
@@ -34,17 +35,18 @@ const slides = pictures(article.data.slides, locale).map((slide) => ({
   alt: slide.alt,
   caption: text(slide.source.caption, locale),
 }));
-const { main, closing } = await renderBodySplit("news", article.id, locale);
+// The slideshow sits between the body and its closing paragraph.
+const body = splitClosingParagraph(getBodyMarkdown("news", article.id, locale));
+const main = await renderMarkdown(body.main);
+const closing = body.closing ? await renderMarkdown(body.closing) : "";
 
 /** A WebP for the structured data, so the page never ships the original file. */
 const schemaImage = featured
   ? await getImage({ src: featured.src, format: "webp", width: 1200 })
   : null;
-const schema = articleSchema(
-  { url: Astro.url, site: Astro.site!, locale },
-  article,
-  { imageSrc: schemaImage?.src },
-);
+const schema = articleSchema(pageContext(Astro, locale), article, {
+  imageSrc: schemaImage?.src,
+});
 ---
 
 <MainLayout

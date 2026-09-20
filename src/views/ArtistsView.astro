@@ -5,7 +5,7 @@ import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import ArtistRow from "@sections/Artists/ArtistRow.astro";
 import { useUI, type Locale } from "@/i18n";
-import { getArtistsSorted } from "@utils/content";
+import { getArtists } from "@utils/content";
 
 interface Props {
   locale: Locale;
@@ -13,9 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const all = await getArtistsSorted();
-const artists = all.filter((a) => !a.data.isEstate);
-const estates = all.filter((a) => a.data.isEstate);
+const { living: artists, estates } = await getArtists();
 ---
 
 <MainLayout

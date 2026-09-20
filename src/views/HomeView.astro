@@ -57,29 +57,15 @@ const { locale } = Astro.props;
 
 <script>
   import {
-    drawRule,
     gsap,
     onDesktop,
     reducedMotion,
-    revealLines,
+    reveal,
     slideIn,
   } from "@scripts/motion";
 
-  onDesktop(() => {
-    const cleanups = [
-      revealLines(".intro .home-section-title", ".intro"),
-      revealLines(".intro .home-section-content", ".intro"),
-      revealLines(".artists-title", ".artists"),
-      revealLines(".events .home-section-title", ".events"),
-      revealLines(".events .home-section-content", ".events"),
-      revealLines(".news-title", ".news"),
-      drawRule(".intro .home-section-rule", ".intro"),
-      drawRule(".artists-rule", ".artists"),
-      drawRule(".events .home-section-rule", ".events"),
-      drawRule(".news-rule", ".news"),
-    ];
-    return () => cleanups.forEach((cleanup) => cleanup());
-  });
+  // Sections declare their own reveals with `data-reveal`.
+  onDesktop(() => reveal());
 
   // Featured artworks slide in as they enter the viewport.
   slideIn(".collection-image");
@@ -87,15 +73,6 @@ const { locale } = Astro.props;
   // Preloader and hero reveal.
   const SESSION_KEY = "domus:visited";
   const heroImage = document.querySelector<HTMLImageElement>(".hero-image img");
-
-  function splitIntoSpans(selector: string) {
-    const element = document.querySelector<HTMLElement>(selector);
-    if (!element) return;
-    element.innerHTML = element.innerText
-      .split("")
-      .map((char) => `<span>${char}</span>`)
-      .join("");
-  }
 
   const HERO_REVEAL = "polygon(100% 0%, 0% 0%, 0% 100%, 100% 100%)";
 
@@ -107,7 +84,9 @@ const { locale } = Astro.props;
   function firstVisit() {
     gsap.set(".navbar", { y: -40 });
     gsap.set(".hero-image img", { scale: 1.12 });
-    splitIntoSpans(".hero-title h1");
+    // Behind the curtain: drop the letters below the h1's clip to rise from.
+    // A transform, not `top`: moving a positioned box counts as layout shift.
+    gsap.set(".hero-title h1 span", { y: 400 });
 
     gsap
       .timeline({ defaults: { ease: "power3.out" } })

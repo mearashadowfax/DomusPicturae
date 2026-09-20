@@ -5,23 +5,21 @@
  * strings come from the `homepage` singleton and may contain <br> and <span>.
  */
 interface Props {
-  /** Class hook used by the homepage animation script, e.g. "intro". */
-  name: string;
   title: string;
   content: string;
   size?: "default" | "large";
 }
 
-const { name, title, content, size = "default" } = Astro.props;
+const { title, content, size = "default" } = Astro.props;
 ---
 
-<section class:list={["home-section", `home-section--${size}`, name]}>
-  <h2 class="home-section-title">
+<section class:list={["home-section", `home-section--${size}`]}>
+  <h2 class="home-section-title" data-reveal="lines">
     <Fragment set:html={title} />
   </h2>
-  <hr class="home-section-rule" />
+  <hr class="home-section-rule" data-reveal="rule" />
   <div class="home-section-body">
-    <p class="home-section-content">
+    <p class="home-section-content" data-reveal="lines">
       <Fragment set:html={content} />
     </p>
   </div>
@@ -42,8 +40,6 @@ const { name, title, content, size = "default" } = Astro.props;
   }
 
   .home-section-title {
-    opacity: 0;
-    will-change: transform;
     max-width: 17ch;
     font-weight: 300;
     font-size: calc(25 * var(--unit-type));
@@ -51,8 +47,6 @@ const { name, title, content, size = "default" } = Astro.props;
   }
 
   .home-section-rule {
-    transform: scaleX(0);
-    transform-origin: left;
     margin-top: calc(10 * var(--unit-fx));
     border: none;
     background-color: var(--color-divider);
@@ -65,8 +59,6 @@ const { name, title, content, size = "default" } = Astro.props;
   }
 
   .home-section-content {
-    opacity: 0;
-    will-change: transform;
     margin-inline: auto;
     width: 100%;
     font-size: calc(45 * var(--unit-type));
@@ -80,17 +72,7 @@ const { name, title, content, size = "default" } = Astro.props;
     font-family: var(--font-satoshi);
   }
 
-  /* The reveals only run on desktop; phones show the final state. */
   @media screen and (max-width: 600px) {
-    .home-section-title,
-    .home-section-content {
-      opacity: 1;
-    }
-
-    .home-section-rule {
-      transform: scaleX(1);
-    }
-
     .home-section-content {
       font-size: calc(20 * var(--unit-type));
     }

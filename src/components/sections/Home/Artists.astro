@@ -3,7 +3,7 @@
 import { Image } from "astro:assets";
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import { getArtistsSorted } from "@utils/content";
+import { getArtists } from "@utils/content";
 import { picture } from "@utils/images";
 import { routes } from "@/routes";
 
@@ -13,12 +13,15 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const artists = await getArtistsSorted();
+// Living artists only; Estates have their own tab on the artists index.
+const { living: artists } = await getArtists();
 ---
 
 <section class="artists">
-  <h2 class="artists-title">{t.home.artists}</h2>
-  <hr class="artists-rule" />
+  <h2 class="artists-title" data-reveal="lines">
+    {t.home.artists}
+  </h2>
+  <hr class="artists-rule" data-reveal="rule" />
   <ul class="artists-list">
     {artists.map((artist) => {
       const portrait = picture(artist.data, locale, artist.data.name);
@@ -57,16 +60,12 @@ const artists = await getArtistsSorted();
   }
 
   .artists-title {
-    opacity: 0;
-    will-change: transform;
     font-weight: 300;
     font-size: calc(25 * var(--unit-type));
     line-height: 1.2;
   }
 
   .artists-rule {
-    transform: scaleX(0);
-    transform-origin: left;
     margin-top: calc(10 * var(--unit-fx));
     border: none;
     background-color: var(--color-divider);
@@ -126,16 +125,7 @@ const artists = await getArtistsSorted();
     font-size: calc(14 * var(--unit-type));
   }
 
-  /* The reveals only run on desktop; phones show the final state. */
   @media screen and (max-width: 600px) {
-    .artists-title {
-      opacity: 1;
-    }
-
-    .artists-rule {
-      transform: scaleX(1);
-    }
-
     .artist-link {
       font-size: calc(25 * var(--unit-type));
     }

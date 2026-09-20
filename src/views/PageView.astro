@@ -1,12 +1,11 @@
 ---
 /** A long-form standalone page from the `pages` collection (terms, privacy policy). */
-import { getEntry } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import type { Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import { renderBody } from "@utils/content";
+import { getPage, renderBody } from "@utils/content";
 
 interface Props {
   locale: Locale;
@@ -15,9 +14,7 @@ interface Props {
 }
 
 const { locale, page } = Astro.props;
-const entry = await getEntry("pages", page);
-if (!entry)
-  throw new Error(`Missing page: src/content/pages/${page}/index.json`);
+const entry = await getPage(page);
 
 const title = text(entry.data.title, locale);
 const description = text(entry.data.description, locale);

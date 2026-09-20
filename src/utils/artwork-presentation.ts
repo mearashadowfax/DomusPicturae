@@ -1,13 +1,17 @@
 import type { CollectionEntry } from "astro:content";
 import type { Locale } from "@/i18n/config";
+import { text } from "@/i18n/localized";
 import { routes } from "@/routes";
 import { badgeFor, sectionFor, type Badge, type Section } from "./availability";
+import { picture, type Picture } from "./images";
 
 /**
  * Everything a page needs to show an Artwork, decided in one place from its
  * Availability (see CONTEXT.md): which section it belongs to, which theme
  * that section uses, what badge it carries and whether it can be enquired
- * about. Pure: takes entries and returns a value, so it runs in tests.
+ * about; plus the localised title, the resolved image and its shape, so a
+ * card, a slide and the detail page all read the same value. Pure: takes
+ * entries and returns a value, so it runs in tests.
  */
 
 export type Artwork = CollectionEntry<"artworks">;
@@ -27,6 +31,13 @@ export interface ArtworkPresentation {
   /** Key into `ui.artworks`, or null when no badge is shown. */
   badge: Badge;
   canInquire: boolean;
+  /** Localised title, falling back to the default locale. */
+  title: string;
+  year: number | undefined;
+  /** The artwork's image with its alt text (the title when none is set), or null when it has none. */
+  image: Picture | null;
+  /** Square works are shown contained rather than cropped. */
+  isSquare: boolean;
 }
 
 /**
@@ -46,8 +57,9 @@ export function presentArtwork(
       `Artwork "${artwork.id}" references artist "${artwork.data.artist.id}", which does not exist in src/content/artists/.`,
     );
   }
-  const { availability } = artwork.data;
+  const { availability, dimensions } = artwork.data;
   const section = sectionFor(availability);
+  const title = text(artwork.data.title, locale);
   return {
     artwork,
     artist,
@@ -57,6 +69,10 @@ export function presentArtwork(
     href: routes.artwork(locale, artwork),
     badge: badgeFor(availability),
     canInquire: availability === "available",
+    title,
+    year: artwork.data.year ?? undefined,
+    image: picture(artwork.data, locale, title),
+    isSquare: dimensions.width === dimensions.height,
   };
 }
 
@@ -68,6 +84,14 @@ export function presentArtworks(
   return artworks.map((artwork) => presentArtwork(artwork, artists, locale));
 }
 
+/** Every work by an artist, whichever section it is in. */
+export function artworksByArtist(
+  artworks: Artwork[],
+  artist: Pick<Artist, "id">,
+): Artwork[] {
+  return artworks.filter((artwork) => artwork.data.artist.id === artist.id);
+}
+
 /**
  * The artist's other works, presented. Catalogue and Private Collection
  * works relate to each other; each card links into its own section.
@@ -76,12 +100,8 @@ export function relatedArtworks(
   presentation: ArtworkPresentation,
   pool: Artwork[],
 ): ArtworkPresentation[] {
-  return pool
-    .filter(
-      (candidate) =>
-        candidate.id !== presentation.artwork.id &&
-        candidate.data.artist.id === presentation.artist.id,
-    )
+  return artworksByArtist(pool, presentation.artist)
+    .filter((candidate) => candidate.id !== presentation.artwork.id)
     .map((candidate) =>
       presentArtwork(candidate, [presentation.artist], presentation.locale),
     );

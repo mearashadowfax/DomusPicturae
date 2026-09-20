@@ -4,9 +4,8 @@ import { Image } from "astro:assets";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
 import { getCatalogue, getSite } from "@utils/content";
-import { picture } from "@utils/images";
+import { wordmarks } from "@utils/utils";
 import { routes } from "@/routes";
 
 interface Props {
@@ -16,13 +15,9 @@ interface Props {
 const { locale } = Astro.props;
 const t = useUI(locale);
 const site = await getSite();
-const slides = (await getCatalogue())
-  .map((artwork) => ({
-    image: picture(artwork.data, locale, text(artwork.data.title, locale)),
-    href: routes.artwork(locale, artwork),
-    isSquare: artwork.data.dimensions.width === artwork.data.dimensions.height,
-  }))
-  .filter((slide) => slide.image !== null);
+const slides = (await getCatalogue(locale)).filter(
+  (slide) => slide.image !== null,
+);
 ---
 
 <MainLayout
@@ -33,7 +28,7 @@ const slides = (await getCatalogue())
   <Navbar locale={locale} />
 
   <div class="room-sidebar">
-    <h1 class="room-wordmark">{site.data.name.split(" ").pop()}</h1>
+    <h1 class="room-wordmark">{wordmarks(site.data.name).last}</h1>
   </div>
 
   <div class="room">

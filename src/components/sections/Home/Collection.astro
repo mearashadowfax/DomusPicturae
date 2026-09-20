@@ -1,60 +1,34 @@
 ---
 /** Featured artworks chosen in the `homepage` singleton, revealed as the page scrolls. */
 import { Image } from "astro:assets";
-import { getCollection, getEntry } from "astro:content";
 import type { Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getHomepage, isCatalogueWork, presentArtwork } from "@utils/content";
-import { picture } from "@utils/images";
+import { getFeaturedArtworks } from "@utils/content";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
-const homepage = await getHomepage();
-const artists = await getCollection("artists");
-
-const slides = (
-  await Promise.all(
-    homepage.data.collection.map(async (item) => {
-      const artwork = await getEntry(item.artwork);
-      if (!artwork || !isCatalogueWork(artwork)) return null;
-      const { artist, href } = presentArtwork(artwork, artists, locale);
-      const image = picture(
-        artwork.data,
-        locale,
-        text(artwork.data.title, locale),
-      );
-      if (!image) return null;
-      return {
-        image,
-        href,
-        artist: artist.data.name,
-        caption: text(item.caption, locale) || text(artwork.data.title, locale),
-      };
-    }),
-  )
-).filter((slide) => slide !== null);
+const featured = await getFeaturedArtworks(locale);
 ---
 
 <section class="collection">
-  {slides.map((slide) => (
+  {featured.map(({ presentation, image, caption }) => (
     <div class="collection-item">
-      <a href={slide.href}>
+      <a href={presentation.href}>
         <div class="collection-image">
           <Image
-            src={slide.image.src}
-            alt={slide.image.alt}
+            src={image.src}
+            alt={image.alt}
             format="webp"
             width={900}
             loading="lazy"
           />
         </div>
         <p class="collection-caption">
-          {slide.artist}
+          {presentation.artist.data.name}
           <br />
-          <em>{slide.caption}</em>
+          <em>{caption}</em>
         </p>
       </a>
     </div>

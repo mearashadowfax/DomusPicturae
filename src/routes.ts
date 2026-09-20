@@ -1,19 +1,15 @@
-import { getCollection, type CollectionEntry } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import { localizePath, type Locale } from "@/i18n/config";
 import { ui } from "@/i18n/ui";
-import {
-  isCatalogueWork,
-  isPrivateCollectionWork,
-  sectionFor,
-} from "@utils/availability";
+import { sectionFor } from "@utils/availability";
 
 /**
- * The site's URL structure, in one place.
- *
- * `routes.*` build localised hrefs; the `*Paths` helpers are the
- * `getStaticPaths` implementations the thin route files in `src/pages/`
- * re-export. Both sides of a dynamic route (its params and the links to it)
- * therefore agree by construction. Route files themselves stay where Astro
+ * The site's URL structure, in one place: `routes.*` build every localised
+ * href from an entry or its id. Pure, so it runs in tests. The matching
+ * `getStaticPaths` implementations (`artworkPaths` and friends) live in the
+ * content module, `src/utils/content.ts`, since they read the collections;
+ * both build params and hrefs from entry ids, so the two sides of a dynamic
+ * route agree by construction. Route files themselves stay where Astro
  * expects them (ADR-0002); only the strings they share live here.
  */
 
@@ -87,47 +83,5 @@ export function getFooterNavigation(locale: Locale): NavLink[] {
   return footerNavigation.map((key) => ({
     label: ui[locale].footer[key],
     href: routes[key](locale),
-  }));
-}
-
-// ---------------------------------------------------------------- static paths
-
-export async function artworkPaths() {
-  return (await getCollection("artworks"))
-    .filter(isCatalogueWork)
-    .map((artwork) => ({ params: { id: artwork.id }, props: { artwork } }));
-}
-
-export async function privateCollectionPaths() {
-  return (await getCollection("artworks"))
-    .filter(isPrivateCollectionWork)
-    .map((artwork) => ({ params: { id: artwork.id }, props: { artwork } }));
-}
-
-export async function artistPaths() {
-  return (await getCollection("artists")).map((artist) => ({
-    params: { id: artist.id },
-    props: { artist },
-  }));
-}
-
-export async function newsPaths() {
-  return (await getCollection("news")).map((article) => ({
-    params: { slug: article.id },
-    props: { article },
-  }));
-}
-
-export async function exhibitionPaths() {
-  return (await getCollection("exhibitions")).map((exhibition) => ({
-    params: { slug: exhibition.id },
-    props: { exhibition },
-  }));
-}
-
-export async function workshopPaths() {
-  return (await getCollection("workshops")).map((workshop) => ({
-    params: { slug: workshop.id },
-    props: { workshop },
   }));
 }

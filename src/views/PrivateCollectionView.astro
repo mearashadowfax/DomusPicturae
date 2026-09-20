@@ -5,10 +5,7 @@ import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import PrivateCollectionPreloader from "@sections/Catalogue/PrivateCollectionPreloader.astro";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
 import { getPrivateCollection } from "@utils/content";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
 
 interface Props {
   locale: Locale;
@@ -19,19 +16,10 @@ const MAX_SLIDES = 11;
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const slides = (await getPrivateCollection())
-  .map((artwork) => {
-    const title = text(artwork.data.title, locale);
-    return {
-      id: artwork.id,
-      title,
-      year: artwork.data.year,
-      image: picture(artwork.data, locale, title),
-      href: routes.artwork(locale, artwork),
-    };
-  })
+const slides = (await getPrivateCollection(locale))
   .filter((slide) => slide.image !== null)
   .slice(0, MAX_SLIDES);
+/** Distance between slides on the depth axis; the scroll script reads it from the scene. */
 const depthStep = 2500;
 ---
 
@@ -44,7 +32,11 @@ const depthStep = 2500;
   <Navbar locale={locale} />
   <PrivateCollectionPreloader locale={locale} />
 
-  <section class="scene" style={`--slides: ${slides.length}`}>
+  <section
+    class="scene"
+    style={`--slides: ${slides.length}`}
+    data-depth-step={depthStep}
+  >
     <div class="scene-backdrop">
       {slides.map((slide) => (
         <Image
@@ -169,8 +161,8 @@ const depthStep = 2500;
 <script>
   import { gsap, ScrollTrigger } from "@scripts/motion";
 
-  const DEPTH_STEP = 2500;
   const scene = document.querySelector<HTMLElement>(".scene")!;
+  const DEPTH_STEP = Number(scene.dataset.depthStep);
   const slides = Array.from(
     document.querySelectorAll<HTMLElement>(".scene-slide"),
   );

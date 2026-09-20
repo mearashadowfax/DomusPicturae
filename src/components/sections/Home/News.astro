@@ -3,7 +3,7 @@
 import NewsCard from "@sections/News/NewsCard.astro";
 import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
 import { useUI, type Locale } from "@/i18n";
-import { getNewsSorted } from "@utils/content";
+import { getNews } from "@utils/content";
 import { routes } from "@/routes";
 
 interface Props {
@@ -12,17 +12,19 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
+const news = (await getNews()).slice(0, HOMEPAGE_ITEMS_LIMIT);
 ---
 
 <section class="news">
   <div class="news-header">
-    <h2 class="news-title">{t.home.latestNews}</h2>
+    <h2 class="news-title" data-reveal="lines">
+      {t.home.latestNews}
+    </h2>
     <a href={routes.news(locale)} class="link-underline">
       <span>{t.home.readAllNews}</span>
     </a>
   </div>
-  <hr class="news-rule" />
+  <hr class="news-rule" data-reveal="rule" />
   <ul class="news-grid">
     {news.map((entry) => (
       <NewsCard entry={entry} locale={locale} />
@@ -46,8 +48,6 @@ const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
   }
 
   .news-title {
-    opacity: 0;
-    will-change: transform;
     font-weight: 300;
     font-size: calc(25 * var(--unit-type));
     line-height: 1.2;
@@ -69,8 +69,6 @@ const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
   }
 
   .news-rule {
-    transform: scaleX(0);
-    transform-origin: left;
     margin-top: calc(10 * var(--unit-fx));
     border: none;
     background-color: var(--color-divider);
@@ -85,16 +83,7 @@ const news = (await getNewsSorted()).slice(0, HOMEPAGE_ITEMS_LIMIT);
     list-style: none;
   }
 
-  /* The reveals only run on desktop; phones show the final state. */
   @media screen and (max-width: 600px) {
-    .news-title {
-      opacity: 1;
-    }
-
-    .news-rule {
-      transform: scaleX(1);
-    }
-
     .news-grid {
       grid-template-columns: 1fr;
     }

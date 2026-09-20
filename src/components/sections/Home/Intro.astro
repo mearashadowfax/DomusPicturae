@@ -13,7 +13,6 @@ const { intro } = (await getHomepage()).data;
 ---
 
 <HomeSection
-  name="intro"
   title={text(intro.subheading, locale)}
   content={text(intro.content, locale)}
 />

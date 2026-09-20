@@ -1,7 +1,6 @@
 ---
 /** Workshop detail with the interest-registration form. */
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
 import MainLayout from "@layouts/MainLayout.astro";
 import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
@@ -9,11 +8,12 @@ import WorkshopRegistrationForm from "@components/forms/WorkshopRegistrationForm
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
 import { renderBody } from "@utils/content";
+import type { Workshop } from "@utils/programme";
 import { picture } from "@utils/images";
 
 interface Props {
   locale: Locale;
-  workshop: CollectionEntry<"workshops">;
+  workshop: Workshop;
 }
 
 const { locale, workshop } = Astro.props;
