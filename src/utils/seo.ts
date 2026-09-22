@@ -128,8 +128,8 @@ export function artworkSchema(
     },
     dateCreated: artwork.data.year ? String(artwork.data.year) : undefined,
     artMedium: text(artwork.data.medium, locale),
-    width: { "@type": "Distance", name: `${width} ${unit}` },
-    height: { "@type": "Distance", name: `${height} ${unit}` },
+    width: { "@type": "QuantitativeValue", value: width, unitText: unit },
+    height: { "@type": "QuantitativeValue", value: height, unitText: unit },
     image: meta.imageSrc ? absolute(meta.imageSrc, page.site) : undefined,
   };
 }

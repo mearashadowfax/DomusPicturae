@@ -91,7 +91,7 @@ describe("seo schemas", () => {
         url: "https://example.test/fr/artists/sarah-chen",
       },
       image: "https://example.test/_astro/x.webp",
-      width: { "@type": "Distance", name: "50 cm" },
+      width: { "@type": "QuantitativeValue", value: 50, unitText: "cm" },
     });
   });
 
