@@ -89,7 +89,7 @@ describe("presentArtwork", () => {
   it("resolves the artist and fails on a dangling reference", () => {
     expect(
       presentArtwork(artwork("a", "available"), [other, artist], "en").artist,
-    ).toBe(artist);
+    ).toMatchObject({ id: "sarah-chen", name: "Sarah Chen" });
     expect(() =>
       presentArtwork(artwork("a", "available", "nobody"), [artist], "en"),
     ).toThrow(/nobody/);
@@ -106,7 +106,7 @@ describe("relatedArtworks", () => {
 
   it("keeps the same artist across sections, excluding the work itself", () => {
     const p = presentArtwork(pool[0], [artist, other], "en");
-    expect(relatedArtworks(p, pool).map((r) => r.artwork.id)).toEqual([
+    expect(relatedArtworks(p, pool, [artist, other]).map((r) => r.id)).toEqual([
       "same-artist",
       "same-artist-private",
     ]);
@@ -114,7 +114,7 @@ describe("relatedArtworks", () => {
 
   it("relates a private work to the artist's catalogue works", () => {
     const p = presentArtwork(pool[2], [artist, other], "en");
-    expect(relatedArtworks(p, pool).map((r) => r.artwork.id)).toEqual([
+    expect(relatedArtworks(p, pool, [artist, other]).map((r) => r.id)).toEqual([
       "self",
       "same-artist",
     ]);
@@ -134,12 +134,11 @@ describe("artworksByArtist", () => {
 
 describe("section predicates", () => {
   it("split the catalogue from the private collection", () => {
-    const [a, b] = presentArtworks(
-      [artwork("a", "sold"), artwork("b", "not-for-sale")],
-      [artist],
-      "en",
-    );
-    expect(isCatalogueWork(a.artwork)).toBe(true);
-    expect(isPrivateCollectionWork(b.artwork)).toBe(true);
+    const [a, b] = [artwork("a", "sold"), artwork("b", "not-for-sale")];
+    expect(isCatalogueWork(a)).toBe(true);
+    expect(isPrivateCollectionWork(b)).toBe(true);
+    expect(
+      presentArtworks([a, b], [artist], "en").map((p) => p.section),
+    ).toEqual(["artworks", "private-collection"]);
   });
 });

@@ -18,7 +18,7 @@ const entry = await getPage(page);
 
 const title = text(entry.data.title, locale);
 const description = text(entry.data.description, locale);
-const body = await renderBody("pages", entry.id, locale);
+const { main: body } = await renderBody("pages", entry.id, locale);
 ---
 
 <MainLayout

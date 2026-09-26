@@ -1,4 +1,3 @@
-import type { CollectionEntry } from "astro:content";
 import type { Thing, WithContext } from "schema-dts";
 import {
   localeTags,
@@ -7,14 +6,21 @@ import {
   stripLocale,
   type Locale,
 } from "@/i18n/config";
-import { text } from "@/i18n/localized";
-import { routes } from "@/routes";
+import type { ArtistPresentation } from "./artists";
 import type { ArtworkPresentation } from "./artwork-presentation";
+import { paragraphs } from "./body";
+import type {
+  ExhibitionPresentation,
+  NewsPresentation,
+  WorkshopPresentation,
+} from "./programme";
+import type { SiteIdentity } from "./site";
 
 /**
  * Where a page sits on the web, decided once per request (`pageContext`),
- * and the structured data (schema.org JSON-LD) for each page type, built
- * from plain inputs so the shapes live in one place and can be checked in a
+ * the structured data (schema.org JSON-LD) for each page type, and each
+ * page type's title and meta description (`*Meta`), built from
+ * presentations so the shapes live in one place and can be checked in a
  * spec. The site origin comes from `site` in astro.config.mjs and nowhere
  * else, so canonical, hreflang and structured data cannot disagree.
  */
@@ -62,17 +68,12 @@ export function pageContext(
   };
 }
 
-export interface SiteIdentity {
-  name: string;
-  description: string;
-}
-
 const absolute = (path: string, site: URL) => new URL(path, site).href;
 
 /** The default schema for any page. */
 export function webPageSchema(
   page: PageContext,
-  site: SiteIdentity,
+  site: Pick<SiteIdentity, "name" | "description">,
   meta: { title: string; description: string },
 ): WithContext<Thing> {
   return {
@@ -94,7 +95,7 @@ export function webPageSchema(
 
 export function artistSchema(
   page: PageContext,
-  artist: CollectionEntry<"artists">,
+  artist: ArtistPresentation,
   description: string,
 ): WithContext<Thing> {
   return {
@@ -102,7 +103,7 @@ export function artistSchema(
     "@type": "Person",
     "@id": page.url.href,
     url: page.url.href,
-    name: artist.data.name,
+    name: artist.name,
     description,
   };
 }
@@ -112,22 +113,22 @@ export function artworkSchema(
   presentation: ArtworkPresentation,
   meta: { description: string; imageSrc?: string },
 ): WithContext<Thing> {
-  const { artwork, artist, locale } = presentation;
-  const { width, height, unit } = artwork.data.dimensions;
+  const { artist, year } = presentation;
+  const { width, height, unit } = presentation.dimensions;
   return {
     "@context": "https://schema.org",
     "@type": "VisualArtwork",
     "@id": page.url.href,
     url: page.url.href,
-    name: text(artwork.data.title, locale),
+    name: presentation.title,
     description: meta.description,
     creator: {
       "@type": "Person",
-      name: artist.data.name,
-      url: absolute(routes.artist(locale, artist), page.site),
+      name: artist.name,
+      url: absolute(artist.href, page.site),
     },
-    dateCreated: artwork.data.year ? String(artwork.data.year) : undefined,
-    artMedium: text(artwork.data.medium, locale),
+    dateCreated: year ? String(year) : undefined,
+    artMedium: presentation.medium,
     width: { "@type": "QuantitativeValue", value: width, unitText: unit },
     height: { "@type": "QuantitativeValue", value: height, unitText: unit },
     image: meta.imageSrc ? absolute(meta.imageSrc, page.site) : undefined,
@@ -136,41 +137,127 @@ export function artworkSchema(
 
 export function exhibitionSchema(
   page: PageContext,
-  exhibition: CollectionEntry<"exhibitions">,
+  exhibition: ExhibitionPresentation,
 ): WithContext<Thing> {
-  const { locale } = page;
   return {
     "@context": "https://schema.org",
     "@type": "ExhibitionEvent",
     "@id": page.url.href,
     url: page.url.href,
-    name: text(exhibition.data.title, locale),
-    description: text(exhibition.data.description, locale),
-    startDate: exhibition.data.startDate.toISOString().slice(0, 10),
-    endDate: exhibition.data.endDate.toISOString().slice(0, 10),
+    name: exhibition.title,
+    description: exhibition.description,
+    startDate: exhibition.startDate.toISOString().slice(0, 10),
+    endDate: exhibition.endDate.toISOString().slice(0, 10),
     location: {
       "@type": "Place",
-      name: text(exhibition.data.location, locale),
+      name: exhibition.location,
     },
-    inLanguage: localeTags[locale],
+    inLanguage: localeTags[page.locale],
   };
 }
 
 export function articleSchema(
   page: PageContext,
-  article: CollectionEntry<"news">,
+  article: NewsPresentation,
   meta: { imageSrc?: string },
 ): WithContext<Thing> {
-  const { locale } = page;
   return {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "@id": page.url.href,
     url: page.url.href,
-    headline: text(article.data.title, locale),
-    description: text(article.data.description, locale),
-    datePublished: article.data.pubDate.toISOString(),
+    headline: article.title,
+    description: article.description,
+    datePublished: article.date.toISOString(),
     image: meta.imageSrc ? absolute(meta.imageSrc, page.site) : undefined,
-    inLanguage: localeTags[locale],
+    inLanguage: localeTags[page.locale],
+  };
+}
+
+// ---------------------------------------------------------------- page meta
+
+/**
+ * What a page hands to the layout: its title, meta description and
+ * structured data, decided together so the `<meta>` tags and the JSON-LD
+ * cannot disagree. Each page type's description falls back along its own
+ * chain; image URLs arrive already optimised (`imageSrc`), keeping this
+ * module pure.
+ */
+export interface PageMeta {
+  title: string;
+  /** Undefined falls back to the site description in the layout. */
+  description: string | undefined;
+  schema?: WithContext<Thing>;
+}
+
+/** The biography's first paragraph, else the short bio. */
+export function artistMeta(
+  page: PageContext,
+  artist: ArtistPresentation,
+): PageMeta {
+  const description = artist.biography[0] || artist.shortBio;
+  return {
+    title: artist.name,
+    description,
+    schema: artistSchema(page, artist, description),
+  };
+}
+
+/**
+ * The meta description is a caption built from the facts ("Title, Artist,
+ * 2024. Oil on canvas, 100 × 80 cm."); the structured data prefers the
+ * editor's description when there is one.
+ */
+export function artworkMeta(
+  page: PageContext,
+  presentation: ArtworkPresentation,
+  images: { imageSrc?: string },
+): PageMeta {
+  const { title, artist, year, medium, dimensions } = presentation;
+  const { width, height, unit } = dimensions;
+  const caption = `${title}, ${artist.name}${year ? `, ${year}` : ""}. ${medium}, ${width} × ${height} ${unit}.`;
+  return {
+    title,
+    description: caption,
+    schema: artworkSchema(page, presentation, {
+      description: presentation.description || caption,
+      imageSrc: images.imageSrc,
+    }),
+  };
+}
+
+export function exhibitionMeta(
+  page: PageContext,
+  exhibition: ExhibitionPresentation,
+): PageMeta {
+  return {
+    title: exhibition.title,
+    description: exhibition.description,
+    schema: exhibitionSchema(page, exhibition),
+  };
+}
+
+/** A Workshop is described by its registration info; it has no schema. */
+export function workshopMeta(workshop: WorkshopPresentation): PageMeta {
+  return { title: workshop.title, description: workshop.registerInfo };
+}
+
+export function articleMeta(
+  page: PageContext,
+  article: NewsPresentation,
+  images: { imageSrc?: string },
+): PageMeta {
+  return {
+    title: article.title,
+    description: article.description,
+    schema: articleSchema(page, article, images),
+  };
+}
+
+/** The About page is described by the first paragraph of its intro, without markup. */
+export function aboutMeta(title: string, introHtml: string): PageMeta {
+  return {
+    title,
+    description: paragraphs(introHtml.replace(/<[^>]+>/g, ""))[0],
   };
 }

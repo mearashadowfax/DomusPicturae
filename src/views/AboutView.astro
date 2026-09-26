@@ -6,10 +6,10 @@ import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import { useUI, type Locale } from "@/i18n";
 import { text } from "@/i18n/localized";
-import { paragraphs } from "@utils/body";
 import { getAboutPage } from "@utils/content";
 import { pictures } from "@utils/images";
 import { routes } from "@/routes";
+import { aboutMeta } from "@utils/seo";
 
 interface Props {
   locale: Locale;
@@ -27,12 +27,10 @@ const rows = animated.reduce<(typeof animated)[]>((acc, item, i) => {
   return acc;
 }, []);
 
-const description = paragraphs(
-  text(about.intro, locale).replace(/<[^>]+>/g, ""),
-)[0];
+const meta = aboutMeta(t.about.title, text(about.intro, locale));
 ---
 
-<MainLayout locale={locale} title={t.about.title} description={description}>
+<MainLayout locale={locale} {...meta}>
   <Navbar locale={locale} />
 
   <section class="about">

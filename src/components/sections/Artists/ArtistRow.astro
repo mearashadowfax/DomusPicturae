@@ -1,24 +1,23 @@
 ---
-/** One row of the artists index; hovering the name reveals the portrait and short bio. */
+/**
+ * One row of an artists list (the artists index and the homepage);
+ * hovering the name reveals the portrait and short bio. Spacing between
+ * rows belongs to the list that holds them.
+ */
 import { Image } from "astro:assets";
-import { type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import type { Artist } from "@utils/artists";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
+import type { ArtistPresentation } from "@utils/artists";
 
 interface Props {
-  artist: Artist;
-  locale: Locale;
+  artist: ArtistPresentation;
 }
 
-const { artist, locale } = Astro.props;
-const portrait = picture(artist.data, locale, artist.data.name);
+const { artist } = Astro.props;
+const { portrait } = artist;
 ---
 
 <li class="artist-row">
-  <a class="artist-row-link" href={routes.artist(locale, artist)}>
-    {artist.data.name}
+  <a class="artist-row-link" href={artist.href}>
+    {artist.name}
   </a>
   <div class="artist-row-preview">
     <div class="artist-row-preview-inner">
@@ -31,7 +30,7 @@ const portrait = picture(artist.data, locale, artist.data.name);
           class="artist-row-portrait"
         />
       )}
-      <p class="artist-row-bio">{text(artist.data.shortBio, locale)}</p>
+      <p class="artist-row-bio">{artist.shortBio}</p>
     </div>
   </div>
 </li>
@@ -40,6 +39,7 @@ const portrait = picture(artist.data, locale, artist.data.name);
   .artist-row-link {
     display: inline-block;
     position: relative;
+    /* Dimmed at rest (below 4.5:1 on white); hover and focus bring it to full. */
     opacity: 0.5;
     transition: opacity var(--transition-base);
     font-size: calc(45 * var(--unit-type));
@@ -47,7 +47,8 @@ const portrait = picture(artist.data, locale, artist.data.name);
     font-family: var(--font-baskervville);
   }
 
-  .artist-row-link:hover {
+  .artist-row-link:hover,
+  .artist-row-link:focus-visible {
     opacity: 1;
   }
 
@@ -84,10 +85,6 @@ const portrait = picture(artist.data, locale, artist.data.name);
     font-family: var(--font-satoshi);
   }
 
-  .artist-row:last-child {
-    padding-bottom: calc(150 * var(--unit-fx));
-  }
-
   @media screen and (max-width: 600px) {
     .artist-row-link {
       font-size: calc(25 * var(--unit-type));
@@ -95,10 +92,6 @@ const portrait = picture(artist.data, locale, artist.data.name);
 
     .artist-row-preview {
       display: none;
-    }
-
-    .artist-row:last-child {
-      padding-bottom: 0;
     }
   }
 </style>

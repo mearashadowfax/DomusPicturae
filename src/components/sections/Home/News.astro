@@ -1,18 +1,17 @@
 ---
 /** The latest news posts. */
 import NewsCard from "@sections/News/NewsCard.astro";
-import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
 import { useUI, type Locale } from "@/i18n";
-import { getNews } from "@utils/content";
+import type { Homepage } from "@utils/homepage";
 import { routes } from "@/routes";
 
 interface Props {
+  news: Homepage["news"];
   locale: Locale;
 }
 
-const { locale } = Astro.props;
+const { news, locale } = Astro.props;
 const t = useUI(locale);
-const news = (await getNews()).slice(0, HOMEPAGE_ITEMS_LIMIT);
 ---
 
 <section class="news">
@@ -26,8 +25,8 @@ const news = (await getNews()).slice(0, HOMEPAGE_ITEMS_LIMIT);
   </div>
   <hr class="news-rule" data-reveal="rule" />
   <ul class="news-grid">
-    {news.map((entry) => (
-      <NewsCard entry={entry} locale={locale} />
+    {news.map((post) => (
+      <NewsCard post={post} locale={locale} />
     ))}
   </ul>
 </section>

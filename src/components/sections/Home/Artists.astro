@@ -1,20 +1,16 @@
 ---
 /** Alphabetical list of artists; hovering a name shows their portrait and short bio. */
-import { Image } from "astro:assets";
+import ArtistRow from "@sections/Artists/ArtistRow.astro";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getArtists } from "@utils/content";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
+import type { Homepage } from "@utils/homepage";
 
 interface Props {
+  artists: Homepage["artists"];
   locale: Locale;
 }
 
-const { locale } = Astro.props;
+const { artists, locale } = Astro.props;
 const t = useUI(locale);
-// Living artists only; Estates have their own tab on the artists index.
-const { living: artists } = await getArtists();
 ---
 
 <section class="artists">
@@ -23,30 +19,9 @@ const { living: artists } = await getArtists();
   </h2>
   <hr class="artists-rule" data-reveal="rule" />
   <ul class="artists-list">
-    {artists.map((artist) => {
-      const portrait = picture(artist.data, locale, artist.data.name);
-      return (
-        <li class="artist-item">
-          <a class="artist-link" href={routes.artist(locale, artist)}>
-            {artist.data.name}
-          </a>
-          <div class="artist-preview">
-            <div class="artist-preview-inner">
-              {portrait && (
-                <Image
-                  src={portrait.src}
-                  alt={portrait.alt}
-                  format="webp"
-                  width={600}
-                  class="artist-portrait"
-                />
-              )}
-              <p class="artist-bio">{text(artist.data.shortBio, locale)}</p>
-            </div>
-          </div>
-        </li>
-      );
-    })}
+    {artists.map((artist) => (
+      <ArtistRow artist={artist} />
+    ))}
   </ul>
 </section>
 
@@ -78,64 +53,9 @@ const { living: artists } = await getArtists();
     list-style: none;
   }
 
-  .artist-link {
-    display: inline-block;
-    position: relative;
-    /* 0.7 keeps the primary text at >= 4.5:1 on white; 0.5 fell to 2.8:1. */
-    opacity: 0.7;
-    transition: opacity var(--transition-base);
-    font-size: calc(45 * var(--unit-type));
-    line-height: 1.2;
-    font-family: var(--font-baskervville);
-  }
-
-  .artist-link:hover {
-    opacity: 1;
-  }
-
-  .artist-preview {
-    position: absolute;
-    top: 0;
-    right: 0;
-    opacity: 0;
-    transition: opacity var(--transition-fast);
-    width: calc(230 * var(--unit-fx));
-    height: 100vh;
-    pointer-events: none;
-  }
-
-  .artist-link:hover ~ .artist-preview {
-    opacity: 1;
-  }
-
-  .artist-preview-inner {
-    position: sticky;
-    top: calc(30 * var(--unit-fx));
-  }
-
-  .artist-portrait {
-    border-radius: var(--radius);
-    width: calc(230 * var(--unit-fx));
-    height: 20vw;
-    object-fit: cover;
-  }
-
-  .artist-bio {
-    padding-top: calc(10 * var(--unit-fx));
-    font-size: calc(14 * var(--unit-type));
-  }
-
   @media screen and (max-width: 600px) {
-    .artist-link {
-      font-size: calc(25 * var(--unit-type));
-    }
-
-    .artist-item + .artist-item {
+    .artists-list :global(.artist-row + .artist-row) {
       margin-top: calc(10 * var(--unit-fx));
-    }
-
-    .artist-preview {
-      display: none;
     }
   }
 </style>

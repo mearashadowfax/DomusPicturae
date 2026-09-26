@@ -13,7 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const { living: artists, estates } = await getArtists();
+const { living: artists, estates } = await getArtists(locale);
 ---
 
 <MainLayout
@@ -54,12 +54,12 @@ const { living: artists, estates } = await getArtists();
     <div class="artists-lists">
       <ul class="artists-list" id="artists-list" role="tabpanel">
         {artists.map((artist) => (
-          <ArtistRow artist={artist} locale={locale} />
+          <ArtistRow artist={artist} />
         ))}
       </ul>
       <ul class="artists-list" id="estates-list" role="tabpanel" hidden>
         {estates.map((artist) => (
-          <ArtistRow artist={artist} locale={locale} />
+          <ArtistRow artist={artist} />
         ))}
       </ul>
     </div>
@@ -107,9 +107,17 @@ const { living: artists, estates } = await getArtists();
     list-style: none;
   }
 
+  .artists-list :global(.artist-row:last-child) {
+    padding-bottom: calc(150 * var(--unit-fx));
+  }
+
   @media screen and (max-width: 600px) {
     .artists-lists {
       margin-block: calc(25 * var(--unit-fx));
+    }
+
+    .artists-list :global(.artist-row:last-child) {
+      padding-bottom: 0;
     }
   }
 </style>

@@ -1,7 +1,7 @@
 ---
 /**
  * Full-viewport hero. Shows the last word of the gallery name as a wordmark
- * (see `wordmarks()`).
+ * (see `wordmarks()` in `src/utils/site.ts`).
  *
  * The wordmark is rendered one letter per <span> so the homepage's first
  * visit can slide the letters up individually. The stylesheet leaves the
@@ -10,11 +10,15 @@
  */
 import { Image } from "astro:assets";
 import hero from "@images/hero.webp";
-import { getSite } from "@utils/content";
-import { wordmarks } from "@utils/utils";
+import type { Locale } from "@/i18n";
+import { getSiteIdentity } from "@utils/content";
 
-const site = await getSite();
-const wordmark = wordmarks(site.data.name).last;
+interface Props {
+  locale: Locale;
+}
+
+const site = await getSiteIdentity(Astro.props.locale);
+const wordmark = site.wordmarks.last;
 const letters = Array.from(wordmark);
 ---
 

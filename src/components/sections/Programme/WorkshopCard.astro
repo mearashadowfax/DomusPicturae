@@ -1,26 +1,17 @@
 ---
 /** Poster-style card for a workshop; plays its preview video on hover. */
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import { type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
+import type { WorkshopPresentation } from "@utils/programme";
 
 interface Props {
-  workshop: CollectionEntry<"workshops">;
-  locale: Locale;
+  workshop: WorkshopPresentation;
 }
 
-const { workshop, locale } = Astro.props;
-const image = picture(workshop.data, locale, text(workshop.data.title, locale));
+const { workshop } = Astro.props;
+const { image } = workshop;
 ---
 
-<a
-  href={routes.workshop(locale, workshop)}
-  class="workshop-card"
-  aria-label={text(workshop.data.title, locale)}
->
+<a href={workshop.href} class="workshop-card" aria-label={workshop.title}>
   {image && (
     <Image
       src={image.src}
@@ -30,9 +21,9 @@ const image = picture(workshop.data, locale, text(workshop.data.title, locale));
       class="workshop-card-image"
     />
   )}
-  {workshop.data.video && (
+  {workshop.video && (
     <video class="workshop-card-video" muted loop playsinline preload="none">
-      <source src={workshop.data.video} type="video/mp4" />
+      <source src={workshop.video} type="video/mp4" />
     </video>
   )}
 </a>

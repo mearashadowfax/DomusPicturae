@@ -17,7 +17,7 @@ const t = useUI(locale);
 const {
   exhibitions: { current, upcoming, past },
   workshops,
-} = await getEvents();
+} = await getEvents(locale);
 ---
 
 <MainLayout
@@ -34,11 +34,7 @@ const {
         <hr class="section-rule" />
         <ul class="events-current">
           {current.map((exhibition) => (
-            <ExhibitionCard
-              exhibition={exhibition}
-              locale={locale}
-              variant="current"
-            />
+            <ExhibitionCard exhibition={exhibition} />
           ))}
         </ul>
       </>
@@ -50,11 +46,7 @@ const {
         <hr class="section-rule" />
         <ul class="events-upcoming">
           {upcoming.map((exhibition) => (
-            <ExhibitionCard
-              exhibition={exhibition}
-              locale={locale}
-              variant="upcoming"
-            />
+            <ExhibitionCard exhibition={exhibition} />
           ))}
         </ul>
       </>
@@ -66,11 +58,7 @@ const {
         <hr class="section-rule" />
         <ul class="events-past">
           {past.map((exhibition) => (
-            <ExhibitionCard
-              exhibition={exhibition}
-              locale={locale}
-              variant="past"
-            />
+            <ExhibitionCard exhibition={exhibition} />
           ))}
         </ul>
       </>
@@ -82,7 +70,7 @@ const {
         <hr class="section-rule" />
         <div class="events-workshops">
           {workshops.map((workshop) => (
-            <WorkshopCard workshop={workshop} locale={locale} />
+            <WorkshopCard workshop={workshop} />
           ))}
         </div>
       </>

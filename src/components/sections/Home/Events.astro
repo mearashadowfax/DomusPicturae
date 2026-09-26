@@ -2,37 +2,31 @@
 /** Events teaser: text from the `homepage` singleton plus the first few workshop cards. */
 import HomeSection from "./HomeSection.astro";
 import WorkshopCard from "@sections/Programme/WorkshopCard.astro";
-import { HOMEPAGE_ITEMS_LIMIT } from "@/data/constants";
 import { type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getEvents, getHomepage } from "@utils/content";
+import type { Homepage } from "@utils/homepage";
 import { routes } from "@/routes";
 
 interface Props {
+  events: Homepage["events"];
   locale: Locale;
 }
 
-const { locale } = Astro.props;
-const { events } = (await getHomepage()).data;
-const workshops = (await getEvents()).workshops.slice(0, HOMEPAGE_ITEMS_LIMIT);
+const { events, locale } = Astro.props;
+const { workshops } = events;
 ---
 
-<HomeSection
-  size="large"
-  title={text(events.subheading, locale)}
-  content={text(events.content, locale)}
->
+<HomeSection size="large" title={events.title} content={events.content}>
   <div class="events-cta">
-    <p>{text(events.description, locale)}</p>
+    <p>{events.description}</p>
     <a href={routes.events(locale)} class="link-underline">
-      <span>{text(events.buttonText, locale)}</span>
+      <span>{events.buttonText}</span>
     </a>
   </div>
 
   {workshops.length > 0 && (
     <div class="events-workshops">
       {workshops.map((workshop) => (
-        <WorkshopCard workshop={workshop} locale={locale} />
+        <WorkshopCard workshop={workshop} />
       ))}
     </div>
   )}

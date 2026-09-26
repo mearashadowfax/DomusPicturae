@@ -6,45 +6,33 @@ import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import type { Artist } from "@utils/artists";
-import { paragraphs } from "@utils/body";
+import { presentArtist, type Artist } from "@utils/artists";
 import { getArtistWorks } from "@utils/content";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
-import { artistSchema, pageContext } from "@utils/seo";
+import { artistMeta, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
   artist: Artist;
 }
 
-const { locale, artist } = Astro.props;
+const { locale } = Astro.props;
 const t = useUI(locale);
-const portrait = picture(artist.data, locale, artist.data.name);
-const biography = paragraphs(text(artist.data.biography, locale));
-const quote = text(artist.data.quote, locale);
-const works = await getArtistWorks(artist, locale);
-const description = biography[0] || text(artist.data.shortBio, locale);
-
-const schema = artistSchema(pageContext(Astro, locale), artist, description);
+const artist = presentArtist(Astro.props.artist, locale);
+const { portrait, biography, quote } = artist;
+const works = await getArtistWorks(Astro.props.artist, locale);
+const meta = artistMeta(pageContext(Astro, locale), artist);
 ---
 
-<MainLayout
-  locale={locale}
-  title={artist.data.name}
-  description={description}
-  schema={schema}
->
+<MainLayout locale={locale} {...meta}>
   <Navbar locale={locale} />
 
   <div class="artist">
     <section class="artist-hero">
       <div>
-        <h1 class="artist-name">{artist.data.name}</h1>
-        {artist.data.hasCv && (
+        <h1 class="artist-name">{artist.name}</h1>
+        {artist.cvHref && (
           <a
-            href={routes.cv(artist)}
+            href={artist.cvHref}
             target="_blank"
             rel="noopener"
             class="button-outline artist-cv"

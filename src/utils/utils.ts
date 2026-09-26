@@ -12,15 +12,10 @@ export function formatDate(date: Date, locale: Locale): string {
 }
 
 /**
- * The two halves of the gallery name used as wordmarks: the hero and the
- * viewing room show the last word, the footer the first, so a two-word name
- * reads across the page. A one-word name is both.
+ * The calendar year of a stored date. Content dates coerce to UTC midnight,
+ * so the year is read in UTC: in local time a build west of UTC would put
+ * 1 January in the previous year.
  */
-export function wordmarks(name: string): { first: string; last: string } {
-  const words = name.trim().split(/\s+/);
-  return { first: words[0] ?? "", last: words[words.length - 1] ?? "" };
-}
-
 export function getYear(date: Date): number {
-  return date.getFullYear();
+  return date.getUTCFullYear();
 }

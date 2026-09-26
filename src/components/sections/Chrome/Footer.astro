@@ -6,8 +6,7 @@
  */
 import NewsletterForm from "@components/forms/NewsletterForm";
 import { useUI, type Locale } from "@/i18n";
-import { getSite } from "@utils/content";
-import { wordmarks } from "@utils/utils";
+import { getSiteIdentity } from "@utils/content";
 import { getFooterNavigation } from "@/routes";
 
 interface Props {
@@ -16,9 +15,9 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const site = await getSite();
+const site = await getSiteIdentity(locale);
 const links = getFooterNavigation(locale);
-const addressLines = site.data.address.split("\n");
+const { addressLines, phone, email, credit } = site;
 const year = new Date().getFullYear();
 ---
 
@@ -37,20 +36,17 @@ const year = new Date().getFullYear();
               ))}
             </address>
             <ul>
-              {site.data.phone && (
+              {phone && (
                 <li>
-                  <a
-                    href={`tel:${site.data.phone.replace(/\s+/g, "")}`}
-                    class="tap-target"
-                  >
-                    {site.data.phone}
+                  <a href={phone.href} class="tap-target">
+                    {phone.label}
                   </a>
                 </li>
               )}
-              {site.data.email && (
+              {email && (
                 <li>
-                  <a href={`mailto:${site.data.email}`} class="tap-target">
-                    {site.data.email}
+                  <a href={email.href} class="tap-target">
+                    {email.label}
                   </a>
                 </li>
               )}
@@ -65,13 +61,13 @@ const year = new Date().getFullYear();
           </div>
         </div>
 
-        <h2 class="footer-wordmark">{wordmarks(site.data.name).first}</h2>
+        <h2 class="footer-wordmark">{site.wordmarks.first}</h2>
         <hr class="footer-rule" />
 
         <div class="footer-bottom">
           <ul class="footer-legal">
             <li>
-              © {year} {site.data.name}
+              © {year} {site.name}
             </li>
             {links.map((link) => (
               <>
@@ -84,16 +80,16 @@ const year = new Date().getFullYear();
               </>
             ))}
           </ul>
-          {site.data.creditName && (
+          {credit && (
             <div class="footer-credit">
               {t.footer.craftedBy}{" "}
               <a
-                href={site.data.creditUrl}
+                href={credit.href}
                 target="_blank"
                 rel="noopener"
                 class="link-underline"
               >
-                {site.data.creditName}
+                {credit.name}
               </a>
             </div>
           )}

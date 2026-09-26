@@ -6,25 +6,24 @@ import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import WorkshopRegistrationForm from "@components/forms/WorkshopRegistrationForm";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
 import { renderBody } from "@utils/content";
-import type { Workshop } from "@utils/programme";
-import { picture } from "@utils/images";
+import { presentWorkshop, type Workshop } from "@utils/programme";
+import { workshopMeta } from "@utils/seo";
 
 interface Props {
   locale: Locale;
   workshop: Workshop;
 }
 
-const { locale, workshop } = Astro.props;
+const { locale } = Astro.props;
 const t = useUI(locale);
-const title = text(workshop.data.title, locale);
-const image = picture(workshop.data, locale, title);
-const body = await renderBody("workshops", workshop.id, locale);
-const description = text(workshop.data.registerInfo, locale);
+const workshop = presentWorkshop(Astro.props.workshop, locale);
+const { title, image } = workshop;
+const { main: body } = await renderBody("workshops", workshop.id, locale);
+const meta = workshopMeta(workshop);
 ---
 
-<MainLayout locale={locale} title={title} description={description}>
+<MainLayout locale={locale} {...meta}>
   <Navbar locale={locale} />
 
   <article class="workshop">
@@ -34,8 +33,8 @@ const description = text(workshop.data.registerInfo, locale);
 
     <div class="workshop-register">
       <div class="workshop-register-info">
-        <h2>{text(workshop.data.registerTitle, locale)}</h2>
-        <p>{description}</p>
+        <h2>{workshop.registerTitle}</h2>
+        <p>{workshop.registerInfo}</p>
       </div>
       <WorkshopRegistrationForm
         workshop={title}

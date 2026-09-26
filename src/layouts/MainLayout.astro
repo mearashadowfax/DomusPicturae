@@ -14,8 +14,7 @@ import type { Thing, WithContext } from "schema-dts";
 import Cursor from "@ui/Cursor.astro";
 import { SITE } from "@/data/constants";
 import { localeTags, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getSite } from "@utils/content";
+import { getSiteIdentity } from "@utils/content";
 import { pageContext, webPageSchema } from "@utils/seo";
 import "@styles/global.css";
 
@@ -38,18 +37,17 @@ const {
   scroll = "default",
 } = Astro.props;
 
-const site = await getSite();
+const site = await getSiteIdentity(locale);
 const page = pageContext(Astro, locale);
-const pageTitle = title ? `${title} | ${site.data.name}` : site.data.name;
-const pageDescription = description ?? text(site.data.description, locale);
+const pageTitle = title ? `${title} | ${site.name}` : site.name;
+const pageDescription = description ?? site.description;
 const socialImage = new URL(SITE.socialImage.src, page.site).href;
 const canonical = page.url.href;
 
-const defaultSchema = webPageSchema(
-  page,
-  { name: site.data.name, description: text(site.data.description, locale) },
-  { title: pageTitle, description: pageDescription },
-);
+const defaultSchema = webPageSchema(page, site, {
+  title: pageTitle,
+  description: pageDescription,
+});
 ---
 
 <html
@@ -79,7 +77,7 @@ const defaultSchema = webPageSchema(
         title: pageTitle,
         description: pageDescription,
         image: socialImage,
-        imageAlt: site.data.name,
+        imageAlt: site.name,
       }}
       extend={{
         link: [
@@ -112,7 +110,7 @@ const defaultSchema = webPageSchema(
           },
           { name: "mobile-web-app-capable", content: "yes" },
           { name: "generator", content: Astro.generator },
-          { name: "apple-mobile-web-app-title", content: site.data.name },
+          { name: "apple-mobile-web-app-title", content: site.name },
           { name: "theme-color", content: SITE.themeColor },
         ],
       }}

@@ -1,7 +1,6 @@
 import { getCollection, getEntry } from "astro:content";
 import type { Locale } from "@/i18n/config";
-import { text } from "@/i18n/localized";
-import { listArtists, type Artist, type ArtistListing } from "./artists";
+import { presentArtistListing, type Artist } from "./artists";
 import {
   artworksByArtist,
   isCatalogueWork,
@@ -15,16 +14,21 @@ import {
 import {
   bodyMarkdown,
   renderMarkdown,
+  splitClosingParagraph,
   type BodyCollection,
   type BodySources,
 } from "./body";
-import type { Picture } from "./images";
+import { presentHomepage, type Homepage } from "./homepage";
+import { presentSite, type SiteIdentity } from "./site";
 import {
-  classifyExhibitions,
+  presentExhibitions,
+  presentNews,
+  presentWorkshop,
   sortNews,
   sortWorkshops,
+  type ExhibitionPresentation,
   type ExhibitionsByStatus,
-  type Workshop,
+  type WorkshopPresentation,
 } from "./programme";
 
 /**
@@ -37,8 +41,12 @@ import {
 
 // ---------------------------------------------------------------- singletons
 
-export const getSite = () => getEntry("site", "index").then(required("site"));
-export const getHomepage = () =>
+const getSite = () => getEntry("site", "index").then(required("site"));
+
+/** The gallery's name, wordmarks and contact details, for a locale. */
+export const getSiteIdentity = async (locale: Locale): Promise<SiteIdentity> =>
+  presentSite(await getSite(), locale);
+const getHomepage = () =>
   getEntry("homepage", "index").then(required("homepage"));
 export const getAboutPage = () =>
   getEntry("about", "index").then(required("about"));
@@ -57,9 +65,9 @@ function required<T>(name: string) {
 
 // ---------------------------------------------------------------- catalogue
 
-/** Every Artist, alphabetical, Estates listed separately. */
-export async function getArtists(): Promise<ArtistListing> {
-  return listArtists(await getCollection("artists"));
+/** Every Artist, alphabetical, Estates listed separately, presented for a locale. */
+export async function getArtists(locale: Locale) {
+  return presentArtistListing(await getCollection("artists"), locale);
 }
 
 /** The works one section holds, presented for a locale. */
@@ -98,78 +106,55 @@ export async function getArtworkPresentation(artwork: Artwork, locale: Locale) {
 
 /** The artist's other works, whichever section they are in. */
 export async function getRelatedArtworks(presentation: ArtworkPresentation) {
-  return relatedArtworks(presentation, await getCollection("artworks"));
-}
-
-export interface FeaturedArtwork {
-  presentation: ArtworkPresentation;
-  /** Always present: a featured work without an image fails the build. */
-  image: Picture;
-  /** The editor's caption, falling back to the title. */
-  caption: string;
-}
-
-/**
- * The Artworks featured on the homepage, in the editor's order. Featuring a
- * work that does not exist, is in the Private Collection or has no image is
- * a content error and fails the build rather than silently dropping it.
- */
-export async function getFeaturedArtworks(
-  locale: Locale,
-): Promise<FeaturedArtwork[]> {
-  const [homepage, artworks, artists] = await Promise.all([
-    getHomepage(),
+  const [artworks, artists] = await Promise.all([
     getCollection("artworks"),
     getCollection("artists"),
   ]);
-  return homepage.data.collection.map((item) => {
-    const artwork = artworks.find((a) => a.id === item.artwork.id);
-    if (!artwork) {
-      throw new Error(
-        `Homepage features artwork "${item.artwork.id}", which does not exist in src/content/artworks/.`,
-      );
-    }
-    const presentation = presentArtwork(artwork, artists, locale);
-    if (presentation.section !== "artworks") {
-      throw new Error(
-        `Homepage features "${artwork.id}", which is in the Private Collection. Feature a Catalogue work or change its availability.`,
-      );
-    }
-    if (!presentation.image) {
-      throw new Error(
-        `Homepage features "${artwork.id}", which has no image. Add one or feature another work.`,
-      );
-    }
-    return {
-      presentation,
-      image: presentation.image,
-      caption: text(item.caption, locale) || presentation.title,
-    };
-  });
+  return relatedArtworks(presentation, artworks, artists);
+}
+
+/** The homepage, every section's slice, for a locale. */
+export async function getHomepageModel(locale: Locale): Promise<Homepage> {
+  const [homepage, artworks, artists, workshops, news] = await Promise.all([
+    getHomepage(),
+    getCollection("artworks"),
+    getCollection("artists"),
+    getCollection("workshops"),
+    getCollection("news"),
+  ]);
+  return presentHomepage(
+    { homepage, artworks, artists, workshops, news },
+    locale,
+  );
 }
 
 // ---------------------------------------------------------------- programme
 
 export interface Events {
-  exhibitions: ExhibitionsByStatus;
-  workshops: Workshop[];
+  exhibitions: ExhibitionsByStatus<ExhibitionPresentation>;
+  workshops: WorkshopPresentation[];
 }
 
-/** Exhibitions by status as of `now` (build time), and every Workshop. */
-export async function getEvents(now = new Date()): Promise<Events> {
+/** Exhibitions by status as of `now` (build time), and every Workshop, presented. */
+export async function getEvents(
+  locale: Locale,
+  now = new Date(),
+): Promise<Events> {
   const [exhibitions, workshops] = await Promise.all([
     getCollection("exhibitions"),
     getCollection("workshops"),
   ]);
   return {
-    exhibitions: classifyExhibitions(exhibitions, now),
-    workshops: sortWorkshops(workshops),
+    exhibitions: presentExhibitions(exhibitions, locale, now),
+    workshops: sortWorkshops(workshops).map((w) => presentWorkshop(w, locale)),
   };
 }
 
-/** Every News post, newest first. */
-export async function getNews() {
-  return sortNews(await getCollection("news"));
+/** Every News post, newest first, presented. */
+export async function getNews(locale: Locale) {
+  return sortNews(await getCollection("news")).map((post) =>
+    presentNews(post, locale),
+  );
 }
 
 // ---------------------------------------------------------------- bodies
@@ -180,22 +165,31 @@ const bodies: BodySources = import.meta.glob<string>(
   { query: "?raw", import: "default", eager: true },
 );
 
-/** The Markdown source of an entry's body for a locale, falling back to the default locale. */
-export function getBodyMarkdown(
-  collection: BodyCollection,
-  id: string,
-  locale: Locale,
-): string {
-  return bodyMarkdown(bodies, collection, id, locale);
+export interface RenderedBody {
+  main: string;
+  /** The closing paragraph on its own, when asked for and the body has one; else null. */
+  closing: string | null;
 }
 
-/** Render an entry's localised body to HTML. */
-export function renderBody(
+/**
+ * Render an entry's localised body to HTML, falling back to the default
+ * locale. With `splitClosing`, the last paragraph is rendered separately so
+ * a page can place something (a slideshow) before it.
+ */
+export async function renderBody(
   collection: BodyCollection,
   id: string,
   locale: Locale,
-): Promise<string> {
-  return renderMarkdown(getBodyMarkdown(collection, id, locale));
+  { splitClosing = false }: { splitClosing?: boolean } = {},
+): Promise<RenderedBody> {
+  const source = bodyMarkdown(bodies, collection, id, locale);
+  if (!splitClosing)
+    return { main: await renderMarkdown(source), closing: null };
+  const { main, closing } = splitClosingParagraph(source);
+  return {
+    main: await renderMarkdown(main),
+    closing: closing ? await renderMarkdown(closing) : null,
+  };
 }
 
 // ---------------------------------------------------------------- static paths

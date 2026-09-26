@@ -1,6 +1,11 @@
 import { describe, expect, it } from "vitest";
+import * as fixtures from "@/test/fixtures";
 import {
   classifyExhibitions,
+  exhibitionStatus,
+  presentExhibition,
+  presentNews,
+  presentWorkshop,
   sortNews,
   sortWorkshops,
   type NewsPost,
@@ -88,5 +93,78 @@ describe("sortWorkshops", () => {
     expect(
       ids(sortWorkshops([workshop("painting"), workshop("abstract-art")])),
     ).toEqual(["abstract-art", "painting"]);
+  });
+});
+
+describe("presentExhibition", () => {
+  const show = fixtures.exhibition("autumn", {
+    title: { en: "Autumn", fr: "Automne" },
+    timeline: { en: "Sept 3 – Oct 31, 2026" },
+    startDate: new Date("2026-09-03"),
+    endDate: new Date("2026-10-31"),
+    openingHours: [{ day: { en: "Mon", de: "Mo" }, hours: "10–18" }],
+  });
+
+  it("shows the timeline until the show closes, then the year", () => {
+    const during = presentExhibition(show, "fr", new Date("2026-10-01"));
+    expect(during).toMatchObject({
+      status: "current",
+      title: "Automne",
+      dateline: "Sept 3 – Oct 31, 2026",
+      href: "/fr/exhibitions/autumn",
+    });
+    expect(presentExhibition(show, "en", new Date("2026-08-01")).dateline).toBe(
+      "Sept 3 – Oct 31, 2026",
+    );
+    const after = presentExhibition(show, "en", new Date("2027-01-01"));
+    expect(after).toMatchObject({ status: "past", dateline: "2026" });
+  });
+
+  it("agrees with classifyExhibitions on status", () => {
+    const now = new Date("2026-10-31T23:30:00Z");
+    expect(exhibitionStatus(show, now)).toBe("current");
+    expect(classifyExhibitions([show], now).current).toEqual([show]);
+  });
+
+  it("dates a show that opens on 1 January in its own year", () => {
+    const newYear = fixtures.exhibition("new-year", {
+      startDate: new Date("2025-01-01"),
+      endDate: new Date("2025-01-31"),
+    });
+    expect(
+      presentExhibition(newYear, "en", new Date("2026-01-01")).dateline,
+    ).toBe("2025");
+  });
+
+  it("localises opening hours, falling back to the default locale", () => {
+    expect(presentExhibition(show, "de").openingHours).toEqual([
+      { day: "Mo", hours: "10–18" },
+    ]);
+    expect(presentExhibition(show, "fr").openingHours[0].day).toBe("Mon");
+  });
+});
+
+describe("presentWorkshop", () => {
+  it("resolves the href and leaves the video out when there is none", () => {
+    expect(presentWorkshop(fixtures.workshop("painting"), "de")).toMatchObject({
+      href: "/de/workshops/painting",
+      title: "painting (en)",
+      video: null,
+      image: null,
+    });
+  });
+});
+
+describe("presentNews", () => {
+  it("carries the date and the date as printed for the locale", () => {
+    const p = presentNews(
+      fixtures.news("opening", { pubDate: new Date("2025-03-15T09:30:00Z") }),
+      "de",
+    );
+    expect(p).toMatchObject({
+      href: "/de/news/opening",
+      dateLabel: "15.03.25",
+    });
+    expect(p.date.toISOString()).toBe("2025-03-15T09:30:00.000Z");
   });
 });

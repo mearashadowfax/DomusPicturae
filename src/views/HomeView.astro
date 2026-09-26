@@ -15,24 +15,26 @@ import Events from "@sections/Home/Events.astro";
 import News from "@sections/Home/News.astro";
 import About from "@sections/Home/About.astro";
 import type { Locale } from "@/i18n";
+import { getHomepageModel } from "@utils/content";
 
 interface Props {
   locale: Locale;
 }
 
 const { locale } = Astro.props;
+const home = await getHomepageModel(locale);
 ---
 
 <MainLayout locale={locale}>
   <Preloader />
   <Navbar locale={locale} />
-  <Hero />
-  <Intro locale={locale} />
-  <Collection locale={locale} />
-  <Artists locale={locale} />
-  <Events locale={locale} />
-  <News locale={locale} />
-  <About locale={locale} />
+  <Hero locale={locale} />
+  <Intro intro={home.intro} />
+  <Collection featured={home.featured} />
+  <Artists artists={home.artists} locale={locale} />
+  <Events events={home.events} locale={locale} />
+  <News news={home.news} locale={locale} />
+  <About about={home.about} locale={locale} />
   <Footer locale={locale} />
 </MainLayout>
 

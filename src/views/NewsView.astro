@@ -13,7 +13,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const news = await getNews();
+const news = await getNews(locale);
 ---
 
 <MainLayout
@@ -27,8 +27,8 @@ const news = await getNews();
     <h1 class="section-heading">{t.news.title}</h1>
     <hr class="section-rule" />
     <ul class="news-grid">
-      {news.map((entry) => (
-        <NewsCard entry={entry} locale={locale} />
+      {news.map((post) => (
+        <NewsCard post={post} locale={locale} />
       ))}
     </ul>
   </section>

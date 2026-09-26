@@ -5,12 +5,22 @@ import {
   type Artist,
   type Artwork,
 } from "./artwork-presentation";
+import { presentExhibition, presentNews } from "./programme";
+import * as fixtures from "@/test/fixtures";
+import { presentArtist } from "./artists";
+import { presentWorkshop } from "./programme";
 import {
+  aboutMeta,
+  articleMeta,
+  artistMeta,
   articleSchema,
+  artworkMeta,
   artworkSchema,
+  exhibitionMeta,
   exhibitionSchema,
   pageContext,
   webPageSchema,
+  workshopMeta,
 } from "./seo";
 
 const site = new URL("https://example.test/");
@@ -40,6 +50,7 @@ const exhibition = {
     location: { en: "Domus Picturae, Rome" },
     startDate: new Date("2026-09-03T00:00:00Z"),
     endDate: new Date("2026-10-31T00:00:00Z"),
+    openingHours: [],
   },
 } as unknown as CollectionEntry<"exhibitions">;
 const article = {
@@ -48,6 +59,7 @@ const article = {
     title: { en: "Opening" },
     description: { en: "We opened" },
     pubDate: new Date("2025-03-15T09:30:00Z"),
+    slides: [],
   },
 } as unknown as CollectionEntry<"news">;
 
@@ -97,14 +109,21 @@ describe("seo schemas", () => {
 
   it("formats exhibition dates as ISO days and articles with full timestamps", () => {
     expect(
-      exhibitionSchema(page("/exhibitions/echoes"), exhibition),
+      exhibitionSchema(
+        page("/exhibitions/echoes"),
+        presentExhibition(exhibition, "en"),
+      ),
     ).toMatchObject({
       "@type": "ExhibitionEvent",
       startDate: "2026-09-03",
       endDate: "2026-10-31",
       location: { "@type": "Place", name: "Domus Picturae, Rome" },
     });
-    const a = articleSchema(page("/news/opening"), article, {});
+    const a = articleSchema(
+      page("/news/opening"),
+      presentNews(article, "en"),
+      {},
+    );
     expect(a).toMatchObject({
       "@type": "NewsArticle",
       headline: "Opening",
@@ -159,5 +178,94 @@ describe("pageContext", () => {
         "en",
       ),
     ).toThrow(/astro.config.mjs/);
+  });
+});
+
+describe("page meta", () => {
+  it("describes an artist by the first biography paragraph, else the short bio", () => {
+    const withBio = presentArtist(
+      fixtures.artist("a", { name: "A", biography: { en: "One.\n\nTwo." } }),
+      "en",
+    );
+    const meta = artistMeta(page("/artists/a"), withBio);
+    expect(meta).toMatchObject({ title: "A", description: "One." });
+    expect(meta.schema).toMatchObject({
+      "@type": "Person",
+      description: "One.",
+    });
+    const noBio = presentArtist(
+      fixtures.artist("b", {
+        biography: { en: "" },
+        shortBio: { en: "Short." },
+      }),
+      "en",
+    );
+    expect(artistMeta(page("/artists/b"), noBio).description).toBe("Short.");
+  });
+
+  it("captions an artwork from its facts; the schema prefers the editor's description", () => {
+    const p = presentArtwork(artwork, [artist], "en");
+    const meta = artworkMeta(page("/artworks/whispering-pines"), p, {});
+    expect(meta.title).toBe("Whispering Pines");
+    expect(meta.description).toBe(
+      "Whispering Pines, Sarah Chen, 2023. Watercolour on paper, 50 × 70 cm.",
+    );
+    expect(meta.schema).toMatchObject({ description: meta.description });
+    const described = presentArtwork(
+      {
+        ...artwork,
+        data: {
+          ...artwork.data,
+          year: undefined,
+          description: { en: "Pines." },
+        },
+      } as Artwork,
+      [artist],
+      "en",
+    );
+    const m = artworkMeta(page("/artworks/whispering-pines"), described, {});
+    expect(m.description).toBe(
+      "Whispering Pines, Sarah Chen. Watercolour on paper, 50 × 70 cm.",
+    );
+    expect(m.schema).toMatchObject({ description: "Pines." });
+  });
+
+  it("agrees between the meta tags and the schema for exhibitions and articles", () => {
+    const e = exhibitionMeta(
+      page("/exhibitions/echoes"),
+      presentExhibition(exhibition, "en"),
+    );
+    expect(e).toMatchObject({
+      title: "Echoes of Stillness",
+      description: "A group show",
+      schema: { name: "Echoes of Stillness", description: "A group show" },
+    });
+    const a = articleMeta(
+      page("/news/opening"),
+      presentNews(article, "en"),
+      {},
+    );
+    expect(a).toMatchObject({
+      title: "Opening",
+      description: "We opened",
+      schema: { headline: "Opening", description: "We opened" },
+    });
+  });
+
+  it("describes a workshop by its registration info, without a schema", () => {
+    const w = presentWorkshop(
+      fixtures.workshop("w", { registerInfo: { en: "Sign up." } }),
+      "en",
+    );
+    expect(workshopMeta(w)).toEqual({
+      title: "w (en)",
+      description: "Sign up.",
+    });
+  });
+
+  it("describes the About page by its intro's first paragraph, without markup", () => {
+    expect(
+      aboutMeta("About", "<p>We are <em>a gallery</em>.</p>\n\n<p>More.</p>"),
+    ).toEqual({ title: "About", description: "We are a gallery." });
   });
 });

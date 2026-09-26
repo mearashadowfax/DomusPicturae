@@ -11,16 +11,13 @@ import Navbar from "@sections/Chrome/Navbar.astro";
 import Footer from "@sections/Chrome/Footer.astro";
 import ArtworkCard from "@sections/Catalogue/ArtworkCard.astro";
 import { useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
 import type { Artwork } from "@utils/artwork-presentation";
 import {
   getArtworkPresentation,
   getRelatedArtworks,
-  getSite,
+  getSiteIdentity,
 } from "@utils/content";
-import { picture } from "@utils/images";
-import { routes } from "@/routes";
-import { artworkSchema, pageContext } from "@utils/seo";
+import { artworkMeta, pageContext } from "@utils/seo";
 
 interface Props {
   locale: Locale;
@@ -29,48 +26,47 @@ interface Props {
 
 const { locale, artwork } = Astro.props;
 const t = useUI(locale);
-const site = await getSite();
+const site = await getSiteIdentity(locale);
 const presentation = await getArtworkPresentation(artwork, locale);
-const { artist, theme, badge, canInquire, title, image } = presentation;
+const {
+  artist,
+  theme,
+  badge,
+  canInquire,
+  title,
+  year,
+  image,
+  medium,
+  description,
+} = presentation;
 const isPrivate = presentation.section === "private-collection";
 
 /** Wide WebP for the hover zoom, so the page never ships the original file. */
 const zoom = image
   ? await getImage({ src: image.src, format: "webp", width: 2400, quality: 85 })
   : null;
-const portrait = picture(artist.data, locale, artist.data.name);
-const medium = text(artwork.data.medium, locale);
-const description = text(artwork.data.description, locale);
-const { width, height, unit } = artwork.data.dimensions;
+const { portrait } = artist;
+const { width, height, unit } = presentation.dimensions;
 const related = await getRelatedArtworks(presentation);
-const inquiryHref = site.data.email
-  ? `mailto:${site.data.email}?subject=${encodeURIComponent(`${title} — ${artist.data.name}`)}`
-  : undefined;
-
-const metaDescription = `${title}, ${artist.data.name}${artwork.data.year ? `, ${artwork.data.year}` : ""}. ${medium}, ${width} × ${height} ${unit}.`;
-const schema = artworkSchema(pageContext(Astro, locale), presentation, {
-  description: description || metaDescription,
+const inquiryHref = canInquire
+  ? site.inquiryHref(`${title} — ${artist.name}`)
+  : null;
+const meta = artworkMeta(pageContext(Astro, locale), presentation, {
   imageSrc: zoom?.src,
 });
 ---
 
-<MainLayout
-  locale={locale}
-  title={title}
-  description={metaDescription}
-  schema={schema}
-  theme={theme}
->
+<MainLayout locale={locale} {...meta} theme={theme}>
   <Navbar locale={locale} />
 
   <article class="artwork">
     <div class="artwork-info">
       <h1 class="artwork-heading">
-        <span class="artwork-artist">{artist.data.name}</span>
+        <span class="artwork-artist">{artist.name}</span>
         <span class="artwork-title">
           <em>
             {title}
-            {artwork.data.year && ` (${artwork.data.year})`}
+            {year && ` (${year})`}
           </em>
         </span>
         <span class="artwork-dimensions">
@@ -83,7 +79,7 @@ const schema = artworkSchema(pageContext(Astro, locale), presentation, {
 
       {description && <p class="artwork-description">{description}</p>}
 
-      {canInquire && inquiryHref && (
+      {inquiryHref && (
         <a href={inquiryHref} class="button-outline artwork-action">
           <span>{t.artworks.inquire}</span>
         </a>
@@ -123,10 +119,7 @@ const schema = artworkSchema(pageContext(Astro, locale), presentation, {
   <section class="related">
     <div class="related-header">
       <h2 class="section-heading">{t.artworks.related}</h2>
-      <a
-        href={routes.artist(locale, artist)}
-        class="related-artist link-underline"
-      >
+      <a href={artist.href} class="related-artist link-underline">
         <span>{t.artworks.viewArtist}</span>
       </a>
     </div>
@@ -148,7 +141,7 @@ const schema = artworkSchema(pageContext(Astro, locale), presentation, {
               class="related-portrait"
             />
           )}
-          <p class="related-bio">{text(artist.data.shortBio, locale)}</p>
+          <p class="related-bio">{artist.shortBio}</p>
         </div>
       </aside>
     </div>

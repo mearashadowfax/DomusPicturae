@@ -1,32 +1,19 @@
 ---
 /**
- * An exhibition in a listing. The variant follows its status:
+ * An exhibition in a listing. The variant is its status:
  * `current` — large card with image and summary, spanning the grid;
  * `upcoming` — image and title, centred;
  * `past` — a title row that reveals the image on hover.
  */
 import { Image } from "astro:assets";
-import type { CollectionEntry } from "astro:content";
-import type { Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { routes } from "@/routes";
-import { picture } from "@utils/images";
-import { getYear } from "@utils/utils";
+import type { ExhibitionPresentation } from "@utils/programme";
 
 interface Props {
-  exhibition: CollectionEntry<"exhibitions">;
-  locale: Locale;
-  variant: "current" | "upcoming" | "past";
+  exhibition: ExhibitionPresentation;
 }
 
-const { exhibition, locale, variant } = Astro.props;
-const title = text(exhibition.data.title, locale);
-const image = picture(exhibition.data, locale, title);
-const href = routes.exhibition(locale, exhibition);
-const dateline =
-  variant === "past"
-    ? getYear(exhibition.data.startDate)
-    : text(exhibition.data.timeline, locale);
+const { exhibition } = Astro.props;
+const { title, image, href, dateline, status: variant } = exhibition;
 const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
 ---
 
@@ -48,9 +35,7 @@ const imageWidth = { current: 1400, upcoming: 1000, past: 800 }[variant];
     </h3>
   </a>
   {variant === "current" && (
-    <p class="exhibition-card-summary">
-      {text(exhibition.data.description, locale)}
-    </p>
+    <p class="exhibition-card-summary">{exhibition.description}</p>
   )}
 </li>
 

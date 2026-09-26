@@ -6,8 +6,7 @@
 import Icon from "@ui/icons/Icon.astro";
 import LanguageSwitcher from "@ui/LanguageSwitcher.astro";
 import { stripLocale, useUI, type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getSite } from "@utils/content";
+import { getSiteIdentity } from "@utils/content";
 import { getMainNavigation, routes } from "@/routes";
 
 interface Props {
@@ -16,7 +15,7 @@ interface Props {
 
 const { locale } = Astro.props;
 const t = useUI(locale);
-const site = await getSite();
+const site = await getSiteIdentity(locale);
 const links = getMainNavigation(locale);
 const homeUrl = routes.home(locale);
 const currentPath = stripLocale(Astro.url.pathname);
@@ -25,7 +24,7 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
 
 <nav class="navbar">
   <div class="navbar-logo">
-    <a href={homeUrl}>{site.data.name}</a>
+    <a href={homeUrl}>{site.name}</a>
   </div>
   <button
     class="navbar-open"
@@ -39,7 +38,7 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
 <div class="menu" id="menu-overlay">
   <div class="menu-bar">
     <div class="menu-logo">
-      <a href={homeUrl}>{site.data.name}</a>
+      <a href={homeUrl}>{site.name}</a>
     </div>
     <button
       class="menu-close"
@@ -60,10 +59,10 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
           <source src="/showreel.mp4" type="video/mp4" />
         </video>
       </div>
-      {site.data.showreelLink && (
+      {site.showreelHref && (
         <div class="menu-showreel-details">
           <a
-            href={site.data.showreelLink}
+            href={site.showreelHref}
             target="_blank"
             rel="noopener"
             class="link-underline"
@@ -93,14 +92,14 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     <div class="menu-rule"></div>
     <div class="menu-footer-row">
       <div class="menu-tagline">
-        <p>{text(site.data.tagline, locale)}</p>
+        <p>{site.tagline}</p>
         <span aria-hidden="true">|</span>
         <LanguageSwitcher locale={locale} />
       </div>
       <div class="menu-socials">
-        {site.data.social.x && (
+        {site.social.x && (
           <a
-            href={site.data.social.x}
+            href={site.social.x}
             target="_blank"
             rel="noopener"
             class="link-underline"
@@ -108,9 +107,9 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
             X <span class="visually-hidden">{t.menu.opensInNewTab}</span>
           </a>
         )}
-        {site.data.social.instagram && (
+        {site.social.instagram && (
           <a
-            href={site.data.social.instagram}
+            href={site.social.instagram}
             target="_blank"
             rel="noopener"
             class="link-underline"

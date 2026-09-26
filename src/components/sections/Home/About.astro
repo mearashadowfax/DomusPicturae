@@ -2,34 +2,30 @@
 /** Full-bleed teaser for the About page with a mouse-parallax image field. */
 import { Image } from "astro:assets";
 import { type Locale } from "@/i18n";
-import { text } from "@/i18n/localized";
-import { getHomepage } from "@utils/content";
-import { pictures } from "@utils/images";
+import type { Homepage } from "@utils/homepage";
 import { routes } from "@/routes";
 
 interface Props {
+  about: Homepage["about"];
   locale: Locale;
 }
 
-const { locale } = Astro.props;
-const { about } = (await getHomepage()).data;
-
-const items = pictures(about.galleryItems, locale);
+const { about, locale } = Astro.props;
 ---
 
 <section class="about">
   <div class="about-title">
-    <h2>{text(about.content, locale)}</h2>
+    <h2>{about.content}</h2>
     <a href={routes.about(locale)} class="link-underline">
-      {text(about.buttonText, locale)}
+      {about.buttonText}
     </a>
   </div>
   <div class="about-gallery">
-    {items.map((item) => (
+    {about.gallery.map((item) => (
       <div
         class="about-item"
-        style={`top: ${item.source.top}%; left: ${item.source.left}%;`}
-        data-parallax-speed={item.source.parallaxSpeed}
+        style={`top: ${item.top}%; left: ${item.left}%;`}
+        data-parallax-speed={item.parallaxSpeed}
       >
         <Image
           src={item.src}
