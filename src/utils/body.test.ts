@@ -4,6 +4,7 @@ import {
   bodyMarkdown,
   bodyPath,
   paragraphs,
+  renderBodyFrom,
   renderMarkdown,
   splitClosingParagraph,
 } from "./body";
@@ -65,5 +66,36 @@ describe("paragraphs", () => {
 describe("renderMarkdown", () => {
   it("renders Markdown to HTML", async () => {
     expect(await renderMarkdown("# Title")).toContain("<h1>Title</h1>");
+  });
+});
+
+describe("renderBodyFrom", () => {
+  const sources = {
+    "/src/content/news/opening/body/en.md": "First *one*.\n\nSecond.\n\nLast.",
+    "/src/content/news/single/body/en.md": "Only paragraph.",
+    "/src/content/news/single/body/fr.md": "  ",
+  };
+
+  it("renders the whole body with no closing unless asked", async () => {
+    const body = await renderBodyFrom(sources, "news", "opening", "en");
+    expect(body.closing).toBeNull();
+    expect(body.main).toContain("<em>one</em>");
+    expect(body.main).toContain("<p>Last.</p>");
+  });
+
+  it("renders the closing paragraph separately when asked", async () => {
+    const body = await renderBodyFrom(sources, "news", "opening", "en", {
+      splitClosing: true,
+    });
+    expect(body.main).toContain("<p>Second.</p>");
+    expect(body.main).not.toContain("Last.");
+    expect(body.closing).toBe("<p>Last.</p>\n");
+  });
+
+  it("gives no closing for a single paragraph, after the locale fallback", async () => {
+    const body = await renderBodyFrom(sources, "news", "single", "fr", {
+      splitClosing: true,
+    });
+    expect(body).toEqual({ main: "<p>Only paragraph.</p>\n", closing: null });
   });
 });

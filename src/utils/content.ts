@@ -12,11 +12,10 @@ import {
   type ArtworkPresentation,
 } from "./artwork-presentation";
 import {
-  bodyMarkdown,
-  renderMarkdown,
-  splitClosingParagraph,
+  renderBodyFrom,
   type BodyCollection,
   type BodySources,
+  type RenderedBody,
 } from "./body";
 import { presentHomepage, type Homepage } from "./homepage";
 import { presentSite, type SiteIdentity } from "./site";
@@ -165,31 +164,17 @@ const bodies: BodySources = import.meta.glob<string>(
   { query: "?raw", import: "default", eager: true },
 );
 
-export interface RenderedBody {
-  main: string;
-  /** The closing paragraph on its own, when asked for and the body has one; else null. */
-  closing: string | null;
-}
-
 /**
- * Render an entry's localised body to HTML, falling back to the default
- * locale. With `splitClosing`, the last paragraph is rendered separately so
- * a page can place something (a slideshow) before it.
+ * Render an entry's localised body to HTML. With `splitClosing`, the last
+ * paragraph comes back separately (see `renderBodyFrom`).
  */
-export async function renderBody(
+export function renderBody(
   collection: BodyCollection,
   id: string,
   locale: Locale,
-  { splitClosing = false }: { splitClosing?: boolean } = {},
+  options?: { splitClosing?: boolean },
 ): Promise<RenderedBody> {
-  const source = bodyMarkdown(bodies, collection, id, locale);
-  if (!splitClosing)
-    return { main: await renderMarkdown(source), closing: null };
-  const { main, closing } = splitClosingParagraph(source);
-  return {
-    main: await renderMarkdown(main),
-    closing: closing ? await renderMarkdown(closing) : null,
-  };
+  return renderBodyFrom(bodies, collection, id, locale, options);
 }
 
 // ---------------------------------------------------------------- static paths

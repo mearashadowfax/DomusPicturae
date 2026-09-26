@@ -70,6 +70,34 @@ export async function renderMarkdown(source: string): Promise<string> {
   return marked.parse(source);
 }
 
+export interface RenderedBody {
+  main: string;
+  /** The closing paragraph on its own, when asked for and the body has one; else null. */
+  closing: string | null;
+}
+
+/**
+ * Render an entry's localised body to HTML from the given sources, falling
+ * back like `bodyMarkdown`. With `splitClosing`, the last paragraph is
+ * rendered separately so a page can place something (a slideshow) before it.
+ */
+export async function renderBodyFrom(
+  sources: BodySources,
+  collection: BodyCollection,
+  id: string,
+  locale: Locale,
+  { splitClosing = false }: { splitClosing?: boolean } = {},
+): Promise<RenderedBody> {
+  const source = bodyMarkdown(sources, collection, id, locale);
+  if (!splitClosing)
+    return { main: await renderMarkdown(source), closing: null };
+  const { main, closing } = splitClosingParagraph(source);
+  return {
+    main: await renderMarkdown(main),
+    closing: closing ? await renderMarkdown(closing) : null,
+  };
+}
+
 /**
  * Split a Markdown source into everything up to its last paragraph and the
  * last paragraph on its own, for pages that place something (a slideshow)
