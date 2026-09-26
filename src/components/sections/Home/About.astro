@@ -56,6 +56,8 @@ const { about, locale } = Astro.props;
     left: 50%;
     transform: translate(-50%, -50%);
     z-index: 2;
+    /* vw, not %: keeps the heading from re-wrapping as .about widens */
+    width: 50vw;
   }
 
   .about-title h2 {
@@ -98,7 +100,7 @@ const { about, locale } = Astro.props;
   @media screen and (max-width: 600px) {
     .about-title {
       top: 50%;
-      width: 75%;
+      width: 75vw;
     }
 
     .about-title h2 {
@@ -151,7 +153,13 @@ const { about, locale } = Astro.props;
 
     // Starts fully transparent: the section is still below the viewport at
     // that point, and a faint-but-visible title fails the contrast audit.
-    gsap.set(".about-title", { opacity: 0 });
+    gsap.set(".about-title", {
+      opacity: 0,
+      x: 0,
+      y: 0,
+      xPercent: -50,
+      yPercent: -50,
+    });
     gsap.set(".about-title, .about-item img", { scale: 0.3 });
     gsap.set(".about", { width: "30%" });
 
