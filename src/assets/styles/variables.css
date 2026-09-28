@@ -57,6 +57,8 @@
     --color-divider: var(--color-brand);
     --color-error: oklch(63.7% 0.237 25.331);
     --color-nav-ink: oklch(100% 0 0);
+    /* White under mix-blend-mode: difference inverts whatever it sits on; never themed. */
+    --color-cursor: oklch(100% 0 0);
 
     /* Layout: the page gutter and the gap between homepage sections */
     --gutter: calc(40 * var(--unit-fx));
