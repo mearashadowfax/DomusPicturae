@@ -57,6 +57,15 @@ describe("presentSite", () => {
     });
     expect(identity.showreelHref).toBeNull();
     expect(identity.credit).toBeNull();
+    expect(identity.sourceHref).toBeNull();
+  });
+
+  it("exposes the source link when the editor sets one", () => {
+    const identity = presentSite(
+      site({ sourceUrl: "https://github.com/owner/repo" }),
+      "en",
+    );
+    expect(identity.sourceHref).toBe("https://github.com/owner/repo");
   });
 });
 

@@ -19,6 +19,7 @@ import {
   exhibitionMeta,
   exhibitionSchema,
   pageContext,
+  templateMeta,
   webPageSchema,
   workshopMeta,
 } from "./seo";
@@ -171,6 +172,21 @@ describe("pageContext", () => {
     expect(ctx.xDefault).toBe("https://example.test/");
   });
 
+  it("offers only the default locale for untranslated pages", () => {
+    const ctx = pageContext(
+      { url: new URL("https://example.test/template"), site },
+      "en",
+    );
+    expect(ctx.alternates).toEqual([
+      {
+        locale: "en",
+        path: "/template",
+        href: "https://example.test/template",
+      },
+    ]);
+    expect(ctx.xDefault).toBe("https://example.test/template");
+  });
+
   it("refuses to run without a site origin", () => {
     expect(() =>
       pageContext(
@@ -260,6 +276,26 @@ describe("page meta", () => {
     expect(workshopMeta(w)).toEqual({
       title: "w (en)",
       description: "Sign up.",
+    });
+  });
+
+  it("describes the template as free software linked to its repository", () => {
+    const m = templateMeta(page("/template"), "Astro template", {
+      name: "Domus Picturae",
+      description: "A template",
+      version: "1.2.0",
+      repositoryHref: "https://github.com/owner/repo",
+      imageSrc: "/_astro/cover.webp",
+    });
+    expect(m.title).toBe("Astro template");
+    expect(m.schema).toMatchObject({
+      "@type": "SoftwareApplication",
+      "@id": "https://example.test/template",
+      softwareVersion: "1.2.0",
+      isAccessibleForFree: true,
+      offers: { price: "0" },
+      sameAs: ["https://github.com/owner/repo"],
+      image: "https://example.test/_astro/cover.webp",
     });
   });
 

@@ -1,0 +1,483 @@
+---
+/**
+ * The template presented to developers: what the codebase is, what it ships
+ * with and how to start from it. This page describes the template rather than
+ * being part of it, so its English copy, name and repository live here instead
+ * of in the content model and `ui.ts`. A site built from the template deletes
+ * this view, its route and `src/assets/images/template/`; the navbar link goes
+ * with the route.
+ */
+import { Image } from "astro:assets";
+import MainLayout from "@layouts/MainLayout.astro";
+import Navbar from "@sections/Chrome/Navbar.astro";
+import Footer from "@sections/Chrome/Footer.astro";
+import type { Locale } from "@/i18n";
+import { picture } from "@utils/images";
+import { pageContext, templateMeta } from "@utils/seo";
+import pkg from "../../package.json";
+
+interface Props {
+  locale: Locale;
+}
+
+const { locale } = Astro.props;
+
+const NAME = "Domus Picturae";
+const REPOSITORY = "https://github.com/mearashadowfax/DomusPicturae";
+
+const shot = (file: string, alt: string) =>
+  picture({ image: `/images/template/${file}.png` }, locale, alt)!;
+
+const views = [
+  {
+    name: "Home",
+    note: "Full-bleed hero, Featured Artworks, Artists, Events and the latest News.",
+    file: "home",
+  },
+  {
+    name: "Catalogue",
+    note: "Every available and sold Artwork, with a grid view and an immersive Viewing Room.",
+    file: "artworks",
+  },
+  {
+    name: "Artwork",
+    note: "Title, year, medium and dimensions, with an inquiry link that follows its Availability.",
+    file: "artwork",
+  },
+  {
+    name: "Exhibition",
+    note: "Dates, location, admission and opening hours, with the Exhibition's text and images.",
+    file: "exhibition",
+  },
+  {
+    name: "Workshop",
+    note: "Programme copy and a registration form wired to any form endpoint.",
+    file: "workshop",
+  },
+].map((view) => ({
+  ...view,
+  desktop: shot(
+    `${view.file}-desktop`,
+    `${view.name} page of the Domus Picturae demo on a desktop screen`,
+  ),
+  mobile: shot(
+    `${view.file}-mobile`,
+    `${view.name} page of the Domus Picturae demo on a phone`,
+  ),
+}));
+
+const features = [
+  {
+    title: "Astro 7, fully static",
+    body: "Builds to plain HTML with no server; React hydrates only the two forms. Deploy anywhere that serves files.",
+  },
+  {
+    title: "Keystatic CMS",
+    body: "An editing admin at /keystatic during development, writing straight to the files in the repo. Add an SSR adapter and GitHub storage to edit online.",
+  },
+  {
+    title: "English, French and German",
+    body: "Every editorial field holds a value per Locale, with fallback to English. Adding a Locale takes a config entry, its UI strings and a route folder.",
+  },
+  {
+    title: "One typed content model",
+    body: "Collections are declared once and generate both the Astro content schemas and the Keystatic admin, so they cannot drift apart.",
+  },
+  {
+    title: "SEO built in",
+    body: "Canonical URLs, hreflang alternates, a sitemap, and JSON-LD for artists, artworks, exhibitions and news.",
+  },
+  {
+    title: "Motion with restraint",
+    body: "GSAP scroll reveals and smooth scrolling, applied without animation for visitors who prefer reduced motion.",
+  },
+  {
+    title: "Plain CSS",
+    body: "Design tokens and scoped component styles. No utility framework to learn or remove.",
+  },
+  {
+    title: "Forms without a backend",
+    body: "Newsletter and workshop registration post JSON to any form service, such as Formspree, and run in demo mode until you set one.",
+  },
+];
+
+const model = [
+  {
+    term: "Artists and Estates",
+    body: "Biographies, CVs and every Artwork they are represented by.",
+  },
+  {
+    term: "Artworks",
+    body: "Each one available, sold or not for sale; the last group forms the Private Collection.",
+  },
+  {
+    term: "Exhibitions and Workshops",
+    body: "The gallery's programme, listed together as Events.",
+  },
+  { term: "News", body: "Dated posts, optionally with a slideshow." },
+  {
+    term: "Site settings",
+    body: "Name, address, contact details and social links, all edited in the admin.",
+  },
+];
+
+const actions = [
+  { label: "View on GitHub", href: REPOSITORY },
+  { label: "Use this template", href: `${REPOSITORY}/generate` },
+  {
+    label: "Deploy to Vercel",
+    href: `https://vercel.com/new/clone?repository-url=${encodeURIComponent(REPOSITORY)}`,
+  },
+];
+const quickStart = `git clone ${REPOSITORY}.git my-gallery
+cd my-gallery
+pnpm install
+pnpm dev`;
+
+const cover = shot("home-desktop", "").src;
+const meta = templateMeta(
+  pageContext(Astro, locale),
+  "Astro template for art galleries",
+  {
+    name: NAME,
+    description: `${NAME} is a free, open-source Astro 7 and Keystatic template for contemporary art galleries: artists, artworks, exhibitions, workshops and news in English, French and German.`,
+    version: pkg.version,
+    repositoryHref: REPOSITORY,
+    imageSrc: cover.src,
+  },
+);
+---
+
+<MainLayout locale={locale} {...meta}>
+  <Navbar locale={locale} />
+
+  <article class="template">
+    <header class="template-hero">
+      <p class="template-eyebrow">Free Astro template · MIT licence</p>
+      <h1 class="template-title">{NAME}</h1>
+      <p class="template-lead">
+        A multilingual website template for contemporary art galleries, built
+        with Astro 7 and Keystatic. The site you are browsing is the demo.
+      </p>
+      <div class="template-actions">
+        {actions.map((action) => (
+          <a
+            href={action.href}
+            class="button-outline"
+            target="_blank"
+            rel="noopener"
+          >
+            <span>{action.label}</span>
+          </a>
+        ))}
+      </div>
+    </header>
+
+    <section class="template-section" aria-labelledby="template-views">
+      <h2 id="template-views" class="template-heading">
+        Pages
+      </h2>
+      <ul class="template-views">
+        {views.map((view) => (
+          <li class="template-view">
+            <div class="template-shots">
+              <Image
+                src={view.desktop.src}
+                alt={view.desktop.alt}
+                format="webp"
+                width={1200}
+                class="template-shot-desktop"
+              />
+              <Image
+                src={view.mobile.src}
+                alt={view.mobile.alt}
+                format="webp"
+                width={400}
+                class="template-shot-mobile"
+              />
+            </div>
+            <h3 class="template-view-name">{view.name}</h3>
+            <p class="template-view-note">{view.note}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="template-section" aria-labelledby="template-features">
+      <h2 id="template-features" class="template-heading">
+        What's included
+      </h2>
+      <ul class="template-features">
+        {features.map((feature) => (
+          <li>
+            <h3>{feature.title}</h3>
+            <p>{feature.body}</p>
+          </li>
+        ))}
+      </ul>
+    </section>
+
+    <section class="template-section" aria-labelledby="template-model">
+      <h2 id="template-model" class="template-heading">
+        Content model
+      </h2>
+      <dl class="template-model">
+        {model.map((item) => (
+          <div>
+            <dt>{item.term}</dt>
+            <dd>{item.body}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+
+    <section class="template-section" aria-labelledby="template-start">
+      <h2 id="template-start" class="template-heading">
+        Quick start
+      </h2>
+      <pre class="template-code"><code>{quickStart}</code></pre>
+      <p class="template-note">
+        Open <code>localhost:4321/keystatic</code> to edit content. Before you
+        publish, replace the demo artworks, images and gallery details with your
+        own. The README on GitHub covers deployment, forms and adding a Locale.
+      </p>
+    </section>
+
+    <section class="template-section" aria-labelledby="template-licence">
+      <h2 id="template-licence" class="template-heading">
+        Licence
+      </h2>
+      <p class="template-note">
+        MIT: free for personal and commercial projects. Demo images and copy are
+        placeholders.
+      </p>
+    </section>
+  </article>
+
+  <Footer locale={locale} />
+</MainLayout>
+
+<style>
+  .template {
+    margin-top: calc(140 * var(--unit-fx));
+    margin-bottom: calc(80 * var(--unit-fx));
+    margin-inline: auto;
+    padding-inline: var(--gutter);
+    width: 90%;
+    font-family: var(--font-baskervville);
+  }
+
+  /* Titles, labels and controls in the sans; running text in the serif. */
+  .template-eyebrow,
+  .template-title,
+  .template-actions,
+  .template-heading,
+  .template-view-name,
+  .template-features h3,
+  .template-model dt {
+    font-family: var(--font-satoshi);
+  }
+
+  .template-hero {
+    text-align: center;
+  }
+
+  .template-eyebrow {
+    color: var(--color-brand-text);
+    font-size: calc(13 * var(--unit-type));
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .template-title {
+    margin-top: calc(15 * var(--unit-fx));
+    font-weight: 300;
+    font-size: calc(90 * var(--unit-type));
+    line-height: 1.1;
+  }
+
+  .template-lead {
+    margin-top: calc(25 * var(--unit-fx));
+    margin-inline: auto;
+    max-width: 48ch;
+    font-size: calc(21 * var(--unit-type));
+    line-height: 1.45;
+  }
+
+  .template-actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: calc(15 * var(--unit-fx));
+    margin-top: calc(35 * var(--unit-fx));
+  }
+
+  .template-section {
+    margin-top: calc(120 * var(--unit-fx));
+  }
+
+  .template-heading {
+    margin-bottom: calc(40 * var(--unit-fx));
+    border-bottom: calc(0.5 * var(--unit-fx)) solid var(--color-divider);
+    padding-bottom: calc(10 * var(--unit-fx));
+    font-weight: 300;
+    font-size: calc(25 * var(--unit-type));
+    line-height: 1.2;
+  }
+
+  .template-views {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: calc(70 * var(--unit-fx)) calc(40 * var(--unit-fx));
+    list-style: none;
+  }
+
+  .template-shots {
+    position: relative;
+    padding-right: 12%;
+    padding-bottom: 6%;
+  }
+
+  .template-shots :global(img) {
+    outline: calc(0.5 * var(--unit-fx)) solid var(--color-divider);
+    border-radius: var(--radius);
+    background-color: var(--color-bg-primary);
+    width: 100%;
+    height: auto;
+  }
+
+  .template-shots :global(.template-shot-mobile) {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    aspect-ratio: 390 / 844;
+    width: 22%;
+    object-fit: cover;
+    object-position: top;
+  }
+
+  .template-view-name {
+    margin-top: calc(25 * var(--unit-fx));
+    font-weight: 500;
+    font-size: calc(18 * var(--unit-type));
+  }
+
+  .template-view-note {
+    margin-top: calc(6 * var(--unit-fx));
+    max-width: 55ch;
+    font-size: calc(17 * var(--unit-type));
+    line-height: 1.45;
+  }
+
+  .template-features {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: calc(45 * var(--unit-fx)) calc(35 * var(--unit-fx));
+    list-style: none;
+  }
+
+  .template-features h3 {
+    font-weight: 500;
+    font-size: calc(17 * var(--unit-type));
+  }
+
+  .template-features p {
+    margin-top: calc(10 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
+    line-height: 1.5;
+  }
+
+  .template-model {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: calc(35 * var(--unit-fx));
+  }
+
+  .template-model dt {
+    font-weight: 500;
+    font-size: calc(18 * var(--unit-type));
+    line-height: 1.25;
+  }
+
+  .template-model dd {
+    margin-top: calc(10 * var(--unit-fx));
+    font-size: calc(16 * var(--unit-type));
+    line-height: 1.5;
+  }
+
+  .template-code {
+    border-radius: var(--radius);
+    background-color: var(--color-bg-secondary);
+    padding: calc(25 * var(--unit-fx)) calc(30 * var(--unit-fx));
+    width: fit-content;
+    max-width: 100%;
+    overflow-x: auto;
+    color: var(--color-text-secondary);
+    font-size: calc(15 * var(--unit-type));
+    line-height: 1.7;
+  }
+
+  .template-note {
+    margin-top: calc(20 * var(--unit-fx));
+    max-width: 65ch;
+    font-size: calc(18 * var(--unit-type));
+    line-height: 1.5;
+  }
+
+  .template-note code {
+    font-size: 0.92em;
+  }
+
+  .template-note a {
+    color: var(--color-brand-text);
+  }
+
+  @media screen and (max-width: 1024px) {
+    .template {
+      width: 100%;
+    }
+
+    .template-features {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .template-model {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media screen and (max-width: 600px) {
+    .template {
+      margin-top: calc(110 * var(--unit-fx));
+    }
+
+    .template-title {
+      font-size: calc(48 * var(--unit-type));
+    }
+
+    .template-lead {
+      font-size: calc(19 * var(--unit-type));
+    }
+
+    .template-actions {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .template-section {
+      margin-top: calc(80 * var(--unit-fx));
+    }
+
+    .template-views,
+    .template-features,
+    .template-model {
+      grid-template-columns: 1fr;
+    }
+
+    .template-code {
+      padding: calc(20 * var(--unit-fx));
+      font-size: calc(13 * var(--unit-type));
+    }
+  }
+</style>

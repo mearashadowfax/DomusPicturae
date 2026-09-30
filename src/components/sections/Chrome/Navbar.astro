@@ -7,6 +7,7 @@ import Icon from "@ui/icons/Icon.astro";
 import LanguageSwitcher from "@ui/LanguageSwitcher.astro";
 import { stripLocale, useUI, type Locale } from "@/i18n";
 import { getSiteIdentity } from "@utils/content";
+import { pageContext } from "@utils/seo";
 import { getMainNavigation, routes } from "@/routes";
 
 interface Props {
@@ -20,19 +21,37 @@ const links = getMainNavigation(locale);
 const homeUrl = routes.home(locale);
 const currentPath = stripLocale(Astro.url.pathname);
 const isActive = (href: string) => stripLocale(href) === currentPath;
+// The link lives as long as its route: deleting the page removes it.
+const hasTemplatePage =
+  Object.keys(import.meta.glob("/src/pages/template.astro")).length > 0;
+const isTranslated = pageContext(Astro, locale).alternates.length > 1;
 ---
 
 <nav class="navbar">
   <div class="navbar-logo">
     <a href={homeUrl}>{site.name}</a>
   </div>
-  <button
-    class="navbar-open"
-    aria-controls="menu-overlay"
-    aria-expanded="false"
-  >
-    {t.menu.open}
-  </button>
+  <div class="navbar-actions">
+    {hasTemplatePage && (
+      <a
+        href={routes.template()}
+        hreflang="en"
+        class:list={[
+          "navbar-template",
+          { "is-active": isActive(routes.template()) },
+        ]}
+      >
+        {t.menu.template}
+      </a>
+    )}
+    <button
+      class="navbar-open"
+      aria-controls="menu-overlay"
+      aria-expanded="false"
+    >
+      {t.menu.open}
+    </button>
+  </div>
 </nav>
 
 <div class="menu" id="menu-overlay">
@@ -93,8 +112,12 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     <div class="menu-footer-row">
       <div class="menu-tagline">
         <p>{site.tagline}</p>
-        <span aria-hidden="true">|</span>
-        <LanguageSwitcher locale={locale} />
+        {isTranslated && (
+          <>
+            <span aria-hidden="true">|</span>
+            <LanguageSwitcher locale={locale} />
+          </>
+        )}
       </div>
       <div class="menu-socials">
         {site.social.x && (
@@ -151,6 +174,7 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
    */
   .navbar-logo a,
   .menu-logo a,
+  .navbar-template,
   .navbar-open,
   .menu-close {
     --hit-pad: 4px;
@@ -159,12 +183,19 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     padding-block: var(--hit-pad);
   }
 
+  .navbar-actions {
+    display: flex;
+    gap: calc(40 * var(--unit-fx));
+  }
+
+  .navbar-template,
   .navbar-open,
   .menu-close {
     position: relative;
     text-transform: uppercase;
   }
 
+  .navbar-template::before,
   .navbar-open::before,
   .menu-close::before {
     position: absolute;
@@ -179,6 +210,8 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     content: "";
   }
 
+  .navbar-template:hover::before,
+  .navbar-template.is-active::before,
   .navbar-open:hover::before,
   .menu-close:hover::before {
     transform: scaleX(1);
@@ -358,6 +391,10 @@ const isActive = (href: string) => stripLocale(href) === currentPath;
     .navbar {
       padding: calc(25 * var(--unit-fx));
       font-size: calc(18 * var(--unit-type));
+    }
+
+    .navbar-actions {
+      gap: calc(20 * var(--unit-fx));
     }
 
     .menu {

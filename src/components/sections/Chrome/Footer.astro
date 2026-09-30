@@ -17,7 +17,7 @@ const { locale } = Astro.props;
 const t = useUI(locale);
 const site = await getSiteIdentity(locale);
 const links = getFooterNavigation(locale);
-const { addressLines, phone, email, credit } = site;
+const { addressLines, phone, email, credit, sourceHref } = site;
 const year = new Date().getFullYear();
 ---
 
@@ -80,17 +80,32 @@ const year = new Date().getFullYear();
               </>
             ))}
           </ul>
-          {credit && (
+          {(credit || sourceHref) && (
             <div class="footer-credit">
-              {t.footer.craftedBy}{" "}
-              <a
-                href={credit.href}
-                target="_blank"
-                rel="noopener"
-                class="link-underline"
-              >
-                {credit.name}
-              </a>
+              {credit && (
+                <span>
+                  {t.footer.craftedBy}{" "}
+                  <a
+                    href={credit.href}
+                    target="_blank"
+                    rel="noopener"
+                    class="link-underline"
+                  >
+                    {credit.name}
+                  </a>
+                </span>
+              )}
+              {credit && sourceHref && <span aria-hidden="true">|</span>}
+              {sourceHref && (
+                <a
+                  href={sourceHref}
+                  target="_blank"
+                  rel="noopener"
+                  class="link-underline"
+                >
+                  {t.footer.source}
+                </a>
+              )}
             </div>
           )}
         </div>
@@ -207,6 +222,12 @@ const year = new Date().getFullYear();
 
   .footer-legal a:hover {
     opacity: 0.6;
+  }
+
+  .footer-credit {
+    display: flex;
+    align-items: center;
+    gap: calc(10 * var(--unit-fx));
   }
 
   .footer-credit a {

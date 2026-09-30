@@ -284,6 +284,10 @@ export const singletons = {
         description: "Shown in the footer",
       }),
       creditUrl: field.url("Credit link"),
+      sourceUrl: field.url(
+        "Source code link",
+        "Where the site's code lives, linked from the footer. Leave empty to hide the link",
+      ),
     },
   }),
 };

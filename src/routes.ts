@@ -51,7 +51,16 @@ export const routes = {
     localizePath(locale, `/news/${withId(article)}`),
   /** An artist's CV, served straight from `public/cv/`. Not localised. */
   cv: (artist: Artist | string) => `/cv/${withId(artist)}.pdf`,
+  /**
+   * The page presenting the codebase to developers. English only on purpose:
+   * it describes the template, not the gallery, so it sits outside the
+   * per-locale route folders.
+   */
+  template: () => "/template",
 };
+
+/** Pages published in the default locale only: no hreflang alternates, no language switch. */
+export const untranslatedPaths: readonly string[] = [routes.template()];
 
 // ---------------------------------------------------------------- navigation
 

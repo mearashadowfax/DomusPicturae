@@ -21,6 +21,7 @@ const en = {
   menu: {
     open: "Menu",
     close: "Close",
+    template: "Template",
     showreel: "A glimpse inside",
     opensInNewTab: "(opens in a new tab)",
   },
@@ -123,6 +124,7 @@ const en = {
     terms: "Terms of Use",
     privacy: "Privacy Policy",
     craftedBy: "Crafted by",
+    source: "Source code",
   },
   notFound: {
     title: "Page not found",
@@ -146,6 +148,7 @@ const fr: UIStrings = {
   menu: {
     open: "Menu",
     close: "Fermer",
+    template: "Modèle",
     showreel: "Un aperçu de l'intérieur",
     opensInNewTab: "(s'ouvre dans un nouvel onglet)",
   },
@@ -247,6 +250,7 @@ const fr: UIStrings = {
     terms: "Conditions d'utilisation",
     privacy: "Politique de confidentialité",
     craftedBy: "Réalisé par",
+    source: "Code source",
   },
   notFound: {
     title: "Page introuvable",
@@ -269,6 +273,7 @@ const de: UIStrings = {
   menu: {
     open: "Menü",
     close: "Schließen",
+    template: "Vorlage",
     showreel: "Ein Blick hinein",
     opensInNewTab: "(öffnet in neuem Tab)",
   },
@@ -370,6 +375,7 @@ const de: UIStrings = {
     terms: "Nutzungsbedingungen",
     privacy: "Datenschutzrichtlinie",
     craftedBy: "Gestaltet von",
+    source: "Quellcode",
   },
   notFound: {
     title: "Seite nicht gefunden",

@@ -1,11 +1,13 @@
 import type { Thing, WithContext } from "schema-dts";
 import {
+  defaultLocale,
   localeTags,
   locales,
   localizePath,
   stripLocale,
   type Locale,
 } from "@/i18n/config";
+import { untranslatedPaths } from "@/routes";
 import type { ArtistPresentation } from "./artists";
 import type { ArtworkPresentation } from "./artwork-presentation";
 import { paragraphs } from "./body";
@@ -55,12 +57,15 @@ export function pageContext(
   }
   const site = astro.site;
   const basePath = stripLocale(astro.url.pathname);
+  const published: readonly Locale[] = untranslatedPaths.includes(basePath)
+    ? [defaultLocale]
+    : locales;
   return {
     url: astro.url,
     site,
     locale,
     basePath,
-    alternates: locales.map((l) => {
+    alternates: published.map((l) => {
       const path = localizePath(l, basePath);
       return { locale: l, path, href: new URL(path, site).href };
     }),
@@ -174,6 +179,39 @@ export function articleSchema(
   };
 }
 
+export interface TemplateFacts {
+  name: string;
+  description: string;
+  version: string;
+  repositoryHref: string;
+  imageSrc?: string;
+}
+
+/** The template itself, as a free piece of software built on Astro. */
+export function templateSchema(
+  page: PageContext,
+  facts: TemplateFacts,
+): WithContext<Thing> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "@id": page.url.href,
+    url: page.url.href,
+    name: facts.name,
+    description: facts.description,
+    applicationCategory: "DeveloperApplication",
+    applicationSubCategory: "Website template",
+    operatingSystem: "Any",
+    softwareVersion: facts.version,
+    license: "https://opensource.org/licenses/MIT",
+    isAccessibleForFree: true,
+    offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+    sameAs: [facts.repositoryHref],
+    image: facts.imageSrc ? absolute(facts.imageSrc, page.site) : undefined,
+    inLanguage: localeTags[page.locale],
+  };
+}
+
 // ---------------------------------------------------------------- page meta
 
 /**
@@ -251,6 +289,18 @@ export function articleMeta(
     title: article.title,
     description: article.description,
     schema: articleSchema(page, article, images),
+  };
+}
+
+export function templateMeta(
+  page: PageContext,
+  title: string,
+  facts: TemplateFacts,
+): PageMeta {
+  return {
+    title,
+    description: facts.description,
+    schema: templateSchema(page, facts),
   };
 }
 

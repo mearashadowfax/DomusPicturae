@@ -32,6 +32,8 @@ export interface SiteIdentity {
   social: { x: string | null; instagram: string | null };
   showreelHref: string | null;
   credit: { name: string; href: string | undefined } | null;
+  /** Where the site's code lives, linked from the footer; null hides the link. */
+  sourceHref: string | null;
 }
 
 export interface Wordmarks {
@@ -72,5 +74,6 @@ export function presentSite(site: Site, locale: Locale): SiteIdentity {
     credit: data.creditName
       ? { name: data.creditName, href: data.creditUrl || undefined }
       : null,
+    sourceHref: data.sourceUrl || null,
   };
 }

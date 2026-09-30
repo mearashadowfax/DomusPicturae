@@ -14,6 +14,7 @@ describe("routes", () => {
       "/de/exhibitions/echoes-of-stillness",
     );
     expect(routes.cv("sarah-chen")).toBe("/cv/sarah-chen.pdf");
+    expect(routes.template()).toBe("/template");
   });
 
   it("sends an artwork to the section its Availability implies", () => {

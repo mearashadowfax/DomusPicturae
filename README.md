@@ -141,7 +141,7 @@ src/
 
 ### Gallery Details
 
-The gallery name, tagline, address, contact details, social links and footer credit live in the **Site settings** singleton in Keystatic (`src/content/site/index.json`). The demo ships with the template author's name in the `creditName` / `creditUrl` fields; replace them with your own or clear them to hide the credit. Build-time values – the sharing image and theme colour – are in `src/data/constants.ts` and `public/site.webmanifest`; the canonical URL is `site` in `astro.config.mjs`.
+The gallery name, tagline, address, contact details, social links and footer credit live in the **Site settings** singleton in Keystatic (`src/content/site/index.json`). The demo ships with the template author's name in the `creditName` / `creditUrl` fields; replace them with your own or clear them to hide the credit. `sourceUrl` adds a "Source code" link to the repository in the footer; clear it to hide the link. The demo also describes itself on an English-only `/template` page, linked from the top bar. For your own gallery, delete `src/pages/template.astro`, `src/views/TemplateView.astro` and `src/assets/images/template/`; the top-bar link disappears with the page. Build-time values – the sharing image and theme colour – are in `src/data/constants.ts` and `public/site.webmanifest`; the canonical URL is `site` in `astro.config.mjs`.
 
 ### Navigation
 
