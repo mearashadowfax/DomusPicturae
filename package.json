@@ -32,20 +32,20 @@
     "react-dom": "^19.3.0",
     "react-hook-form": "^7.89.0",
     "react-hot-toast": "^2.6.1",
-    "schema-dts": "^2.0.0",
-    "sharp": "^0.35.4",
+    "schema-dts": "^2.1.0",
+    "sharp": "^0.35.5",
     "zod": "^4.6.5"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
-    "@types/node": "^26.6.3",
+    "@types/node": "^26.6.4",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "prettier": "3.9.9",
     "prettier-plugin-astro": "1.1.0",
     "prettier-plugin-css-order": "^2.2.0",
     "typescript": "^5.9.3",
-    "vitest": "^5.0.2"
+    "vitest": "^5.0.3"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
